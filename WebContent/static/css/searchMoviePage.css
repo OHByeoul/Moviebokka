@@ -1,0 +1,10 @@
+@charset "EUC-KR";
+.list-group-item-heading, .list-group-item-text {
+ float : right;
+}
+.list-group-item-heading {
+	text-align : center;
+}
+ .list-group-item-text{
+ 	text-align : left;
+}
