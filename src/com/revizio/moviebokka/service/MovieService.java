@@ -20,7 +20,7 @@ public class MovieService implements MovieServiceImpl{
 	private GetMovieInfoForm getMovieInfoForm;
 
 	public MovieService() {
-		movieDAO = new MovieDAO();
+		movieDAO = MovieDAO.getInstance();
 		crawling = new Crawling();
 		movieInfoRequest = new MovieInfoRequest();
 		getMovieInfoForm = new GetMovieInfoForm();
@@ -55,7 +55,6 @@ public class MovieService implements MovieServiceImpl{
 	private String getMovieStory(int movieCode) {
 		crawling.createDocument(Crawling.URL+Crawling.URL_POST+movieCode);
 		Elements elements = crawling.createElements(Crawling.TARGET);
-		System.out.println("----------------");
 		for(Element e : elements) {
 			System.out.println(e);
 		}
