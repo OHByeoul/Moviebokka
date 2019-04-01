@@ -41,7 +41,7 @@ public class MovieRequestMapping implements RequestDispatcher {
 			subInfo.put("director", director);
 			subInfo.put("actor", actor);
 			GetMovieInfoForm movieInfoForm = new GetMovieInfoForm();
-			movieInfoForm = movieService.getMovieInfo(movieInfo, subInfo);
+			movieInfoForm = movieService.getMovieDetailInfo(movieInfo, subInfo);
 			request.setAttribute("movieInfoForm", movieInfoForm);
 			
 		} else if(route.equals(Route.GET_MOVIE_INFOES.getRoute())) {

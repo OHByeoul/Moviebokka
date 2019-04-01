@@ -92,7 +92,7 @@ public class MovieDAO {
 		return result;
 	}
 
-	public GetMovieInfoForm getMovieInfo(int movieCode) {
+	public GetMovieInfoForm getMovieDetailInfo(int movieCode) {
 		String query = "SELECT * FROM movieInfo WHERE m_code=?";
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(query);

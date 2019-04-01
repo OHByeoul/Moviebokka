@@ -30,7 +30,7 @@ public class MovieService implements MovieServiceImpl{
 		return movieInfoRequest.getRequestURL(movieName);
 	}
 
-	public GetMovieInfoForm getMovieInfo(MovieInfo movie, Map<String, String> subInfo) {
+	public GetMovieInfoForm getMovieDetailInfo(MovieInfo movie, Map<String, String> subInfo) {
 		int movieCode = movie.getM_code();
 
 		if (!isExist(movieCode)) {
@@ -48,7 +48,7 @@ public class MovieService implements MovieServiceImpl{
 				}
 			}
 		}
-		getMovieInfoForm = movieDAO.getMovieInfo(movieCode);
+		getMovieInfoForm = movieDAO.getMovieDetailInfo(movieCode);
 		return getMovieInfoForm;
 	}
 
