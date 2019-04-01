@@ -9,10 +9,12 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
   <servlet>
-  	<servlet-name>MovieController</servlet-name>
-  	<servlet-class>com.revizio.moviebokka.controller.MovieController</servlet-class>
+    <servlet-name>MovieController</servlet-name>
+    <servlet-class>com.revizio.moviebokka.controller.MovieController</servlet-class>
   </servlet>
-  
+  <servlet>
+  	<servlet-name>BoardController</servlet-name>
+  	<servlet-class>com.revizio.moviebokka.controller.BoardController</servlet-class>
+  </servlet>
 </web-app>
