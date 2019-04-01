@@ -7,6 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.revizio.moviebokka.constant.Constant;
+
 
 /**
  * Servlet implementation class MovieController
@@ -30,17 +32,17 @@ public class MovieController extends HttpServlet {
 		String contextPath = request.getContextPath();
 		String getUri = request.getRequestURI().substring(contextPath.length());
 		String [] route = getUri.split("/"); 
-		System.out.println(route[1]+" "+route[2]);
+		System.out.println(route[Constant.FIRST]+" "+route[Constant.SECOND]);
 		
 		String getView = "";
-		if(route.length<3) {
-			movieRequestMapping.dispatcherRoute(route[1],request,response);
-			getView = Route.getViewResolver(route[1]);
+		if(route.length<Constant.THIRD) {
+			movieRequestMapping.dispatcherRoute(route[Constant.FIRST],request,response);
+			getView = Route.getViewResolver(route[Constant.FIRST]);
 		} else {
-			movieRequestMapping.dispatcherRoute(route[2],request,response);
-			System.out.println("route : "+Route.getDispathcerRoute(route[2]));
-			System.out.println("view : "+Route.getViewResolver(route[2]));		
-			getView = Route.getViewResolver(route[2]);
+			movieRequestMapping.dispatcherRoute(route[Constant.SECOND],request,response);
+			System.out.println("route : "+Route.getDispathcerRoute(route[Constant.SECOND]));
+			System.out.println("view : "+Route.getViewResolver(route[Constant.SECOND]));		
+			getView = Route.getViewResolver(route[Constant.SECOND]);
 		}
 
 		if(!getView.equals(Route.JSON_FORMMAT)) {			
