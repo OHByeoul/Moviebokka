@@ -21,8 +21,7 @@ public class BoardService {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		boardPaging = new Paging(Constants.PAGING_SIZE, Constants.PAGE_INDEX_SIZE, 
-				Constants.INIT_CURRENT_PAGE,Constants.INIT_START_INDEX,Constants.INIT_END_INDEX);
+		initPaging();
 	}
 	
 	public String setPaging() {
@@ -47,8 +46,8 @@ public class BoardService {
 		int startNum = boardPaging.getPagingSize()*(index-1==0?0:(index-1))+1;
 		int endNum = startNum+boardPaging.getPagingSize()-1;
 		System.out.println(index+" "+startNum+" "+endNum);
-//		boardPaging.setStartIndex(startIndex);
-//		boardPaging.setEndIndex(endIndex);
+		//boardPaging.setStartIndex(startNum);
+		//boardPaging.setEndIndex(endNum);
 		return boardDAO.getPaingPage(startNum, endNum);
 //		startIndex = pagingSize*보낸 파라미터값
 //		endIndex = startIndex+pagingSize
@@ -57,6 +56,21 @@ public class BoardService {
 
 	public Board getDetailBoard(String id) {
 		return boardDAO.getDetailBoardById(id);
+	}
+
+	public void setCurrentIndex(String currentIndex) {
+		int index = Integer.parseInt(currentIndex);
+		int startNum = boardPaging.getPagingSize()*(index-1==0?0:(index-1))+1;
+		int endNum = startNum+boardPaging.getPagingSize()-1;
+		boardPaging.setCurrentPage(boardPaging.getCurrentPage()+1);
+		boardPaging.setStartIndex(startNum);
+		boardPaging.setEndIndex(endNum);
+	}
+
+	public void initPaging() {
+		System.out.println("initsetting");
+		boardPaging = new Paging(Constants.PAGING_SIZE, Constants.PAGE_INDEX_SIZE, 
+				Constants.INIT_CURRENT_PAGE,Constants.INIT_START_INDEX,Constants.INIT_END_INDEX);	
 	}
 
 }

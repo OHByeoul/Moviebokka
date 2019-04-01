@@ -53,6 +53,7 @@ public class Paging {
 	}
 	
 	public void setStartIndex(int startIndex) {
+		System.out.println("paging : "+startIndex);
 		this.startIndex = startIndex;
 	}
 	
@@ -61,6 +62,7 @@ public class Paging {
 	}
 	
 	public void setEndIndex(int endIndex) {
+		System.out.println("paging : "+endIndex);
 		this.endIndex = endIndex;
 	}	
 }

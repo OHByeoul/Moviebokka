@@ -1,12 +1,12 @@
 
             var paging = {
                 'data' : {
-                	totalRowData : 0, // 전체 데이터 수
-                    pageIndexSize : 0, // 인덱스 개수
-                    pagingSize : 0, // 한페이지에 보여줄 데이터수
-                	currentPage : 0, // 현재 페이지
-                    startIndex : 0,
-                    endIndex : 0
+                	totalRowData : 62, // 전체 데이터 수
+                    pageIndexSize : 5, // 인덱스 개수
+                    pagingSize : 5, // 한페이지에 보여줄 데이터수
+                	currentPage : 1, // 현재 페이지
+                    startIndex : 1,
+                    endIndex : 5
                 },
                 'initSetting' : function(opt){
                     if(typeof opt != "object") return;
@@ -71,13 +71,15 @@
         
                 'moveNextPage' : function(){
                     var _this = this;
-                   // _this.data.currentPage += _this.data.pageIndexSize;
+                    console.log('click moveNext');
                     _this.data.currentPage ++;
                     _this.data.startIndex = (_this.data.currentPage-1)*_this.data.pageIndexSize+1;
                     _this.data.endIndex = _this.data.currentPage*_this.data.pageIndexSize;
                     _this.reDrawPage();
+                    location.href = "/Moviebokka/board/pagingNext?startIndex="+_this.data.startIndex;
                 },
                 'reDrawPage' : function(){
+                	console.log('redraw');
                     var getId = document.getElementById("paging");
                     getId.removeChild(getId.childNodes[0]);
                     getId.innerHTML = this.setHtml();
@@ -92,4 +94,5 @@
                 divTag.innerHTML = paging.setHtml();
                 document.body.appendChild(divTag);    
             }
+            
 
