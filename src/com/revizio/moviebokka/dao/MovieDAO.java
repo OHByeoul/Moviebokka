@@ -12,7 +12,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.revizio.moviebokka.constant.Constant;
+import com.revizio.moviebokka.constant.Constants;
 import com.revizio.moviebokka.dto.GetMovieInfoForm;
 import com.revizio.moviebokka.dto.MovieInfo;
 
@@ -71,7 +71,7 @@ public class MovieDAO {
 		conn = instance.getConnection();
 		String query;
 		int result = 0;
-		if (key.equals(Constant.DIRECTOR)) {
+		if (key.equals(Constants.DIRECTOR)) {
 			query = "INSERT INTO director VALUES (DIRECTOR_SEQ.NEXTVAL, ?,?)";
 			try {
 				preparedStatement = conn.prepareStatement(query);
@@ -83,7 +83,7 @@ public class MovieDAO {
 			} finally {
 				closeIdleConnection();
 			}
-		} else if (key.equals(Constant.ACTOR)) {
+		} else if (key.equals(Constants.ACTOR)) {
 			query = "INSERT INTO actor VALUES (ACTOR_SEQ.NEXTVAL,?,?)";
 			try {
 				preparedStatement = conn.prepareStatement(query);

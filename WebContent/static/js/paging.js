@@ -1,18 +1,17 @@
 
             var paging = {
                 'data' : {
-                	totalRowData : 62, // 전체 데이터 수
-                    pageIndexSize : 5, // 인덱스 개수
-                    pagingSize : 5, // 한페이지에 보여줄 데이터수
-                	currentPage : 1, // 현재 페이지
-                    startIndex : 1,
-                    endIndex : 5
+                	totalRowData : 0, // 전체 데이터 수
+                    pageIndexSize : 0, // 인덱스 개수
+                    pagingSize : 0, // 한페이지에 보여줄 데이터수
+                	currentPage : 0, // 현재 페이지
+                    startIndex : 0,
+                    endIndex : 0
                 },
                 'initSetting' : function(opt){
                     if(typeof opt != "object") return;
                     for(val in opt){
                         if(val in this.data){
-                        	console.log("inininin???");
                             this.data[val] = opt[val];
                         }
                     }
@@ -22,17 +21,15 @@
                     console.log(this.data["endIndex"]);
                 },
                 'setHtml' : function(){
-                	//if(obj == "object"){
-                		console.log("inintsetting");
-                    	paging.initSetting(obj);
-                	//}
+                   	paging.initSetting(obj);
+
                     console.log("setHtml");
                     var _this = this;
                     var tag = '';
                     var finalIndex = Math.ceil(_this.data.totalRowData/_this.data.pagingSize);
                     
                     if((_this.data.startIndex>_this.data.pageIndexSize)){ 
-                        tag += "<a onclick='paging.movePrevPage();' class='prev_page'><span id='prev'>◀ Prev</span></a>";
+                        tag += "<a onclick='paging.movePrevPage();' class='prev_page'><span id='prev'>< Prev</span></a>";
                     }
         
                    tag += "<span class='numbox'>";
@@ -42,7 +39,7 @@
                     tag += "</span>"
                     
                     if(_this.data.endIndex<=finalIndex){
-                        tag += "<a onclick='paging.moveNextPage();' class='next_page'><span id = 'next'> Next ▶</span></a>";
+                        tag += "<a onclick='paging.moveNextPage();' class='next_page'><span id = 'next'> Next ></span></a>";
                     }
 
                     return tag;
@@ -58,7 +55,7 @@
                     for(let i = startIndex; i<=endIndex; i++){
                         
                         if(i<=finalIndex){
-                            tag += "<a href='/grade/paging?startNum="+i+"' class='num'>"+" "+i+" " + "</a>";
+                            tag += "<a href='/Moviebokka/board/pagingBoard?startNum="+i+"' class='num'>"+" "+i+" " + "</a>";
                         }
                     }
                     return tag;
@@ -74,7 +71,7 @@
         
                 'moveNextPage' : function(){
                     var _this = this;
-                    // _this.data.currentPage += _this.data.pageIndexSize;
+                   // _this.data.currentPage += _this.data.pageIndexSize;
                     _this.data.currentPage ++;
                     _this.data.startIndex = (_this.data.currentPage-1)*_this.data.pageIndexSize+1;
                     _this.data.endIndex = _this.data.currentPage*_this.data.pageIndexSize;

@@ -1,14 +1,21 @@
 package com.revizio.moviebokka.controller;
 
 public enum Route {
+	//Movie
 	SEARCH_MOVIENAME("searchMovieName","searchMoviePage.jsp"),
 	CREATE_REVIEW("createReview","reviewCreateForm.jsp"),
 	GET_MOVIE_INFOES("getMovieInfoes","json"),
 	GET_MOVIE_INFO("getMovieInfo","movieDetailInfoPage.jsp"),
+	
+	//Board
+	CREATE_BOARD("createBoard","boardCreateForm.jsp"),
+	GET_FREEBOARD_LIST("getFreeboardList","freeboardListPage.jsp"),
+	PAGING("pagingBoard","freeboardListPage.jsp"),
+	
 	NONE("main","main.jsp");
 	
 	final static String PATH = "/view/";
-	final static String JSON_FORMMAT = "/view/json";
+	final static String AJAX_FORMMAT = "/view/ajax";
 	private String route;
 	private String view;
 	

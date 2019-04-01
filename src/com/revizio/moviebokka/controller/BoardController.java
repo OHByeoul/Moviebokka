@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.revizio.moviebokka.constant.Constant;
+import com.revizio.moviebokka.constant.Constants;
 
 /**
  * Servlet implementation class BoardController
@@ -32,20 +32,17 @@ public class BoardController extends HttpServlet {
 		String contextPath = request.getContextPath();
 		String getUri = request.getRequestURI().substring(contextPath.length());
 		String [] route = getUri.split("/"); 
-		System.out.println(route[Constant.FIRST]+" "+route[Constant.SECOND]);
 		
 		String getView = "";
-		if(route.length<Constant.THIRD) {
-			boardRequestMapping.dispatcherRoute(route[Constant.FIRST],request,response);
-			getView = Route.getViewResolver(route[Constant.FIRST]);
+		if(route.length<Constants.THIRD) {
+			boardRequestMapping.dispatcherRoute(route[Constants.FIRST],request,response);
+			getView = Route.getViewResolver(route[Constants.FIRST]);
 		} else {
-			boardRequestMapping.dispatcherRoute(route[Constant.SECOND],request,response);
-			System.out.println("route : "+Route.getDispathcerRoute(route[Constant.SECOND]));
-			System.out.println("view : "+Route.getViewResolver(route[Constant.SECOND]));		
-			getView = Route.getViewResolver(route[Constant.SECOND]);
+			boardRequestMapping.dispatcherRoute(route[Constants.SECOND],request,response);
+			getView = Route.getViewResolver(route[Constants.SECOND]);
 		}
 
-		if(!getView.equals(Route.JSON_FORMMAT)) {			
+		if(!getView.equals(Route.AJAX_FORMMAT)) {			
 			request.getRequestDispatcher(getView).forward(request, response);
 		}
 	}

@@ -40,10 +40,10 @@ public class MovieService implements MovieServiceImpl{
 			movieDAO.InsertMovieInfo(movie);
 			for (Map.Entry<String, String> each : subInfo.entrySet()) {
 				String key = each.getKey();
-				if (key.equals(Constant.DIRECTOR)) {
+				if (key.equals(Constants.DIRECTOR)) {
 					String value = each.getValue();
 					splitSubInfo(movieCode, key, value);
-				} else if (key.equals(Constant.ACTOR)) {
+				} else if (key.equals(Constants.ACTOR)) {
 					String value = each.getValue();
 					splitSubInfo(movieCode, key, value);
 				}

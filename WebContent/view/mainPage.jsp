@@ -9,7 +9,9 @@
   <title>영화보까</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="../static/css/mainPage.css">
+  <link rel="stylesheet" href="/Moviebokka/static/css/mainPage.css">
+  <script src = "/Moviebokka/static/js/mainPage.js"></script>
+ 
   <style>
       .jumbotron{background-color : #141414;}
   </style>
@@ -33,7 +35,7 @@
         <li class="active"><a href="#">홈</a></li>
         <li><a href="/Moviebokka/movie/searchMovieName">영화정보</a></li>
         <li><a href="#">영화리뷰게시판</a></li>
-        <li><a href="#">자유게시판</a></li>
+        <li><a id = "board">자유게시판</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
