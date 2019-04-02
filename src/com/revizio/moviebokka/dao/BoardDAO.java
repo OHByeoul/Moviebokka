@@ -8,33 +8,52 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.revizio.moviebokka.dto.Board;
 
 
 public class BoardDAO {
-	private Connection conn;
+	private static BoardDAO instance;
+	private Connection conn = null;
+	private PreparedStatement preparedStatement = null;
+	private ResultSet rs = null;
+
 	List<Board> boards;
 	
-	public BoardDAO() throws SQLException {
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			String url = "jdbc:oracle:thin:@localhost:1521:xe";
-			String user = "scott";
-			String password = "tiger";
-			conn = DriverManager.getConnection(url, user, password);
-			boards = new ArrayList<Board>();
-			
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+	public BoardDAO() {
+		boards = new ArrayList<>();
 	}
 	
+	public static BoardDAO getInstance() {
+		if (instance == null) {
+			instance = new BoardDAO();
+		}
+		return instance;
+	}
+	
+	public Connection getConnection() {
+		try {
+			Context context = new InitialContext();
+			DataSource dataSource = (DataSource) context.lookup("java:comp/env/jdbc/OracleDB");
+			conn = dataSource.getConnection();
+		} catch (NamingException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return conn;
+	}
 	public List getAllBoard() {
 		boards.clear();
 		String sql = "SELECT * FROM board";
+		conn = instance.getConnection();
 		try {
-			PreparedStatement prst = conn.prepareStatement(sql);
-			ResultSet rs = prst.executeQuery();
+			preparedStatement = conn.prepareStatement(sql);
+			rs = preparedStatement.executeQuery();
 			while(rs.next()) {
 				int id = rs.getInt(1);
 				String title = rs.getString(2);
@@ -43,6 +62,8 @@ public class BoardDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
 		}
 		return boards;
 	}
@@ -53,6 +74,7 @@ public class BoardDAO {
 	}
 
 	public List<Board> getBoard(String startNum, String endNum) {
+		conn = instance.getConnection();
 		boards.clear();
 		String query = "SELECT S2.rnum, S2.b_id, S2.title, S2.b_content " + 
 						"FROM (SELECT ROWNUM as rnum, S1.b_id, S1.title, S1.b_content " + 
@@ -62,10 +84,10 @@ public class BoardDAO {
 								"WHERE ROWNUM <= ?) S2 " + 
 						"WHERE ROWNUM >= ?";
 		try {
-			PreparedStatement preparedStatement = conn.prepareStatement(query);
+			preparedStatement = conn.prepareStatement(query);
 			preparedStatement.setInt(1, Integer.parseInt(endNum));
 			preparedStatement.setInt(2, Integer.parseInt(startNum));
-			ResultSet rs = preparedStatement.executeQuery();
+			rs = preparedStatement.executeQuery();
 			while(rs.next()) {
 				int rownum = rs.getInt("rnum");
 				int id = rs.getInt("b_id");
@@ -75,6 +97,8 @@ public class BoardDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
 		}
 		
 		return boards;
@@ -82,10 +106,10 @@ public class BoardDAO {
 
 	public int getTotalDataCnt() {
 		String query = "SELECT COUNT(*) FROM board";
+		conn = instance.getConnection();
 		try {
-			PreparedStatement preparedStatement;
 			preparedStatement = conn.prepareStatement(query);
-			ResultSet rs = preparedStatement.executeQuery();
+			rs = preparedStatement.executeQuery();
 			int cnt = 0;
 			while(rs.next()) {
 				cnt = rs.getInt(1);
@@ -93,11 +117,14 @@ public class BoardDAO {
 			return cnt;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}		
+		} finally {
+			closeIdleConnection();
+		}	
 		return 0;
 	}
 
 	public List getPaingPage(int startNum, int endNum) {
+		conn = instance.getConnection();
 		boards.clear();
 		String query = "SELECT S2.rnum, S2.b_id, S2.title, S2.b_content " + 
 				"FROM (SELECT ROWNUM as rnum, S1.b_id, S1.title, S1.b_content " + 
@@ -106,7 +133,6 @@ public class BoardDAO {
 								"ORDER BY b_id ASC) S1 " + 
 						"WHERE ROWNUM <= ?) S2 " + 
 				"WHERE rnum >= ?";
-		PreparedStatement preparedStatement;
 		try {
 			preparedStatement = conn.prepareStatement(query);
 			preparedStatement.setInt(2, startNum);
@@ -121,17 +147,19 @@ public class BoardDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
 		}
 		return boards; 
 	}
 
 	public Board getDetailBoardById(String id) {
 		String query = "SELECT b_id, title, b_content FROM board WHERE b_id = ?";
-		
+		conn = instance.getConnection();
 		try {
-			PreparedStatement preparedStatement = conn.prepareStatement(query);
+			preparedStatement = conn.prepareStatement(query);
 			preparedStatement.setString(1, id);
-			ResultSet rs = preparedStatement.executeQuery();
+			rs = preparedStatement.executeQuery();
 			
 			while(rs.next()) {
 				int bId = rs.getInt("b_id");
@@ -140,10 +168,26 @@ public class BoardDAO {
 				return new Board(bId, title, content);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
 		}
 		return null ;
-		
+	}
+	
+	private void closeIdleConnection() {
+		try {
+			if (rs != null) {
+				rs.close();
+			}
+			if (preparedStatement != null) {
+				preparedStatement.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
