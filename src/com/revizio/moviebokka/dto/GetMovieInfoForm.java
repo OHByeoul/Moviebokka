@@ -7,8 +7,9 @@ public class GetMovieInfoForm {
 	private int m_code;
 	private String m_title;
 	private String m_img;
-	private float m_userRating;
+	private float m_user_rating;
 	private String m_story;
+	private String m_pub_date;
 	private List<String> actor;
 	private List<String> director;
 	
@@ -42,11 +43,11 @@ public class GetMovieInfoForm {
 	}
 
 	public float getM_userRating() {
-		return m_userRating;
+		return m_user_rating;
 	}
 
 	public void setM_userRating(float m_userRating) {
-		this.m_userRating = m_userRating;
+		this.m_user_rating = m_userRating;
 	}
 
 	public String getM_story() {
@@ -71,6 +72,14 @@ public class GetMovieInfoForm {
 
 	public void setDirector(List<String> director) {
 		this.director = director;
+	}
+	
+	public String getM_pub_date() {
+		return m_pub_date;
+	}
+
+	public void setM_pub_date(String m_pub_date) {
+		this.m_pub_date = m_pub_date;
 	}
 
 }
