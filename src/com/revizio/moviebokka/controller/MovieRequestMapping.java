@@ -27,8 +27,9 @@ public class MovieRequestMapping implements RequestDispatcher {
 			int code = Integer.parseInt(request.getParameter("code"));
 			String title = request.getParameter("title");
 			String img = request.getParameter("img");
+			String pubDate = request.getParameter("pubDate");
 			String userRating = request.getParameter("userRating");			
-			MovieInfo movieInfo = new MovieInfo(code,title,img,userRating);
+			MovieInfo movieInfo = new MovieInfo(code,title,img,userRating,pubDate);
 			
 			//String genre = request.getParameter("genre");
 			//Genre genre = new Genre(code, genre);

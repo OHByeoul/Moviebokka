@@ -30,7 +30,8 @@
 					<div class="content">
 						<div><h4 class="list-group-item-heading" id="title"></h4></div>
 						<div><p class="list-group-item-text" id="actor"></p></div>
-						<div><p class="list-group-item-text" id="userRating"></p></div>
+						<div><p class="list-group-item-text" id="pub_date"></p></div>
+						<div><p class="list-group-item-text" id="user_rating"></p></div>
 					</div>
 			</div>
 		</form>
@@ -70,9 +71,11 @@
 				$temp.find("#image").attr("src", obj['image']);
 				$temp.find("#title").html(obj['title']);
 				$temp.find("#actor").text(obj['actor']);
-				$temp.find("#actor").text(obj['userRating']);
+				$temp.find("#pub_date").text(obj['pubDate']);
+				$temp.find("#user_rating").text(obj['userRating']);
 				$temp.css("display", "block");
 				element += "<input type='hidden' name='title' value='"+obj['title']+"'>";
+				element += "<input type='hidden' name='pubDate' value='"+obj['pubDate']+"'>";
 				element += "<input type='hidden' name='img' value='"+obj['image']+"'>";
 				element += "<input type='hidden' name='director' value='"+obj['director']+"'>";
 				element += "<input type='hidden' name='actor' value='"+obj['actor']+"'>";
