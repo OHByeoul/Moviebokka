@@ -6,13 +6,16 @@ public class MovieInfo {
 	private String m_img;
 	private String m_userRating;
 	private String m_story;
+	private String m_pub_date;
+	private String m_cnt;
 
-
-	public MovieInfo(int code, String title, String img, String userRating) {
+	public MovieInfo(int code, String title, String img, String userRating,String pubDate) {
 		this.m_code = code;
 		this.m_title = title;
 		this.m_img = img;
 		this.m_userRating = userRating;
+		this.m_pub_date = pubDate;
+		this.m_cnt = "0";
 	}
 	
 	public int getM_code() {
@@ -53,5 +56,21 @@ public class MovieInfo {
 	
 	public void setM_story(String m_story) {
 		this.m_story = m_story;
-	}	
+	}
+	
+	public String getM_pub_date() {
+		return m_pub_date;
+	}
+
+	public void setM_pub_date(String m_pub_date) {
+		this.m_pub_date = m_pub_date;
+	}
+	
+	public String getM_cnt() {
+		return m_cnt;
+	}
+
+	public void setM_cnt(String m_cnt) {
+		this.m_cnt = m_cnt;
+	}
 }

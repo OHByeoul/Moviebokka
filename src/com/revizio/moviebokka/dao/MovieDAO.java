@@ -47,16 +47,18 @@ public class MovieDAO {
 	}
 
 	public int InsertMovieInfo(MovieInfo movieInfo) {
-		String query = "INSERT INTO movieInfo VALUES (?,?,?,?,?)";
+		String query = "INSERT INTO movie VALUES (MOVIE_SEQ.NEXTVAL,?,?,?,?,?,?,?)";
 		conn = instance.getConnection();
 		int result = 0;
 		try {
 			preparedStatement = conn.prepareStatement(query);
 			preparedStatement.setInt(1, movieInfo.getM_code());
 			preparedStatement.setString(2, movieInfo.getM_title());
-			preparedStatement.setString(3, movieInfo.getM_img());
-			preparedStatement.setString(4, movieInfo.getM_userRating());
+			preparedStatement.setString(3, movieInfo.getM_pub_date());
+			preparedStatement.setString(4, movieInfo.getM_img());
 			preparedStatement.setString(5, movieInfo.getM_story());
+			preparedStatement.setString(6, movieInfo.getM_userRating());
+			preparedStatement.setString(7, movieInfo.getM_cnt());
 			result = preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -101,7 +103,7 @@ public class MovieDAO {
 
 	public GetMovieInfoForm getMovieDetailInfo(int movieCode) {
 		GetMovieInfoForm getMovieInfoForm = new GetMovieInfoForm();
-		String query = "SELECT * FROM movieInfo WHERE m_code=?";
+		String query = "SELECT * FROM movie WHERE m_code=?";
 		conn = instance.getConnection();
 		try {
 			preparedStatement = conn.prepareStatement(query);
@@ -111,8 +113,9 @@ public class MovieDAO {
 				getMovieInfoForm.setM_code(rs.getInt("m_code"));
 				getMovieInfoForm.setM_title(rs.getString("m_title"));
 				getMovieInfoForm.setM_img(rs.getString("m_img"));
-				getMovieInfoForm.setM_userRating(rs.getFloat("m_userRating"));
+				getMovieInfoForm.setM_userRating(rs.getFloat("m_user_rating"));
 				getMovieInfoForm.setM_story(rs.getString("m_story"));
+				getMovieInfoForm.setM_pub_date(rs.getString("m_pub_date"));
 			}
 			//todo : setGenre
 			getMovieInfoForm.setActor(getActorInfo(movieCode));
@@ -168,7 +171,7 @@ public class MovieDAO {
 	}
 
 	public boolean isExist(int movieCode) {
-		String query = "SELECT * FROM movieInfo WHERE m_code=?";
+		String query = "SELECT * FROM movie WHERE m_code=?";
 		ResultSet rs;
 		boolean result = false;
 		conn = instance.getConnection();
