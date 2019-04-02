@@ -22,8 +22,6 @@ public class MovieRequestMapping implements RequestDispatcher {
 	@Override
 	public void dispatcherRoute(String route, HttpServletRequest request, HttpServletResponse response) {
 		if(route.equals(Route.CREATE_REVIEW.getRoute())) {
-			String hello = request.getParameter("hi");
-			System.out.println("mapping : "+Route.CREATE_REVIEW.getRoute());
 			
 		} else if(route.equals(Route.GET_MOVIE_INFO.getRoute())) {
 			int code = Integer.parseInt(request.getParameter("code"));
@@ -42,11 +40,13 @@ public class MovieRequestMapping implements RequestDispatcher {
 			subInfo.put("actor", actor);
 			GetMovieInfoForm movieInfoForm = new GetMovieInfoForm();
 			movieInfoForm = movieService.getMovieDetailInfo(movieInfo, subInfo);
+			
 			request.setAttribute("movieInfoForm", movieInfoForm);
 			
 		} else if(route.equals(Route.GET_MOVIE_INFOES.getRoute())) {
 			String movieName = request.getParameter("movieName");
 			String json = movieService.getMovieAPIInfo(movieName);
+			
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			try {

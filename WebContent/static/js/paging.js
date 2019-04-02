@@ -1,12 +1,12 @@
 
             var paging = {
                 'data' : {
-                	totalRowData : 62, // 전체 데이터 수
-                    pageIndexSize : 5, // 인덱스 개수
-                    pagingSize : 5, // 한페이지에 보여줄 데이터수
-                	currentPage : 1, // 현재 페이지
-                    startIndex : 1,
-                    endIndex : 5
+                	totalRowData : 0, // 전체 데이터 수
+                    pageIndexSize : 0, // 인덱스 개수
+                    pagingSize : 0, // 한페이지에 보여줄 데이터수
+                	currentPage : 0, // 현재 페이지
+                    startIndex : 0,
+                    endIndex : 0
                 },
                 'initSetting' : function(opt){
                     if(typeof opt != "object") return;
@@ -15,10 +15,6 @@
                             this.data[val] = opt[val];
                         }
                     }
-                    console.log(this.data["currentPage"]);
-                    console.log(this.data["totalRowData"]);
-                    console.log(this.data["startIndex"]);
-                    console.log(this.data["endIndex"]);
                 },
                 'setHtml' : function(){
                    	paging.initSetting(obj);

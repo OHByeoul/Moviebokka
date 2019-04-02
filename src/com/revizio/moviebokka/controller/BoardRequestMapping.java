@@ -21,6 +21,7 @@ public class BoardRequestMapping implements RequestDispatcher{
 	@Override
 	public void dispatcherRoute(String route, HttpServletRequest request, HttpServletResponse response) {
 		if(route.equals(Route.GET_FREEBOARD_LIST.getRoute())) {
+			
 			String startNum = request.getParameter("startNum");
 			String endNum = request.getParameter("endNum");
 			String json = boardService.setPaging();
@@ -30,6 +31,7 @@ public class BoardRequestMapping implements RequestDispatcher{
 			request.setAttribute("paging", json);
 			request.setAttribute("boards", boards);
 		} else if(route.equals(Route.PAGING.getRoute())) {
+			
 			String currentIndex = request.getParameter("startNum");
 			List pagingBoards = boardService.getPagingPage(currentIndex);
 			String json = boardService.setPaging();
@@ -37,6 +39,7 @@ public class BoardRequestMapping implements RequestDispatcher{
 			request.setAttribute("paging", json);
 			request.setAttribute("boards", pagingBoards);
 		} else if(route.equals(Route.MOVE_PREV.getRoute())) {
+			
 			String currentIndex = request.getParameter("startIndex");
 			boardService.setMovePrev(currentIndex);
 			List pagingBoards = boardService.getPagingPage(currentIndex);
@@ -45,6 +48,7 @@ public class BoardRequestMapping implements RequestDispatcher{
 			request.setAttribute("paging", json);
 			request.setAttribute("boards", pagingBoards);
 		} else if(route.equals(Route.MOVE_NEXT.getRoute())){
+			
 			String currentIndex = request.getParameter("startIndex");
 			boardService.setMoveNext(currentIndex);
 			List pagingBoards = boardService.getPagingPage(currentIndex);
