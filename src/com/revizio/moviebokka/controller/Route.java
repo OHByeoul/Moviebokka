@@ -12,6 +12,7 @@ public enum Route {
 	GET_FREEBOARD_LIST("getFreeboardList","freeboardListPage.jsp"),
 	PAGING("pagingBoard","freeboardListPage.jsp"),
 	MOVE_NEXT("pagingNext","freeboardListPage.jsp"),
+	MOVE_PREV("pagingPrev","freeboardListPage.jsp"),
 	
 	NONE("main","main.jsp");
 	

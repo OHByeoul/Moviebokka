@@ -42,7 +42,6 @@ public class BoardDAO {
 				addBoard(id,title,content);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return boards;
@@ -117,11 +116,10 @@ public class BoardDAO {
 				int id = rs.getInt("b_id");
 				String title = rs.getString("title");
 				String content = rs.getString("b_content");
-				System.out.println(id+" "+title+" "+content);
+				//System.out.println(id+" "+title+" "+content);
 				boards.add(new Board(id, title, content));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return boards; 

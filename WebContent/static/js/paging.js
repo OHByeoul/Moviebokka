@@ -63,6 +63,7 @@
         
                 'movePrevPage' : function(){
                     var _this = this;
+                    console.log('click movePrev');
                     _this.data.currentPage --;
                     _this.data.startIndex = (_this.data.currentPage-1)*_this.data.pageIndexSize+1;
                     _this.data.endIndex = _this.data.currentPage*_this.data.pageIndexSize;
@@ -76,23 +77,35 @@
                     _this.data.startIndex = (_this.data.currentPage-1)*_this.data.pageIndexSize+1;
                     _this.data.endIndex = _this.data.currentPage*_this.data.pageIndexSize;
                     _this.reDrawPage();
-                    location.href = "/Moviebokka/board/pagingNext?startIndex="+_this.data.startIndex;
                 },
                 'reDrawPage' : function(){
-                	console.log('redraw');
                     var getId = document.getElementById("paging");
                     getId.removeChild(getId.childNodes[0]);
                     getId.innerHTML = this.setHtml();
                     document.body.appendChild(getId);                   
                 }
             }
-        
-            window.onload = function(){
-                var divTag = document.createElement("div");
-                divTag.setAttribute("id","paging");
-
-                divTag.innerHTML = paging.setHtml();
-                document.body.appendChild(divTag);    
-            }
-            
+                   
+            $(function(){
+            	var $div = $('<div></div>');
+            	$div.attr("id","paging");
+            	
+            	$div.html(paging.setHtml());
+            	var $body = $('body');
+            	$body.append($div);
+            	
+            	$('.prev_page').on('click', $('#prev'), function(){
+            		console.log("prev");
+            		 location.href = "/Moviebokka/board/pagingPrev?startIndex="+paging.data.startIndex;
+            		 $body.empty();
+            		 paging.setHtml();
+            	});
+            	
+            	$('.next_page').on('click', $('#next'), function(){
+            		console.log("next");
+            		 location.href = "/Moviebokka/board/pagingNext?startIndex="+paging.data.startIndex;
+            		 $body.empty();
+            		 paging.setHtml();
+            	});
+            });
 
