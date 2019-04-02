@@ -1,6 +1,5 @@
 package com.revizio.moviebokka.service;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import com.revizio.moviebokka.constant.Constants;
@@ -9,33 +8,16 @@ import com.revizio.moviebokka.dto.Board;
 import com.revizio.moviebokka.dto.Paging;
 import com.revizio.moviebokka.util.JsonMaker;
 
-
-
 public class BoardService {
 	private BoardDAO boardDAO;
 	private Paging boardPaging;
 	
 	public BoardService() {
-		try {
-			boardDAO = new BoardDAO();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		boardDAO = BoardDAO.getInstance();
 		initPaging();
 	}
-	
-	public String setPaging() {
-		int totalCnt = boardDAO.getTotalDataCnt();
-		boardPaging.setTotalRowData(totalCnt);
-		JsonMaker jsonMaker = new JsonMaker();
-		String json = jsonMaker.convertObjectToJson(boardPaging);
-		return json;
-	}
-	
-	public List getAllBoards() {
-		List boards = boardDAO.getAllBoard();
-		return boards;
-	}
+		
+
 
 	public List<Board> getBoards(String startNum, String endNum) {
 		return boardDAO.getBoard(startNum,endNum);
@@ -47,10 +29,6 @@ public class BoardService {
 		int endNum = startNum+boardPaging.getPagingSize()-1;
 		System.out.println(index+" "+startNum+" "+endNum);
 		return boardDAO.getPaingPage(startNum, endNum);		
-	}
-
-	public Board getDetailBoard(String id) {
-		return boardDAO.getDetailBoardById(id);
 	}
 
 	public void initPaging() {
@@ -78,5 +56,22 @@ public class BoardService {
 		boardPaging.setStartIndex(startIndex);
 		boardPaging.setEndIndex(endIndex);
 	}
+	
+	public String setPaging() {
+		int totalCnt = boardDAO.getTotalDataCnt();
+		boardPaging.setTotalRowData(totalCnt);
+		JsonMaker jsonMaker = new JsonMaker();
+		String json = jsonMaker.convertObjectToJson(boardPaging);
+		return json;
+	}
+	
+//	public List getAllBoards() {
+//	List boards = boardDAO.getAllBoard();
+//	return boards;
+//}
+	
+//	public Board getDetailBoard(String id) {
+//		return boardDAO.getDetailBoardById(id);
+//	}
 
 }
