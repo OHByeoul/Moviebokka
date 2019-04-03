@@ -22,7 +22,7 @@
 		${movieInfoForm.m_pub_date}
 	</div>
 	<div>
-		${movieInfoForm.m_userRating}
+		${movieInfoForm.m_user_rating}
 	</div>
 	<div>
 		<c:forEach  items="${movieInfoForm.genre}" var="item" varStatus="status">
