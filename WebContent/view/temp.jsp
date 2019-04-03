@@ -80,8 +80,7 @@ h3.h3{color:#E6E6E6;text-align:center;margin:1em;text-transform:capitalize;font-
 			<div class="col-md-2 col-sm-6">
 				<div class="movie-grid">
 					<div class="movie-image">
-						<a href="#"> <img class="pic-1"
-							src="" alt="이미지 없음"> <img
+						<a href="#"> <img class="pic-1" src="" alt="이미지 없음"> <img
 							class="pic-2" src="" alt="이미지 없음">
 						</a> <a href="#" class="fa fa-search movie-full-view"></a>
 					</div>
@@ -112,41 +111,42 @@ h3.h3{color:#E6E6E6;text-align:center;margin:1em;text-transform:capitalize;font-
 
 <script>
 	$(function() {
-		var size = 3; //받아올 영화의 크기를 받는다
 		var cnt = 1;
-		var size = ${fn:length(movieInfoFormList)};
-		<foreac
-			var title = ${movieInfoFormList.get(i).m_title};
+
+		let $clone = $('.temp_movie').clone();
+		let $target;
+		let title;
+		let img;
+		let rating;
+		
+		<c:forEach var="item" items="${movieInfoFormList}">
+			title = "${item.m_title}";
+			img = "${item.m_img}";
+			rating = ${item.m_user_rating}; 
+			
 			console.log(title);
-			let $clone = $('.temp_movie').clone();
+			$clone = $('.temp_movie').clone();
 			$clone.attr("class", "movie");
 			$clone.attr("id", "movie" + cnt++);
 			$clone.find('.title').find('a').html(title);
+			$clone.find('.pic-1').attr("src", img);
+			$clone.find('.pic-2').attr("src", img);
+			$clone.find('.user_rating').html(rating);
 			$clone.show();
-			let rating = $clone.find(".user_rating");
-		
-			let $target = $clone.find('.rating').find('.fa.fa-star');
-			console.log(rating);
+					
+			$target = $clone.find('.rating').find('.fa.fa-star');
 			userRating(rating, $target);
 			$('.top10').append($clone);
-		}
-
+		</c:forEach>
 		
 		function userRating(rating, target) {
-			let maxStar = 4;
-			for (let i = maxStar; i >= rating / 2; i--) {
+			let highStar = 4;
+			let limit = Math.round(rating/2);
+			console.log(limit);
+			for (let i = highStar; i >= limit; i--) {
 				target.eq(i).attr("class", "fa fa-star disable");
 			}
 		}
-
 	});
-
-	//자스로 userRating을 받는다. 
-	/*
-	    $('.rating').children();
-	    if(userRating >= 2 && userRating < 4){
-
-	    }
-	 */
 </script>
 </html>
