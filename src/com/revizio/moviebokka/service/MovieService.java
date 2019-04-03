@@ -35,11 +35,8 @@ public class MovieService implements MovieServiceImpl{
 	public GetMovieInfoForm getMovieDetailInfo(MovieInfo movie, Map<String, String> subInfo) {
 		int movieCode = movie.getM_code();
 		String genre = getMovieGenre(movieCode);
-		String cnt = getMovieView(movieCode);
-		genre =genre.replace(",", "|");
 		subInfo.put("genre", genre);
-		//System.out.println("genre "+genre);
-		System.out.println("cnt "+cnt);
+		
 		if (!isExist(movieCode)) {
 			String story = getMovieStory(movieCode);
 			movie.setM_story(story);
@@ -79,17 +76,7 @@ public class MovieService implements MovieServiceImpl{
 			System.out.println(e);
 		}
 		String text = crawling.htmlTotext(elements.first().toString());
-		return text;
-	}
-	
-	private String getMovieView(int movieCode) {
-		crawling.createDocument(Crawling.URL+Crawling.URL_POST+movieCode);
-		Elements elements = crawling.createElements(Crawling.TARGET2);
-		for(Element e : elements) {
-			System.out.println(e);
-		}
-		String text = crawling.htmlTotext(elements.toString());
-		System.out.println(text);
+		text = text.replace(",", "|");
 		return text;
 	}
 

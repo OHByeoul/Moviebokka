@@ -132,12 +132,34 @@ public class MovieDAO {
 			//todo : setGenre
 			getMovieInfoForm.setActor(getActorInfo(movieCode));
 			getMovieInfoForm.setDirector(getDirectorInfo(movieCode));
+			getMovieInfoForm.setGenre(getGenreInfo(movieCode));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			closeIdleConnection();
 		}
 		return getMovieInfoForm;
+	}
+
+	private List<String> getGenreInfo(int movieCode) {
+		List<String> genres = new ArrayList<String>();
+		String query = "SELECT g_name FROM genre WHERE m_code=?";
+		conn = instance.getConnection();
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setInt(1, movieCode);
+			rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				String name = rs.getString("g_name");
+				genres.add(name);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		return genres;
 	}
 
 	private List getDirectorInfo(int movieCode) {

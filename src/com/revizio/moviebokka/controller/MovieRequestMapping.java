@@ -31,12 +31,10 @@ public class MovieRequestMapping implements RequestDispatcher {
 			String userRating = request.getParameter("userRating");			
 			MovieInfo movieInfo = new MovieInfo(code,title,img,userRating,pubDate);
 			
-			//String genre = request.getParameter("genre");
-			//Genre genre = new Genre(code, genre);
 			String director = request.getParameter("director");
 			String actor = request.getParameter("actor");
 			Map<String, String> subInfo = new HashMap<String, String>();
-			//subInfo.add(genre);
+
 			subInfo.put("director", director);
 			subInfo.put("actor", actor);
 			GetMovieInfoForm movieInfoForm = new GetMovieInfoForm();

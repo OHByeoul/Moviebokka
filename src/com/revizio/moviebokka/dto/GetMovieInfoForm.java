@@ -12,7 +12,8 @@ public class GetMovieInfoForm {
 	private String m_pub_date;
 	private List<String> actor;
 	private List<String> director;
-	
+	private List<String> genre;
+
 	public GetMovieInfoForm() {
 		actor = new ArrayList<String>();
 		director = new ArrayList<String>();
@@ -82,4 +83,11 @@ public class GetMovieInfoForm {
 		this.m_pub_date = m_pub_date;
 	}
 
+	public List<String> getGenre() {
+		return genre;
+	}
+
+	public void setGenre(List<String> genre) {
+		this.genre = genre;
+	}
 }

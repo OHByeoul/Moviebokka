@@ -19,13 +19,17 @@
 		${movieInfoForm.m_title}
 	</div>
 	<div>
-		${movieInfoForm.m_genre}
-	</div>
-	<div>
 		${movieInfoForm.m_pub_date}
 	</div>
 	<div>
 		${movieInfoForm.m_userRating}
+	</div>
+	<div>
+		<c:forEach  items="${movieInfoForm.genre}" var="item" varStatus="status">
+			<tr>
+				<td>${item} |</td>
+			</tr>
+		</c:forEach>
 	</div>
 	<div>
 		<c:forEach  items="${movieInfoForm.actor}" var="item" varStatus="status">
