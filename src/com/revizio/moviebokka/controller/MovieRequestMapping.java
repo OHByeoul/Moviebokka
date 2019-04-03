@@ -23,14 +23,14 @@ public class MovieRequestMapping implements RequestDispatcher {
 	
 	@Override
 	public void dispatcherRoute(String route, HttpServletRequest request, HttpServletResponse response) {
-		if(route.equals(Route.GET_MOVIE_INFO.getRoute())) {
+		if(route.equals(Route.CREATE_REVIEW.getRoute())) {
 			
 		} else if(route.equals(Route.GET_MOVIE_INFO.getRoute())) {
 			int code = Integer.parseInt(request.getParameter("code"));
 			String title = request.getParameter("title");
 			String img = request.getParameter("img");
 			String pubDate = request.getParameter("pubDate");
-			String userRating = request.getParameter("userRating");			
+			String userRating = request.getParameter("userRating");		
 			MovieInfo movieInfo = new MovieInfo(code,title,img,userRating,pubDate);
 			
 			String director = request.getParameter("director");
