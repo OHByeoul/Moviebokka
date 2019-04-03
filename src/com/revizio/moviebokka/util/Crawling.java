@@ -10,6 +10,8 @@ public class Crawling {
    public static final String URL="https://movie.naver.com";
    public static final String URL_POST = "/movie/bi/mi/basic.nhn?code=";
    public static final String TARGET = ".story_area p.con_tx";
+   public static final String TARGET2 = "dl.info_spec > .step9_cont > p.count"; // 관객수
+   public static final String TARGET3 = "dl.info_spec > dd > p >span";
    private Document document;
    private Elements elements;
 

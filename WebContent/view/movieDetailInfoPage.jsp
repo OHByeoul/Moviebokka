@@ -19,6 +19,9 @@
 		${movieInfoForm.m_title}
 	</div>
 	<div>
+		${movieInfoForm.m_genre}
+	</div>
+	<div>
 		${movieInfoForm.m_pub_date}
 	</div>
 	<div>

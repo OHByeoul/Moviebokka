@@ -97,6 +97,18 @@ public class MovieDAO {
 			} finally {
 				closeIdleConnection();
 			}
+		} else if (key.equals(Constants.GENRE)) {
+			query = "INSERT INTO genre VALUES (GENRE_SEQ.NEXTVAL,?,?)";
+			try {
+				preparedStatement = conn.prepareStatement(query);
+				preparedStatement.setInt(1, movieCode);
+				preparedStatement.setString(2, name);
+				result = preparedStatement.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				closeIdleConnection();
+			}
 		}
 		return result;
 	}

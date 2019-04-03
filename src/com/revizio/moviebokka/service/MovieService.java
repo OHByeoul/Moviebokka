@@ -1,5 +1,6 @@
 package com.revizio.moviebokka.service;
 
+import java.net.URL;
 import java.util.Map;
 
 import org.jsoup.nodes.Element;
@@ -33,7 +34,12 @@ public class MovieService implements MovieServiceImpl{
 
 	public GetMovieInfoForm getMovieDetailInfo(MovieInfo movie, Map<String, String> subInfo) {
 		int movieCode = movie.getM_code();
-
+		String genre = getMovieGenre(movieCode);
+		String cnt = getMovieView(movieCode);
+		genre =genre.replace(",", "|");
+		subInfo.put("genre", genre);
+		//System.out.println("genre "+genre);
+		System.out.println("cnt "+cnt);
 		if (!isExist(movieCode)) {
 			String story = getMovieStory(movieCode);
 			movie.setM_story(story);
@@ -44,6 +50,9 @@ public class MovieService implements MovieServiceImpl{
 					String value = each.getValue();
 					splitSubInfo(movieCode, key, value);
 				} else if (key.equals(Constants.ACTOR)) {
+					String value = each.getValue();
+					splitSubInfo(movieCode, key, value);
+				} else if (key.equals(Constants.GENRE)) {
 					String value = each.getValue();
 					splitSubInfo(movieCode, key, value);
 				}
@@ -61,6 +70,27 @@ public class MovieService implements MovieServiceImpl{
 		}
 		String text = crawling.htmlTotext(elements.toString());
 		return text;		
+	}
+	
+	private String getMovieGenre(int movieCode) {
+		crawling.createDocument(Crawling.URL+Crawling.URL_POST+movieCode);
+		Elements elements = crawling.createElements(Crawling.TARGET3);
+		for(Element e : elements) {
+			System.out.println(e);
+		}
+		String text = crawling.htmlTotext(elements.first().toString());
+		return text;
+	}
+	
+	private String getMovieView(int movieCode) {
+		crawling.createDocument(Crawling.URL+Crawling.URL_POST+movieCode);
+		Elements elements = crawling.createElements(Crawling.TARGET2);
+		for(Element e : elements) {
+			System.out.println(e);
+		}
+		String text = crawling.htmlTotext(elements.toString());
+		System.out.println(text);
+		return text;
 	}
 
 	private boolean isExist(int movieCode) {
