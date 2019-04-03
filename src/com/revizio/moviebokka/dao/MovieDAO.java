@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 import com.revizio.moviebokka.constant.Constants;
 import com.revizio.moviebokka.dto.GetMovieInfoForm;
 import com.revizio.moviebokka.dto.MovieInfo;
+import com.sun.org.apache.bcel.internal.generic.INEG;
 
 public class MovieDAO {
 	private static MovieDAO instance;
@@ -239,5 +240,32 @@ public class MovieDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public List<GetMovieInfoForm> getMovieDetailInfoList() {
+		List<GetMovieInfoForm> movieInfoForms = new ArrayList<>();
+		GetMovieInfoForm getMovieInfoForm = new GetMovieInfoForm();
+		String query = "SELECT m_code FROM movie WHERE ROWNUM >= 1 AND ROWNUM <= 3 ORDER BY m_user_rating DESC";
+		conn = instance.getConnection();
+		List<Integer> codes = new ArrayList<>();
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				int movieCode = rs.getInt("m_code");
+				codes.add(movieCode);
+				System.out.println(movieCode);
+			}
+			
+			for(Integer code : codes) {
+				movieInfoForms.add(getMovieDetailInfo(code));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		return movieInfoForms;
 	}
 }

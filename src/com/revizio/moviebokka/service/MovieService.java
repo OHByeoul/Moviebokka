@@ -1,12 +1,13 @@
 package com.revizio.moviebokka.service;
 
-import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.revizio.moviebokka.constant.*;
+import com.revizio.moviebokka.constant.Constants;
 import com.revizio.moviebokka.dao.MovieDAO;
 import com.revizio.moviebokka.dto.GetMovieInfoForm;
 import com.revizio.moviebokka.dto.MovieInfo;
@@ -94,5 +95,15 @@ public class MovieService implements MovieServiceImpl{
 		} else {
 			movieDAO.InsertSubInfo(movieCode, key, value);
 		}
+	}
+
+	public List<GetMovieInfoForm> getMovieDetailInfoList() {
+		List<GetMovieInfoForm> movieInfoes = new ArrayList<>();
+		movieInfoes = movieDAO.getMovieDetailInfoList();
+		for(GetMovieInfoForm form : movieInfoes) {
+			String title = crawling.htmlTotext(form.getM_title());
+			form.setM_title(title);
+		}
+		return movieInfoes;
 	}
 }

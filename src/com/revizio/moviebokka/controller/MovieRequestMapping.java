@@ -1,7 +1,9 @@
 package com.revizio.moviebokka.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -21,7 +23,7 @@ public class MovieRequestMapping implements RequestDispatcher {
 	
 	@Override
 	public void dispatcherRoute(String route, HttpServletRequest request, HttpServletResponse response) {
-		if(route.equals(Route.CREATE_REVIEW.getRoute())) {
+		if(route.equals(Route.GET_MOVIE_INFO.getRoute())) {
 			
 		} else if(route.equals(Route.GET_MOVIE_INFO.getRoute())) {
 			int code = Integer.parseInt(request.getParameter("code"));
@@ -53,7 +55,12 @@ public class MovieRequestMapping implements RequestDispatcher {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
+		} else if(route.equals(Route.GET_MOVIE_MAIN.getRoute())) {
+			List<GetMovieInfoForm> movieInfoFormList = new ArrayList<>();
+			movieInfoFormList = movieService.getMovieDetailInfoList();
+			
+			request.setAttribute("movieInfoFormList", movieInfoFormList);
+		} 
 	}
 
 }
