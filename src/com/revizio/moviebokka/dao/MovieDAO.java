@@ -15,7 +15,6 @@ import javax.sql.DataSource;
 import com.revizio.moviebokka.constant.Constants;
 import com.revizio.moviebokka.dto.GetMovieInfoForm;
 import com.revizio.moviebokka.dto.MovieInfo;
-import com.sun.org.apache.bcel.internal.generic.INEG;
 
 public class MovieDAO {
 	private static MovieDAO instance;
@@ -126,7 +125,7 @@ public class MovieDAO {
 				getMovieInfoForm.setM_code(rs.getInt("m_code"));
 				getMovieInfoForm.setM_title(rs.getString("m_title"));
 				getMovieInfoForm.setM_img(rs.getString("m_img"));
-				getMovieInfoForm.setM_userRating(rs.getFloat("m_user_rating"));
+				getMovieInfoForm.setM_user_rating(rs.getFloat("m_user_rating"));
 				getMovieInfoForm.setM_story(rs.getString("m_story"));
 				getMovieInfoForm.setM_pub_date(rs.getString("m_pub_date"));
 			}
@@ -261,7 +260,6 @@ public class MovieDAO {
 				movieInfoForms.add(getMovieDetailInfo(code));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			closeIdleConnection();
