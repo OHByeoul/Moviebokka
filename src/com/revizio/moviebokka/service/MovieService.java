@@ -71,7 +71,7 @@ public class MovieService implements MovieServiceImpl{
 	
 	private String getMovieGenre(int movieCode) {
 		crawling.createDocument(Crawling.URL+Crawling.URL_POST+movieCode);
-		Elements elements = crawling.createElements(Crawling.TARGET3);
+		Elements elements = crawling.createElements(Crawling.TARGET2);
 		for(Element e : elements) {
 			System.out.println(e);
 		}
