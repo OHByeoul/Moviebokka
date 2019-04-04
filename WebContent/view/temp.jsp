@@ -112,34 +112,37 @@ h3.h3{color:#E6E6E6;text-align:center;margin:1em;text-transform:capitalize;font-
 <script>
 	$(function() {
 		var cnt = 1;
+		setMovieMain();
 
-		let $clone = $('.temp_movie').clone();
-		let $target;
-		let title;
-		let img;
-		let rating;
-		
-		<c:forEach var="item" items="${movieInfoFormList}">
-			title = "${item.m_title}";
-			img = "${item.m_img}";
-			rating = ${item.m_user_rating}; 
+		function setMovieMain(){
+			let $clone = $('.temp_movie').clone();
+			let $target;
+			let title;
+			let img;
+			let rating;
 			
-			console.log(title);
-			$clone = $('.temp_movie').clone();
-			$clone.attr("class", "movie");
-			$clone.attr("id", "movie" + cnt++);
-			$clone.find('.title').find('a').html(title);
-			$clone.find('.pic-1').attr("src", img);
-			$clone.find('.pic-2').attr("src", img);
-			$clone.find('.user_rating').html(rating);
-			$clone.show();
-					
-			$target = $clone.find('.rating').find('.fa.fa-star');
-			userRating(rating, $target);
-			$('.top10').append($clone);
-		</c:forEach>
+			<c:forEach var="item" items="${movieInfoFormList}">
+				title = "${item.m_title}";
+				img = "${item.m_img}";
+				rating = ${item.m_user_rating}; 
+				
+				console.log(title);
+				$clone = $('.temp_movie').clone();
+				$clone.attr("class", "movie");
+				$clone.attr("id", "movie" + cnt++);
+				$clone.find('.title').find('a').html(title);
+				$clone.find('.pic-1').attr("src", img);
+				$clone.find('.pic-2').attr("src", img);
+				$clone.find('.user_rating').html(rating);
+				$clone.show();
+						
+				$target = $clone.find('.rating').find('.fa.fa-star');
+				setUserRating(rating, $target);
+				$('.top10').append($clone);
+			</c:forEach>
+		}
 		
-		function userRating(rating, target) {
+		function setUserRating(rating, target) {
 			let highStar = 4;
 			let limit = Math.round(rating/2);
 			console.log(limit);
