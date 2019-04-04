@@ -39,4 +39,23 @@ public class UserDAO {
 		}
 		return conn;
 	}
+
+	public boolean isAthenticate(String id, String password) {
+		boolean result = false;
+		String query = "SELECT * FROM member WHERE mem_email=? AND mem_pass=?";
+		try {
+			conn = instance.getConnection();
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setString(1, id);
+			preparedStatement.setString(2, password);
+			rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }
+
