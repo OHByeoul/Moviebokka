@@ -16,7 +16,6 @@ public class BoardService {
 		boardDAO = BoardDAO.getInstance();
 		initPaging();
 	}
-		
 
 
 	public List<Board> getBoards(String startNum, String endNum) {
