@@ -4,10 +4,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.revizio.moviebokka.dao.UserDAO;
+import com.revizio.moviebokka.dto.Member;
 
 public class UserService {
 	private UserDAO userDAO;
 	private HttpSession session;
+	private Member member;
 	
 	public UserService() {
 		userDAO = UserDAO.getInstance();
@@ -17,10 +19,9 @@ public class UserService {
 	public boolean createSession(HttpServletRequest request,String id, String password) {
 		if(isAthenticate(id, password)) {
 			session = request.getSession();
-			session.setAttribute("name", "sessionnnn");
-			String se = (String) session.getAttribute("name");
-			System.out.println("sessionId "+se);
-			System.out.println("createSession");
+			session.setAttribute("user", member);
+			Member member =  (Member) session.getAttribute("user");
+			System.out.println(member.getMem_id()+" "+member.getMem_email()+" "+member.getMem_pass());
 			return true;
 		} else {
 			System.out.println("session 망함");
@@ -29,9 +30,12 @@ public class UserService {
 	}
 	
 	private boolean isAthenticate(String id, String password) {
-		boolean result =  userDAO.isAthenticate(id,password);
-		System.out.println("계졍 권한 체크");
-		System.out.println(result);
+		member =  userDAO.isAthenticate(id,password);
+		boolean result = false;
+		if(member != null) {
+			result = true;
+		}
+		System.out.println("isAthenticate "+result);
 		return result;
 	}
 	

@@ -10,6 +10,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.revizio.moviebokka.dto.Member;
+
 public class UserDAO {
 	private static UserDAO instance;
 	private Connection conn = null;
@@ -40,9 +42,11 @@ public class UserDAO {
 		return conn;
 	}
 
-	public boolean isAthenticate(String id, String password) {
-		boolean result = false;
+	public Member isAthenticate(String id, String password) {
+		System.out.println("in dao??");
+		System.out.println(id+" "+password);
 		String query = "SELECT * FROM member WHERE mem_email=? AND mem_pass=?";
+		Member member = new Member();
 		try {
 			conn = instance.getConnection();
 			preparedStatement = conn.prepareStatement(query);
@@ -50,12 +54,16 @@ public class UserDAO {
 			preparedStatement.setString(2, password);
 			rs = preparedStatement.executeQuery();
 			while(rs.next()) {
-				result = true;
+				member.setMem_id(rs.getInt("mem_id"));
+				member.setMem_email(rs.getString("mem_email"));
+				member.setMem_pass(rs.getString("mem_pass"));
+				member.setMem_nick(rs.getString("mem_nick"));
+			//	result = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return result;
+		return member;
 	}
 }
 
