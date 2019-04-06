@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,52 +14,69 @@ import com.revizio.moviebokka.dto.MovieInfo;
 import com.revizio.moviebokka.service.MovieService;
 
 public class MovieRequestMapping implements RequestDispatcher {
-	private MovieService movieService;
-	
-	public MovieRequestMapping() {
-		movieService = new MovieService();
-	}
-	
-	@Override
-	public void dispatcherRoute(String route, HttpServletRequest request, HttpServletResponse response) {
-		if(route.equals(Route.CREATE_REVIEW.getRoute())) {
-			
-		} else if(route.equals(Route.GET_MOVIE_INFO.getRoute())) {
-			int code = Integer.parseInt(request.getParameter("code"));
-			String title = request.getParameter("title");
-			String img = request.getParameter("img");
-			String pubDate = request.getParameter("pubDate");
-			String userRating = request.getParameter("userRating");		
-			MovieInfo movieInfo = new MovieInfo(code,title,img,userRating,pubDate);
-			
-			String director = request.getParameter("director");
-			String actor = request.getParameter("actor");
-			Map<String, String> subInfo = new HashMap<String, String>();
+   private MovieService movieService;
+   
+   public MovieRequestMapping() {
+      movieService = new MovieService();
+   }
+   
+   @Override
+   public void dispatcherRoute(String route, HttpServletRequest request, HttpServletResponse response) {
+      if(route.equals(Route.REVIEW_FORM.getRoute())) {
+         
+      } else if(route.equals(Route.CREATE_REVIEW.getRoute())) {
+         String title = request.getParameter("title");
+         String content = request.getParameter("content");
+         String ip = movieService.getClientIP(request); 
+      } else if(route.equals(Route.GET_MOVIE_INFO.getRoute())) {
+         int code = Integer.parseInt(request.getParameter("code"));
+         String title = request.getParameter("title");
+         String img = request.getParameter("img");
+         String pubDate = request.getParameter("pubDate");
+         String userRating = request.getParameter("userRating");      
+         MovieInfo movieInfo = new MovieInfo(code,title,img,userRating,pubDate);
+         
+         String director = request.getParameter("director");
+         String actor = request.getParameter("actor");
+         Map<String, String> subInfo = new HashMap<String, String>();
 
-			subInfo.put("director", director);
-			subInfo.put("actor", actor);
-			GetMovieInfoForm movieInfoForm = new GetMovieInfoForm();
-			movieInfoForm = movieService.getMovieDetailInfo(movieInfo, subInfo);
-			
-			request.setAttribute("movieInfoForm", movieInfoForm);
-			
-		} else if(route.equals(Route.GET_MOVIE_INFOES.getRoute())) {
-			String movieName = request.getParameter("movieName");
-			String json = movieService.getMovieAPIInfo(movieName);
-			
-			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
-			try {
-				response.getWriter().write(json);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} else if(route.equals(Route.GET_MOVIE_MAIN.getRoute())) {
-			List<GetMovieInfoForm> movieInfoFormList = new ArrayList<>();
-			movieInfoFormList = movieService.getMovieDetailInfoList();
-			
-			request.setAttribute("movieInfoFormList", movieInfoFormList);
-		} 
-	}
-
+         subInfo.put("director", director);
+         subInfo.put("actor", actor);
+         GetMovieInfoForm movieInfoForm = new GetMovieInfoForm();
+         movieInfoForm = movieService.getMovieDetailInfo(movieInfo, subInfo);
+         
+         request.setAttribute("movieInfoForm", movieInfoForm);
+         
+      } else if(route.equals(Route.GET_MOVIE_INFOES.getRoute())) {
+         String movieName = request.getParameter("movieName");
+         String json = movieService.getMovieAPIInfo(movieName);
+         
+         response.setContentType("application/json");
+         response.setCharacterEncoding("UTF-8");
+         try {
+            response.getWriter().write(json);
+         } catch (IOException e) {
+            e.printStackTrace();
+         }
+      } else if(route.equals(Route.GET_MOVIE_MAIN.getRoute())) {
+         List<GetMovieInfoForm> movieInfoFormList = new ArrayList<>();
+         movieInfoFormList = movieService.getMovieDetailInfoList();
+         for(GetMovieInfoForm m : movieInfoFormList) {
+            System.out.println(m.getM_code());
+            System.out.println(m.getM_title());
+         }
+               
+         request.setAttribute("movieInfoFormList", movieInfoFormList);
+      } else if(route.equals(Route.GET_MOVIE_DETAIL.getRoute())) {
+         int movieCode = Integer.parseInt(request.getParameter("movieCode"));
+         GetMovieInfoForm getMovieInfoForm = movieService.getSelectedMovieDetail(movieCode);
+         
+         request.setAttribute("movieInfoForm", getMovieInfoForm);
+      } else if(route.equals(Route.GET_MAIN.getRoute())) {
+         List<GetMovieInfoForm> movieInfoFormList = new ArrayList<>();
+         movieInfoFormList = movieService.getMovieDetailInfoList();
+               
+         request.setAttribute("movieInfoFormList", movieInfoFormList);
+      }
+   }
 }

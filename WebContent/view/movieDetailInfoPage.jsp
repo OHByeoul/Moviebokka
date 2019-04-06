@@ -48,5 +48,13 @@
 	<div>
 		${movieInfoForm.m_story}
 	</div>
+	<div>
+		 <button type="button" id="create_review"class="btn btn-primary">리뷰작성</button>
+	</div>
+	<script>
+		$('#create_review').on('click', function(){
+			location.href = "/Moviebokka/movie/reviewCreateForm.jsp";
+		});
+	</script>
 </body>
 </html>
