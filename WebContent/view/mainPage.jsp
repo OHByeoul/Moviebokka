@@ -90,9 +90,10 @@
 <br>
 
 <div class = "container">
-    <h3 class="h3">영화 TOP 10 </h3>
+
+   <div> <h3 class="h3">영화 TOP 10 </h3></div>
     <div class="top10"></div> <!-- 영화 별점으로 해서 값을 넘겨줌 -->
-    <h3 class="h3">추천 영화</h3>
+    <div><h3 class="h3">추천 영화</h3></div>
     <div class="recommand"></div>
     
 		<div class="temp_movie" style="display: none">
@@ -120,6 +121,7 @@
 						<div class= "user_rating">
 							
 						</div>
+						<input type="hidden" id = "code" name="code" value=""/>
 						<a class="add-to-cart" href="">줄거리 보기</a>
 					</div>
 				</div>
@@ -145,11 +147,13 @@ $(function() {
 		let title;
 		let img;
 		let rating;
+		let code;
 		
 		<c:forEach var="item" items="${movieInfoFormList}">
 			title = "${item.m_title}";
 			img = "${item.m_img}";
-			rating = ${item.m_user_rating}; 
+			rating = ${item.m_user_rating};
+			code = ${item.m_code};
 			
 			console.log(title);
 			$clone = $('.temp_movie').clone();
@@ -159,6 +163,7 @@ $(function() {
 			$clone.find('.pic-1').attr("src", img);
 			$clone.find('.pic-2').attr("src", img);
 			$clone.find('.user_rating').html(rating);
+			$clone.find('#code').val(code);
 			$clone.show();
 					
 			$target = $clone.find('.rating').find('.fa.fa-star');
@@ -174,6 +179,14 @@ $(function() {
 		for (let i = highStar; i >= limit; i--) {
 			target.eq(i).attr("class", "fa fa-star disable");
 		}
+	}
+	
+	for(let i = 0; i<cnt; i++){
+		$('.top10').on('click', '#movie'+i, function(){
+			let movieCode = $(this).find('#code').val();
+			console.log(movieCode);
+			location.href = "/Moviebokka/movie/getMovieDetail?movieCode="+movieCode;
+		});
 	}
 });
 </script>

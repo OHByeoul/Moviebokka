@@ -9,6 +9,9 @@ public class MovieInfo {
 	private String m_pub_date;
 	private String m_cnt;
 
+	public MovieInfo() {
+	}
+	
 	public MovieInfo(int code, String title, String img, String userRating,String pubDate) {
 		this.m_code = code;
 		this.m_title = title;
