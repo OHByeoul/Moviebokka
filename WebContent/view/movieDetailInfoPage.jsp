@@ -53,7 +53,7 @@
 	</div>
 	<script>
 		$('#create_review').on('click', function(){
-			location.href = "/Moviebokka/movie/reviewCreateForm.jsp";
+			location.href = "/Moviebokka/movie/createReview";
 		});
 	</script>
 </body>

@@ -50,7 +50,7 @@
     		});
     		
     		$('#cancel').on('click', function(){
-    			location.href = "/Moviebokka/movie/movieDetailInfoPage.jsp";
+    			location.href = "/Moviebokka/movie/getMovieDetail";
     		});
     	});
     </script>
