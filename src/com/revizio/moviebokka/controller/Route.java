@@ -15,8 +15,7 @@ public enum Route {
 	GET_MOVIE_INFOES("getMovieInfoes","ajax"),
 	GET_MOVIE_INFO("getMovieInfo","movieDetailInfoPage.jsp"),
 	GET_MOVIE_DETAIL("getMovieDetail","tempMovieModalTest.jsp"),
-	GET_MOVIE_MAIN("main","temp.jsp"),
-	GET_MOVIE_MAIN2("/","temp.jsp"),
+	GET_MOVIE_MAIN("main","mainPage.jsp"),
 	
 	//Board
 	CREATE_BOARD("createBoard","boardCreateForm.jsp"),
