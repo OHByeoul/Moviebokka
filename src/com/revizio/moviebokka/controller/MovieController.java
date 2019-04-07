@@ -13,7 +13,7 @@ import com.revizio.moviebokka.constant.Constants;
 /**
  * Servlet implementation class MovieController
  */
-@WebServlet(urlPatterns = {"/movie/*","/"})
+@WebServlet(urlPatterns = {"/movie/*"})
 public class MovieController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private MovieRequestMapping movieRequestMapping;
@@ -62,13 +62,8 @@ public class MovieController extends HttpServlet {
 		String getView = "";
 			
 		if(route.length<Constants.THIRD) {
-			if(route.length<=Constants.FIRST) {
-				movieRequestMapping.dispatcherRoute(route[Constants.ZERO],request,response);
-				getView = Route.getViewResolver(route[Constants.ZERO]);
-			} else {
 				movieRequestMapping.dispatcherRoute(route[Constants.FIRST],request,response);
 				getView = Route.getViewResolver(route[Constants.FIRST]);
-			}
 		} else {
 			movieRequestMapping.dispatcherRoute(route[Constants.SECOND],request,response);
 			getView = Route.getViewResolver(route[Constants.SECOND]);

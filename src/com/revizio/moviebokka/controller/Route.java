@@ -26,7 +26,7 @@ public enum Route {
 	MOVE_NEXT("pagingNext","freeboardListPage.jsp"),
 	MOVE_PREV("pagingPrev","freeboardListPage.jsp"),
 	
-	NONE("main","main.jsp");
+	NONE("main","mainPage.jsp");
 	
 	final static String PATH = "/view/";
 	final static String AJAX_FORMMAT = "/view/ajax";
