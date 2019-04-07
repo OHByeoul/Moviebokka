@@ -8,26 +8,41 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.revizio.moviebokka.dto.GetMovieInfoForm;
+import com.revizio.moviebokka.dto.Member;
 import com.revizio.moviebokka.dto.MovieInfo;
 import com.revizio.moviebokka.service.MovieService;
+import com.revizio.moviebokka.service.UserService;
 
 public class MovieRequestMapping implements RequestDispatcher {
    private MovieService movieService;
+   private UserService userService;
+   private HttpSession session;
    
    public MovieRequestMapping() {
       movieService = new MovieService();
+      userService = new UserService();
    }
    
    @Override
    public void dispatcherRoute(String route, HttpServletRequest request, HttpServletResponse response) {
       if(route.equals(Route.REVIEW_FORM.getRoute())) {
-         
+    	int movieCode = Integer.parseInt(request.getParameter("movieCode"));		
+        session = request.getSession();
+        Member member =  (Member) session.getAttribute("user");
+        
+        request.setAttribute("movieCode", movieCode);
+        request.setAttribute("member", member);
       } else if(route.equals(Route.CREATE_REVIEW.getRoute())) {
+    	 int movieCode = Integer.parseInt(request.getParameter("movieCode"));
          String title = request.getParameter("title");
          String content = request.getParameter("content");
-         String ip = movieService.getClientIP(request); 
+         String nick = request.getParameter("nick");
+         String ip = userService.getClientIP(request); 
+         // recommand랑 unrecommand는 서비스에서 받고 
+         System.out.println("last innn "+movieCode+" "+title+" "+content+" "+ip+" "+nick);
       } else if(route.equals(Route.GET_MOVIE_INFO.getRoute())) {
          int code = Integer.parseInt(request.getParameter("code"));
          String title = request.getParameter("title");

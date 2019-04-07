@@ -255,12 +255,10 @@ public class MovieDAO {
          while(rs.next()) {
             int movieCode = rs.getInt("m_code");
             codes.add(movieCode);
-            System.out.println(movieCode);
          }
          for(Integer code : codes) {
             movieInfoForms.add(getMovieDetailInfo(code));
          }
-         System.out.println("done!");
       } catch (SQLException e) {
          e.printStackTrace();
       } finally {

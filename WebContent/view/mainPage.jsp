@@ -38,7 +38,7 @@
         <li><a id = "board">자유게시판</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="/Moviebokka/user/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         <li><a href="#"><span class="icomoon icon-signup"></span> Sign up</a></li>
       </ul>
     </div>
@@ -121,8 +121,8 @@
 						<div class= "user_rating">
 							
 						</div>
-						<input type="hidden" id = "code" name="code" value=""/>
 						<a class="add-to-cart" href="">줄거리 보기</a>
+						<input type="hidden" id="movieCode" name="movieCode" value="">
 					</div>
 				</div>
 			</div>
@@ -163,7 +163,7 @@ $(function() {
 			$clone.find('.pic-1').attr("src", img);
 			$clone.find('.pic-2').attr("src", img);
 			$clone.find('.user_rating').html(rating);
-			$clone.find('#code').val(code);
+			$clone.find('#movieCode').val(code);
 			$clone.show();
 					
 			$target = $clone.find('.rating').find('.fa.fa-star');
@@ -183,7 +183,7 @@ $(function() {
 	
 	for(let i = 0; i<cnt; i++){
 		$('.top10').on('click', '#movie'+i, function(){
-			let movieCode = $(this).find('#code').val();
+			let movieCode = $(this).find('#movieCode').val();
 			console.log(movieCode);
 			location.href = "/Moviebokka/movie/getMovieDetail?movieCode="+movieCode;
 		});
