@@ -20,30 +20,7 @@
 <%
 	String imagePath = request.getContextPath()+"/static/images/";
 %>
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="#">무비보까</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">홈</a></li>
-        <li><a href="/Moviebokka/movie/searchMovieName">영화정보</a></li>
-        <li><a href="#">영화리뷰게시판</a></li>
-        <li><a id = "board">자유게시판</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="/Moviebokka/user/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        <li><a href="#"><span class="icomoon icon-signup"></span> Sign up</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+
 <br>
 <div class="jumbotron">
   <div class="container text-center">
