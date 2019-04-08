@@ -1,10 +1,11 @@
 package com.revizio.moviebokka.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -13,6 +14,7 @@ import com.revizio.moviebokka.constant.Constants;
 import com.revizio.moviebokka.dao.MovieDAO;
 import com.revizio.moviebokka.dto.GetMovieInfoForm;
 import com.revizio.moviebokka.dto.MovieInfo;
+import com.revizio.moviebokka.dto.Review;
 import com.revizio.moviebokka.serviceimpl.MovieServiceImpl;
 import com.revizio.moviebokka.util.Crawling;
 import com.revizio.moviebokka.util.MovieInfoRequest;
@@ -112,4 +114,28 @@ public class MovieService implements MovieServiceImpl{
    public GetMovieInfoForm getSelectedMovieDetail(int movieCode) {
       return movieDAO.getMovieDetailInfo(movieCode);
    }
+
+	public Review createReview(Review review) {
+		Review getReview = new Review();
+		review.setRev_regdate(getNowDate());
+		boolean result = movieDAO.createReview(review);
+		int revId = movieDAO.getReviewId();
+		if(result && revId != 0) {
+			getReview = movieDAO.getReviewDetailInfo(revId);
+			System.out.println("review : "+getReview.getMem_id()+" "+getReview.getRev_content());
+		} 
+		return getReview;
+	}
+
+	private Date getNowDate() {
+		SimpleDateFormat format = new SimpleDateFormat(Constants.DATEFORMAT);
+		
+		java.util.Date date = new java.util.Date();
+		String formatedDate = format.format(date);
+        System.out.println("date "+date);
+        System.out.println("formatedDate "+formatedDate);
+		Date nowDate = Date.valueOf(formatedDate);
+		System.out.println(nowDate);
+		return nowDate;
+	}
 }

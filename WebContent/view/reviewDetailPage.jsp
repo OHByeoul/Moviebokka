@@ -19,7 +19,7 @@ body {
 	margin-left : 90px;
 }
 .ip{
-	margin-left : 300px;
+	margin-left : 500px;
 }
 .time {
 	margin-left : 120px;
@@ -39,23 +39,32 @@ h2 {
 <body>
 	<div class="container">
 		<h2>리뷰 내용</h2>
+		<div class="list">
+			<button type="button" id="list" class="btn btn-default">목록으로</button>
+		</div>
 		<div class="panel-group">
 			<div class="Panel with panel-primary class">
 				<div class="panel-heading">
-					<span class="num">번호</span> <span class="title">제목</span>
-					<span class="ip">아이피</span>
+					<span class="num">번호 ${reviewDetail.rev_id}</span> <span class="title">제목 ${reviewDetail.rev_title}</span>
+					<span class="ip">아이피 ${reviewDetail.rev_ip}</span>
 				</div>
 				<div class="Panel with panel-info class">
 					<div class="panel-heading">
 					
-						<span class="nick">닉네임</span> <span class="time">추천</span> 
-						<span class="view">조회수</span> <span class="recommand">시간</span>
+						<span class="nick">닉네임 ${reviewDetail.mem_nick}</span> <span class="time">추천 ${reviewDetail.rev_recommand}</span> 
+						<span class="view">조회수 ${reviewDetail.rev_view}</span> <span class="recommand">시간 ${reviewDetail.rev_regdate}</span>
 					</div>
-					<div class="panel-body">Panel Content</div>
+					<div class="panel-body">${reviewDetail.rev_content}</div>
 				</div>
 
 			</div>
 		</div>
 	</div>
+	<script>
+		$('#list').on('click', function(){
+			let code = ${reviewDetail.m_code};
+			location.href="/Moviebokka/movie/getMovieInfo?code="+code;
+		});
+	</script>
 </body>
 </html>

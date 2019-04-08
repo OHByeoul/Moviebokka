@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.revizio.moviebokka.dto.GetMovieInfoForm;
 import com.revizio.moviebokka.dto.Member;
 import com.revizio.moviebokka.dto.MovieInfo;
+import com.revizio.moviebokka.dto.Review;
 import com.revizio.moviebokka.service.MovieService;
 import com.revizio.moviebokka.service.UserService;
 
@@ -39,9 +40,20 @@ public class MovieRequestMapping implements RequestDispatcher {
     	 int movieCode = Integer.parseInt(request.getParameter("movieCode"));
          String title = request.getParameter("title");
          String content = request.getParameter("content");
+         int memId = Integer.parseInt(request.getParameter("memId"));
          String nick = request.getParameter("nick");
-         String ip = userService.getClientIP(request); 
+         String ip = userService.getClientIP(request);
+         Review review = new Review(title,content,memId,nick,movieCode,ip);
+//         review.setRev_title(title);
+//         review.setRev_content(content);
+//         review.setMem_nick(nick);
+//         review.setM_code(movieCode);
+//         review.setMem_id(memId);
+//         review.setRev_ip(ip);
          // recommand랑 unrecommand는 서비스에서 받고 
+         // todo : setatt mem, review,
+         Review getDetailReview = movieService.createReview(review);
+         request.setAttribute("reviewDetail", getDetailReview);
          System.out.println("last innn "+movieCode+" "+title+" "+content+" "+ip+" "+nick);
       } else if(route.equals(Route.GET_MOVIE_INFO.getRoute())) {
          int code = Integer.parseInt(request.getParameter("code"));

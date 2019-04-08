@@ -19,10 +19,11 @@
             <h2>리뷰 작성</h2>
             <form class="form-horizontal" action="" id = "review_form" method="post">
            		 <input type="hidden" name="movieCode" value="${movieCode}" >
+           		 <input type="hidden" name="memId" value="${member.mem_id}" >
               <div class="form-group">
                     <label class="control-label col-sm-2" for="email">리뷰제목 </label>
                     <div class="col-sm-8 offset-md-1">
-                      <input type="email" class="form-control" id="email" placeholder="리뷰 제목" name="title" required>
+                      <input type="text" class="form-control" id="title" placeholder="리뷰 제목" name="title" required>
                     </div>
                   </div>
                   <div class="form-group">
@@ -35,7 +36,7 @@
                   <div class="form-group">
                         <label class="control-label col-sm-2" for="pwd">리뷰내용</label>
                         <div class="col-sm-8 offset-md-1">          
-                            <textarea class="form-control" rows="8" cols="50" placeholder="리뷰 내용" name="content" required></textarea>
+                            <textarea class="form-control" rows="8" cols="50" placeholder="리뷰 내용" name="content" required="true"></textarea>
                         </div>
                       </div>
                   <div class="form-group">        

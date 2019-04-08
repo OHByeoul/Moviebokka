@@ -15,7 +15,6 @@ public class UserService {
 		userDAO = UserDAO.getInstance();
 	}
 
-
 	public boolean createSession(HttpServletRequest request,String id, String password) {
 		if(isAthenticate(id, password)) {
 			session = request.getSession();

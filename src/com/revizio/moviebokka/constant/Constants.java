@@ -9,6 +9,7 @@ public class Constants {
 	public static final int FIRST = 1;
 	public static final int SECOND = 2;
 	public static final int THIRD = 3;
+	public static final String DATEFORMAT = "yyyy-MM-dd";
 	
 	//Paging
 	public static int INIT_CURRENT_PAGE = 1;
