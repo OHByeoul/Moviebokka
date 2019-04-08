@@ -56,7 +56,6 @@ h2 {
 					</div>
 					<div class="panel-body">${reviewDetail.rev_content}</div>
 				</div>
-
 			</div>
 		</div>
 	</div>

@@ -345,4 +345,29 @@ public boolean createReview(Review review) {
 	      }
 		return revId;
 	}
+
+	public List<Review> getReviewList(int movieCode) {
+		String query = "SELECT * FROM review WHERE m_code=?";
+		List reviews = new ArrayList<>();
+		conn = instance.getConnection();
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setInt(1, movieCode);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				Review review = new Review();
+				review.setRev_id(rs.getInt("rev_id"));
+				review.setRev_title(rs.getString("rev_title"));
+				review.setRev_content(rs.getString("rev_content"));
+				review.setMem_nick(rs.getString("mem_nick"));
+				review.setRev_regdate(rs.getDate("rev_regdate"));
+				reviews.add(review);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		return reviews;
+	}
 }

@@ -51,8 +51,7 @@
     </div><!--container-->
     <script>
     	$(function(){
-    		$('#create_review').on('click', function(){
-    		
+    		$('#create_review').on('click', function(){  		
     			let form = $('#review_form').serialize();
     			location.href = "/Moviebokka/movie/createReview?"+form;
     		});

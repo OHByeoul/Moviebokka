@@ -138,4 +138,8 @@ public class MovieService implements MovieServiceImpl{
 		System.out.println(nowDate);
 		return nowDate;
 	}
+
+	public List<Review> getReviewList(int movieCode) {
+		return movieDAO.getReviewList(movieCode);
+	}
 }
