@@ -35,7 +35,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="/Moviebokka/user/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        <li><a href="#"><span class="icomoon icon-signup"></span> Sign up</a></li>
+        <li><a href="/Moviebokka/user/join"><span class="icomoon icon-signup"></span> Sign up</a></li>
       </ul>
     </div>
   </div>

@@ -2,7 +2,8 @@ package com.revizio.moviebokka.controller;
 
 public enum Route {
 	//User
-	JOIN("join","userJoinForm.jsp"),
+	JOIN("join","tempUserJoinForm.jsp"),
+	JOIN_ACTION("joinAction","mainPage.jsp"),
 	LOGIN("login","temploginForm.jsp"),
 	CHECK_AUTHENTICATE("isAuthenticate","mainPage.jsp"),
 	GET_MYPAGE("mypage","mypagePage.jsp"),
