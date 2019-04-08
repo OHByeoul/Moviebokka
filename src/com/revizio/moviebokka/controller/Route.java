@@ -4,14 +4,14 @@ public enum Route {
 	//User
 	JOIN("join","userJoinForm.jsp"),
 	LOGIN("login","temploginForm.jsp"),
-	CHECK_AUTHENTICATE("isAuthenticate","userAuthenticatePage.jsp"),
+	CHECK_AUTHENTICATE("isAuthenticate","mainPage.jsp"),
 	GET_MYPAGE("mypage","mypagePage.jsp"),
 	EDIT_MYPAGE("",""),
 	
 	//Movie
 	SEARCH_MOVIENAME("searchMovieName","searchMoviePage.jsp"),
 	REVIEW_FORM("reviewForm","reviewCreateForm.jsp"),
-	CREATE_REVIEW("createReview","movieDetailInfoPage.jsp"),
+	CREATE_REVIEW("createReview","reviewDetailPage.jsp"),
 	GET_MOVIE_INFOES("getMovieInfoes","ajax"),
 	GET_MOVIE_INFO("getMovieInfo","movieDetailInfoPage.jsp"),
 	GET_MOVIE_DETAIL("getMovieDetail","movieDetailInfoPage.jsp"),
