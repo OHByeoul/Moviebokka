@@ -87,7 +87,6 @@
 						temp+='<tr id="temp${status.index}">';
 						temp+='<td>${item.rev_id}</td>';
 						temp+='<td>${item.rev_title}</td>';
-						temp+='<td>${item.rev_content}</td>';
 						temp+='<td>${item.mem_nick}</td>';
 						temp+='<td>${item.rev_regdate}</td>';
 						temp+="</tr>";

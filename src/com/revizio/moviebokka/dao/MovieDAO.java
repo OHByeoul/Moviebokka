@@ -358,7 +358,6 @@ public boolean createReview(Review review) {
 				Review review = new Review();
 				review.setRev_id(rs.getInt("rev_id"));
 				review.setRev_title(rs.getString("rev_title"));
-				review.setRev_content(rs.getString("rev_content"));
 				review.setMem_nick(rs.getString("mem_nick"));
 				review.setRev_regdate(rs.getDate("rev_regdate"));
 				reviews.add(review);
