@@ -62,7 +62,7 @@ h2 {
 	<script>
 		$('#list').on('click', function(){
 			let code = ${reviewDetail.m_code};
-			location.href="/Moviebokka/movie/getMovieInfo?code="+code;
+			location.href = "/Moviebokka/movie/getMovieDetail?movieCode="+code;
 		});
 	</script>
 </body>
