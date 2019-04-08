@@ -58,7 +58,8 @@
     		});
     		
     		$('#cancel').on('click', function(){
-    			location.href = "/Moviebokka/movie/getMovieDetail";
+    			let movieCode = $("input[name='movieCode']").val();
+    			location.href = "/Moviebokka/movie/getMovieDetail?movieCode="+movieCode;
     		});
     	});
     </script>
