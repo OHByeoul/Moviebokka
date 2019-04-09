@@ -20,6 +20,9 @@ public class UserRequestMapping implements RequestDispatcher{
 				String password = request.getParameter("password");
 				
 				userService.userJoin(request,id,password);
+			} else if(route.equals(Route.JOIN_AUTHENTICATE.getRoute())) {
+				String id = request.getParameter("email");
+				userService.updateUserEmailAuthenticate(id);
 			} else if(route.equals(Route.CHECK_AUTHENTICATE.getRoute())) {
 				String id = request.getParameter("id");
 				String password = request.getParameter("password");

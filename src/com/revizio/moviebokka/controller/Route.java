@@ -4,6 +4,7 @@ public enum Route {
 	//User
 	JOIN("join","tempUserJoinForm.jsp"),
 	JOIN_ACTION("joinAction","mainPage.jsp"),
+	JOIN_AUTHENTICATE("emailAuthenticate","mainPage.jsp"),
 	LOGIN("login","temploginForm.jsp"),
 	CHECK_AUTHENTICATE("isAuthenticate","mainPage.jsp"),
 	GET_MYPAGE("mypage","mypagePage.jsp"),

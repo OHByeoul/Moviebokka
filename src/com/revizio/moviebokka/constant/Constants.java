@@ -18,6 +18,9 @@ public class Constants {
 	public static final String PADD = "0";
 	public static final String SALT = "sea salt";
 	
+	//MailManager
+	
+	
 	//Paging
 	public static int INIT_CURRENT_PAGE = 1;
 	public static int INIT_START_INDEX = 1;

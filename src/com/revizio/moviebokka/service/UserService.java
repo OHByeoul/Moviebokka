@@ -70,21 +70,23 @@ public class UserService {
 			System.out.println("응 꺼져");
 		}
 	}
-
-	private void sendAuthenticateMail(String id) {
-		System.out.println("iiiiiiiiidd2 "+id);
+	//TODO : 1. 메일 보낸 후에 메인페이지로 이동하지 않고 (이메일 인증 후 이용해주세요 뭐 이런 페이지로 이동시켜야됨 현재는 mainPage.jsp)
+	// 2. 인증 누른 후에 (이메일 인증이 되었습니다. 라고 메세지를 주던지 아니면 페이지로 이동시켜야됨 mainPage.jsp)
+	private void sendAuthenticateMail(String email) {
+		System.out.println(email);
 		MailManager mailManager = new MailManager();
-		if(true) { //이메일 인증이 되었다면
-			String mail = userDAO.getSelectedUserEmail(id);
-			System.out.println("mail "+mail);
-			mailManager.sendMailUsingTLS("suriessay@naver.com");
-			System.out.println("메일보냄");
+		mailManager.sendMailUsingTLS(email);
+	}
+
+	public void updateUserEmailAuthenticate(String email) {
+		String confirmedMail = userDAO.getUserEmail(email);
+		if(email.equals(confirmedMail)) {
+			userDAO.updateUserEmailAuthenticate(email);			
+			System.out.println("이메일 인증이 완료됬당");
+		} else {
+			System.out.println("인증 실패");
 		}
 	}
-
-	private boolean isEmailConfirmed(String id) {
-		return userDAO.getIsEmailConfirmed(id);
-	}
 	
-	//TODO : 알아서 하셍 !!
+	
 }

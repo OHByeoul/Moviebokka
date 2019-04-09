@@ -119,6 +119,24 @@ public class UserDAO {
 		}
 		return false;
 	}
+	
+	public String getUserEmail(String id) {
+		String query = "SELECT mem_email FROM member1 WHERE mem_email = ?";
+		conn = instance.getConnection();
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setString(1, id);
+			rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				return rs.getString("mem_email");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		return null;
+	}
 
 	public String getSelectedUserEmail(String id) {
 		String query = "SELECT mem_email FROM member1 WHERE mem_email = ?";
@@ -137,6 +155,23 @@ public class UserDAO {
 			closeIdleConnection();
 		}
 		return mail;
+	}
+
+	public boolean updateUserEmailAuthenticate(String id) {
+		String query = "UPDATE member1 SET mem_auth = 1 WHERE mem_email = ?";
+		conn = instance.getConnection();
+		int result = 0;
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setString(1, id);
+			result = preparedStatement.executeUpdate();
+			if(result==1) {
+				return true; 
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }
 
