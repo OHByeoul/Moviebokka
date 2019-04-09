@@ -42,8 +42,5 @@ public class MailManager{
 			} catch (MessagingException e) {
 				throw new RuntimeException(e);
 			}
-		}
-//		PasswordAuthentication getPasswordAuthenticattion() {
-//		return new PasswordAuthentication("soddol4254@gmail.com", "tlakdl33"); //구글 아디 비번 - 메일을 전송할 관리자의 아디 비번
-	
+		}	
 }
