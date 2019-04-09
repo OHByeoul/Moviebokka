@@ -7,7 +7,7 @@ import com.revizio.moviebokka.dao.UserDAO;
 import com.revizio.moviebokka.dto.Member;
 import com.revizio.moviebokka.dto.Member1;
 import com.revizio.moviebokka.util.EncryptManager;
-import com.revizio.moviebokka.util.SMTPManager;
+import com.revizio.moviebokka.util.MailManager;
 
 public class UserService {
 	private UserDAO userDAO;
@@ -73,7 +73,7 @@ public class UserService {
 
 	private void sendAuthenticateMail(String id) {
 		System.out.println("iiiiiiiiidd2 "+id);
-		SMTPManager mailManager = new SMTPManager();
+		MailManager mailManager = new MailManager();
 		if(true) { //이메일 인증이 되었다면
 			String mail = userDAO.getSelectedUserEmail(id);
 			System.out.println("mail "+mail);

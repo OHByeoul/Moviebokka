@@ -4,24 +4,25 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import com.revizio.moviebokka.constant.Constants;
+
 public class EncryptManager {
 	public static String encryptString(String input) {
-		String salt = "sea salt";
 		try {
-			MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
-			messageDigest.update(salt.getBytes());
+			MessageDigest messageDigest = MessageDigest.getInstance(Constants.SHA);
+			messageDigest.update(Constants.SALT.getBytes());
 			byte[] digest = messageDigest.digest(input.getBytes());
 			BigInteger no = new BigInteger(1, digest);
-			String hashtext = no.toString(16);
+			String hashtext = no.toString(Constants.HEXA_DECIMAL);
 			System.out.println(hashtext);
-			while(hashtext.length() < 32) {
-				hashtext = "0"+hashtext;
+			
+			while(hashtext.length() < Constants.PADD_LIMIT) {
+				hashtext = Constants.PADD+hashtext;
 			}
 			return hashtext;
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return salt;
+		return null;
 	}
 }

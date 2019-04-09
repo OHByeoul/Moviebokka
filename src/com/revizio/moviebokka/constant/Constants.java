@@ -11,6 +11,13 @@ public class Constants {
 	public static final int THIRD = 3;
 	public static final String DATEFORMAT = "yyyy-MM-dd";
 	
+	//encryptManager
+	public static final String SHA = "SHA-512";
+	public static final int HEXA_DECIMAL = 16;
+	public static final int PADD_LIMIT = 32;
+	public static final String PADD = "0";
+	public static final String SALT = "sea salt";
+	
 	//Paging
 	public static int INIT_CURRENT_PAGE = 1;
 	public static int INIT_START_INDEX = 1;
