@@ -60,6 +60,10 @@ h2 {
 			</div>
 		</div>
 	</div>
+	<form action="/Moviebokka/movie/deleteReview" method="POST" id="deleteReviewForm" style="display: hidden">
+	  <input type="hidden" id="revId" name="revId" value=""/>
+	  <input type="hidden" id="movieCode" name="movieCode" value=""/>
+	</form>
 	<script>
 		$(function(){
 			let session = "${session.mem_nick}";
@@ -75,7 +79,9 @@ h2 {
 				let result = confirm("정말로 삭제할꼬얌??");
 				let revId = "${reviewDetail.rev_id}";
 				if(result){
-					location.href="/Moviebokka/movie/deleteReview?revId="+revId+"&movieCode="+movieCode;	
+					$('#revId').val(revId);
+					$('#movieCode').val(movieCode);
+					$("#deleteReviewForm").submit();	
 				}
 			});
 			

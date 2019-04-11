@@ -51,6 +51,7 @@ public class MovieController extends HttpServlet {
 	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("doDelete");
 		requestMapper(request,response);
 	}
 
