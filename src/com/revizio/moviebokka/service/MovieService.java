@@ -147,4 +147,9 @@ public class MovieService implements MovieServiceImpl{
 		int id = Integer.parseInt(revId); 
 		return movieDAO.getReviewDetailInfo(id);
 	}
+
+	public boolean deleteSelectedReview(String revId) {
+		int id = Integer.parseInt(revId); 
+		return movieDAO.deleteReview(id); 
+	}
 }

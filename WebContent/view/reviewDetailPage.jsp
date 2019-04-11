@@ -41,6 +41,7 @@ h2 {
 		<h2>리뷰 내용</h2>
 		<div class="list">
 			<button type="button" id="list" class="btn btn-default">목록으로</button>
+			<button type="button" id="delete" class="btn btn-default" style="display:none">글삭제</button>
 		</div>
 		<div class="panel-group">
 			<div class="Panel with panel-primary class">
@@ -60,9 +61,28 @@ h2 {
 		</div>
 	</div>
 	<script>
-		$('#list').on('click', function(){
-			let code = ${reviewDetail.m_code};
-			location.href = "/Moviebokka/movie/getMovieDetail?movieCode="+code;
+		$(function(){
+			let session = "${session.mem_nick}";
+			let nick = "${reviewDetail.mem_nick}";
+			let movieCode = "${reviewDetail.m_code}";
+			if(session !== 'undefined' && nick !== 'undefined'){
+				if(session == nick){
+					$('#delete').show();
+				}
+			}
+			
+			$('#delete').on('click', function(){
+				let result = confirm("정말로 삭제할꼬얌??");
+				let revId = "${reviewDetail.rev_id}";
+				if(result){
+					location.href="/Moviebokka/movie/deleteReview?revId="+revId+"&movieCode="+movieCode;	
+				}
+			});
+			
+			$('#list').on('click', function(){
+				let code = ${reviewDetail.m_code};
+				location.href = "/Moviebokka/movie/getMovieDetail?movieCode="+code;
+			});			
 		});
 	</script>
 </body>

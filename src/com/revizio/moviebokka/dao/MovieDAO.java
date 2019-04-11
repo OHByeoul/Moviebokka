@@ -369,4 +369,23 @@ public boolean createReview(Review review) {
 		}
 		return reviews;
 	}
+
+	public boolean deleteReview(int revId) {
+		String query = "DELETE FROM review WHERE rev_id=?";		
+		conn = instance.getConnection();
+		int result = 0;
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setInt(1, revId);
+			result = preparedStatement.executeUpdate();
+			if(result >0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		return false;
+	}
 }
