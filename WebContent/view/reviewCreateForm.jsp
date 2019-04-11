@@ -17,7 +17,7 @@
 <body>
     <div class="container">
             <h2>리뷰 작성</h2>
-            <form class="form-horizontal" action="" id = "review_form" method="post">
+            <form class="form-horizontal" action="/Moviebokka/movie/createReview" id = "review_form" method="post">
            		 <input type="hidden" name="movieCode" value="${movieCode}" >
            		 <input type="hidden" name="memId" value="${member.mem_id}" >
               <div class="form-group">
@@ -36,9 +36,10 @@
                   <div class="form-group">
                         <label class="control-label col-sm-2" for="pwd">리뷰내용</label>
                         <div class="col-sm-8 offset-md-1">          
-                            <textarea class="form-control" rows="8" cols="50" placeholder="리뷰 내용" name="content" required="true"></textarea>
+                            <textarea class="form-control" rows="8" cols="50" placeholder="리뷰 내용" name="content" required></textarea>
                         </div>
                       </div>
+            </form>
                   <div class="form-group">        
                     <div class="col-sm-offset-2 col-sm-1">
                       <button type="button" id="create_review"class="btn btn-primary">리뷰작성</button>
@@ -47,13 +48,13 @@
                         <button type="button" id = "cancel" class="btn btn-danger">취소</button>
                       </div>
                 </div>
-            </form>
     </div><!--container-->
     <script>
     	$(function(){
-    		$('#create_review').on('click', function(){  		
-    			let form = $('#review_form').serialize();
-    			location.href = "/Moviebokka/movie/createReview?"+form;
+    		$('#create_review').on('click', function(){  
+    			$('#review_form').submit();
+    			//let form = $('#review_form').serialize();
+    			//location.href = "/Moviebokka/movie/createReview?"+form;
     		});
     		
     		$('#cancel').on('click', function(){
