@@ -152,4 +152,11 @@ public class MovieService implements MovieServiceImpl{
 		int id = Integer.parseInt(revId); 
 		return movieDAO.deleteReview(id); 
 	}
+
+	public Review updateSelectedReview(String revId, String title, String content) {
+		int id = Integer.parseInt(revId);
+		boolean result = movieDAO.updateSelectedReview(id,title,content);
+		  
+		return movieDAO.getReviewDetailInfo(id);
+	}
 }

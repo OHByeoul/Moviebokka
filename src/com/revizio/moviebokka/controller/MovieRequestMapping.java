@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.revizio.moviebokka.dao.MovieDAO;
 import com.revizio.moviebokka.dto.GetMovieInfoForm;
 import com.revizio.moviebokka.dto.Member;
 import com.revizio.moviebokka.dto.MovieInfo;
@@ -59,6 +60,21 @@ public class MovieRequestMapping implements RequestDispatcher {
     	  String revId = request.getParameter("revId");
     	  Review selectedReview = movieService.getSelectedReviewDetail(revId);
     	  session = request.getSession();
+    	  Member member =  (Member) session.getAttribute("user");
+    	  session.setAttribute("session", member);
+    	  request.setAttribute("reviewDetail", selectedReview);
+      } else if(route.equals(Route.UPDATE_FORM.getRoute())) {
+    	  String revId = request.getParameter("revId");
+    	  Review selectedReview = movieService.getSelectedReviewDetail(revId);
+    	  Member member =  (Member) session.getAttribute("user");
+    	  session.setAttribute("session", member);
+    	  request.setAttribute("review", selectedReview);
+      } else if(route.equals(Route.UPDATE_REVIEW.getRoute())) {
+    	  String revId = request.getParameter("revId");
+    	  String title = request.getParameter("title");
+    	  String content = request.getParameter("content");
+    	  Review selectedReview = movieService.updateSelectedReview(revId,title,content);
+    	  
     	  Member member =  (Member) session.getAttribute("user");
     	  session.setAttribute("session", member);
     	  request.setAttribute("reviewDetail", selectedReview);

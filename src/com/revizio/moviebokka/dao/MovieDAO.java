@@ -388,4 +388,26 @@ public boolean createReview(Review review) {
 		}
 		return false;
 	}
+
+	public boolean updateSelectedReview(int revId, String title, String content) {
+		String query = "UPDATE review SET rev_title=?, rev_content=? WHERE rev_id=?";
+		int result = 0;
+		conn = instance.getConnection();
+		
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setString(1, title);
+			preparedStatement.setString(2, content);
+			preparedStatement.setInt(3, revId);
+			result = preparedStatement.executeUpdate();
+			if (result > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		return false;
+	}
 }

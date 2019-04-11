@@ -53,8 +53,6 @@
     	$(function(){
     		$('#create_review').on('click', function(){  
     			$('#review_form').submit();
-    			//let form = $('#review_form').serialize();
-    			//location.href = "/Moviebokka/movie/createReview?"+form;
     		});
     		
     		$('#cancel').on('click', function(){
