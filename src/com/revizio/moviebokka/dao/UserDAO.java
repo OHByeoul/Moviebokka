@@ -42,12 +42,12 @@ public class UserDAO {
 		}
 		return conn;
 	}
-//temp : member -> member1
-	public Member1 isAthenticate(String id, String password) {
+//temp : member1 -> member 로 바꿔줘야됨 이메일 인증 테스트로 인한 변경
+	public Member isAthenticate(String id, String password) {
 		System.out.println("in dao??");
 		System.out.println(id+" "+password);
-		String query = "SELECT * FROM member1 WHERE mem_email=? AND mem_pass=?";
-		Member1 member = new Member1();
+		String query = "SELECT * FROM member WHERE mem_email=? AND mem_pass=?"; // 이것도 변경해야됨
+		Member member = new Member(); //
 		try {
 			conn = instance.getConnection();
 			preparedStatement = conn.prepareStatement(query);
@@ -58,7 +58,7 @@ public class UserDAO {
 				member.setMem_id(rs.getInt("mem_id"));
 				member.setMem_email(rs.getString("mem_email"));
 				member.setMem_pass(rs.getString("mem_pass"));
-				//member.setMem_nick(rs.getString("mem_nick"));
+				member.setMem_nick(rs.getString("mem_nick")); //이메일 인증 테스트시 주석처리
 			//	result = true;
 			}
 		} catch (SQLException e) {

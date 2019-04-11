@@ -8,21 +8,21 @@
 <title>Insert title here</title>
 </head>
 <body>
-	 <form action="" id="join_form" method="post">
+	 <form action="/Moviebokka/user/joinAction" id="join_form" method="post">
             <span>아디 </span>
             <input type="text" name="id"><br>
             <span>비번 </span>
             <input type="password" name="password"><br>
-            <input type="button" id="submit" value="회원가입">
+            <input type="submit" id="submit" value="회원가입">
         </form>
     
     
     <script>
-    	$('#submit').on('click', function(){
-    		let data = $('#join_form').serialize();
-    		console.log(data);
-    		location.href = "/Moviebokka/user/joinAction?"+data;
-    	});
+  //  	$('#submit').on('click', function(){
+  //  		let data = $('#join_form').serialize();
+  //  		console.log(data);
+   // 		location.href = "/Moviebokka/user/joinAction?"+data;
+   // 	});
     </script>
 </body>
 </html>

@@ -12,7 +12,8 @@ import com.revizio.moviebokka.util.MailManager;
 public class UserService {
 	private UserDAO userDAO;
 	private HttpSession session;
-	private Member1 member;
+	//private Member1 member1; //temp
+	private Member member;
 	
 	public UserService() {
 		userDAO = UserDAO.getInstance();
@@ -22,7 +23,8 @@ public class UserService {
 		if(isAthenticate(id, password)) {
 			session = request.getSession();
 			session.setAttribute("user", member);
-			Member1 member =  (Member1) session.getAttribute("user");
+			//session.setAttribute("user", member1);
+			Member member =  (Member) session.getAttribute("user"); // 이것도 테스트시 1로 변경
 			//System.out.println(member.getMem_id()+" "+member.getMem_email()+" "+member.getMem_pass());
 			return true;
 		} else {
@@ -32,9 +34,9 @@ public class UserService {
 	}
 	
 	private boolean isAthenticate(String id, String password) {
-		member =  userDAO.isAthenticate(id,password);
+		member =  userDAO.isAthenticate(id,password); // 이메일인증 테스트시 member1
 		boolean result = false;
-		if(member != null) {
+		if(member != null) { // same
 			result = true;
 		}
 		System.out.println("isAthenticate "+result);
@@ -75,7 +77,7 @@ public class UserService {
 	private void sendAuthenticateMail(String email) {
 		System.out.println(email);
 		MailManager mailManager = new MailManager();
-		mailManager.sendMailUsingTLS(email);
+		//mailManager.sendMailUsingTLS(email); //if email이 메일형식이라면 메소드 실행되도록 변경 시켜야됨
 	}
 
 	public void updateUserEmailAuthenticate(String email) {

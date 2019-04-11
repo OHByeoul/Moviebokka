@@ -55,7 +55,11 @@ public class MovieRequestMapping implements RequestDispatcher {
          Review getDetailReview = movieService.createReview(review);
          request.setAttribute("reviewDetail", getDetailReview);
          System.out.println("last innn "+movieCode+" "+title+" "+content+" "+ip+" "+nick);
-      } else if(route.equals(Route.GET_MOVIE_INFO.getRoute())) {
+      } else if(route.equals(Route.GET_REVIEW_INFO.getRoute())) {
+    	  String revId = request.getParameter("revId");
+    	  Review selectedReview = movieService.getSelectedReviewDetail(revId);
+    	  request.setAttribute("reviewDetail", selectedReview);
+      }else if(route.equals(Route.GET_MOVIE_INFO.getRoute())) {
          int code = Integer.parseInt(request.getParameter("code"));
          String title = request.getParameter("title");
          String img = request.getParameter("img");

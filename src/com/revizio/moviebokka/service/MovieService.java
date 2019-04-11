@@ -142,4 +142,9 @@ public class MovieService implements MovieServiceImpl{
 	public List<Review> getReviewList(int movieCode) {
 		return movieDAO.getReviewList(movieCode);
 	}
+
+	public Review getSelectedReviewDetail(String revId) {
+		int id = Integer.parseInt(revId); 
+		return movieDAO.getReviewDetailInfo(id);
+	}
 }

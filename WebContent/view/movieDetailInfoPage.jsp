@@ -86,7 +86,7 @@
 					temp="";
 						temp+='<tr id="temp${status.index}">';
 						temp+='<td>${item.rev_id}</td>';
-						temp+='<td>${item.rev_title}</td>';
+						temp+='<td><a href="/Moviebokka/movie/getSelectedReview?revId=${item.rev_id}">${item.rev_title}</a></td>';
 						temp+='<td>${item.mem_nick}</td>';
 						temp+='<td>${item.rev_regdate}</td>';
 						temp+="</tr>";
