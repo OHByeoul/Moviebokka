@@ -3,10 +3,14 @@
 .row {
   margin-left : 350px;
 }
+.temp_movie{
+	width : 100px;
+	height : 80px;
+}
 body {
   background-color :  #666666;
 }
-.title {
+.result-title {
   font-size : 25px;
   color :  #E4E4E4;
   border-left: 7px solid red;
@@ -18,6 +22,9 @@ body {
   margin-left : 20px;
   font-size : 15px;
   color :  #E4E4E4;
+}
+.movie-result {
+	text-align : left;
 }
 .search-movie-form {
   margin-top : 40px;

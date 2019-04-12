@@ -30,7 +30,7 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">홈</a></li>
         <li><a href="/Moviebokka/movie/searchMovieName">영화정보</a></li>
-        <li><a href="#">영화리뷰게시판</a></li>
+        <li><a href="/Moviebokka/movie/searchDetailInfo">영화검색</a></li>
         <li><a id = "board">자유게시판</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

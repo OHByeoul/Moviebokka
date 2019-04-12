@@ -7,6 +7,7 @@
 <html> 
 	<head>
 	<link rel="stylesheet" href="/Moviebokka/static/css/searchPage.css">
+	<link rel="stylesheet" href="/Moviebokka/static/css/mainPage.css">
 	</head>
 	<body>
 		 <div class="container">
@@ -27,20 +28,21 @@
 		    </div>
 		    <div class = "search-result-form">
 		        <div class = "search-in-movie">
-		            <div class = "search-movie-form">
-		                <span class="title">영화에서 검색 결과</span><span class="sub">더보기</span>
+		            <div class = "search-movie-form" >
+		                <span class="result-title">영화에서 검색 결과</span><span class="sub">더보기</span>
 		                <div class="line"></div>
-		                <div class="movie-result"></div>
-		                <!-- 영화 검색 결과 들어가야됨-->
+			                <div class="movie-result">
+			                <!-- 영화 검색 결과 들어가야됨-->
+			                </div>
 		            </div>
 		            <div class = "search-review-form">
-		                <span class="title">리뷰에서 검색 결과</span><span class="sub">더보기</span>
+		                <span class="result-title">리뷰에서 검색 결과</span><span class="sub">더보기</span>
 		                <div class="line"></div>
 		                <div class="review-result"></div>
 		                <!-- 리뷰 검색 결과 들어가야됨-->
 		            </div>
 		            <div class = "search-community-form">
-		                <span class="title">커뮤니티에서 검색 결과</span><span class="sub">더보기</span>
+		                <span class="result-title">커뮤니티에서 검색 결과</span><span class="sub">더보기</span>
 		                <div class="line"></div>
 		                <div class="community-result"></div>
 		                <!-- 커뮤니티 검색 결과 들어가야됨-->
@@ -82,25 +84,30 @@
 		</div>
 <script>
 	$(function(){
+		var cnt = 1;
+		var page = 1;
 		 $('#search').on('click', function(){
 		        let $input = $(this).closest('#custom-search-input').find('#input').val();
 		        console.log($input);
+		        
+		        $.getJSON('/Moviebokka/movie/searchMovies',{search : $input},function(result){
+		        	$.each(result, function(i){
+		        		searchMovie(result[i].m_title,result[i].m_img,result[i].m_user_rating,result[i].m_code);
+		        		clickedEvent();
+		        	});
+		        }); 
+		   
 		  });
-		function searchMovie(){
+		 
+		 
+		function searchMovie(m_title, m_img, m_rating,m_code){
 			let $clone = $('.temp_movie').clone();
 			let $target;
-			let title;
-			let img;
-			let rating;
-			let code;
-			
-			<c:forEach var="item" items="${movieInfoFormList}">
-				title = "${item.m_title}";
-				img = "${item.m_img}";
-				rating = ${item.m_user_rating};
-				code = ${item.m_code};
+			let title = m_title;
+			let img = m_img;
+			let rating = m_rating;
+			let code = m_code;
 				
-				console.log(title);
 				$clone = $('.temp_movie').clone();
 				$clone.attr("class", "movie");
 				$clone.attr("id", "movie" + cnt++);
@@ -114,23 +121,27 @@
 				$target = $clone.find('.rating').find('.fa.fa-star');
 				setUserRating(rating, $target);
 				$('.movie-result').append($clone);
-			</c:forEach>
+				$('.search-movie-form').css("margin-bottom",80*cnt);
 		
-		function setUserRating(rating, target) {
-			let highStar = 4;
-			let limit = Math.round(rating/2);
-			console.log(limit);
-			for (let i = highStar; i >= limit; i--) {
-				target.eq(i).attr("class", "fa fa-star disable");
+			function setUserRating(rating, target) {
+				let highStar = 4;
+				let limit = Math.round(rating/2);
+				console.log(limit);
+				for (let i = highStar; i >= limit; i--) {
+					target.eq(i).attr("class", "fa fa-star disable");
+				}
 			}
 		}
 		
-		for(let i = 0; i<cnt; i++){
-			$('.movie-result').on('click', '#movie'+i, function(){
-				let movieCode = $(this).find('#movieCode').val();
-				console.log(movieCode);
-				location.href = "/Moviebokka/movie/getMovieDetail?movieCode="+movieCode;
-			});
+		function clickedEvent(){
+			for(let i = 0; i<cnt; i++){
+				$('body').on('click', '#movie'+i, function(){
+					let movieCode = $(this).find('#movieCode').val();
+					console.log("눌리냥??");
+					console.log(movieCode);
+					location.href = "/Moviebokka/movie/getMovieDetail?movieCode="+movieCode;
+				});
+			}
 		}
 	});
 		   

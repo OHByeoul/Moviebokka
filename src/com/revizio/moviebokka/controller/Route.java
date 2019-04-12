@@ -12,6 +12,8 @@ public enum Route {
 	
 	//Movie
 	SEARCH_MOVIENAME("searchMovieName","searchMoviePage.jsp"),
+	SEARCH_DETAIL_INFO("searchDetailInfo","searchPage.jsp"),
+	GET_MOVIE_SEARCH("searchMovies", "ajax"),
 	REVIEW_FORM("reviewForm","reviewCreateForm.jsp"),
 	CREATE_REVIEW("createReview","reviewDetailPage.jsp"),
 	UPDATE_FORM("updateReviewForm", "reviewUpdateForm.jsp"),

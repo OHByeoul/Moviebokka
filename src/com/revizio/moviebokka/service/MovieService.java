@@ -159,4 +159,14 @@ public class MovieService implements MovieServiceImpl{
 		  
 		return movieDAO.getReviewDetailInfo(id);
 	}
+
+	public List<GetMovieInfoForm> getSearchedMovieList(String search) {
+		List<GetMovieInfoForm> movieInfoes = new ArrayList<>();
+	      movieInfoes = movieDAO.getSearchedMovieList(search);
+	      for(GetMovieInfoForm form : movieInfoes) {
+	         String title = crawling.htmlTotext(form.getM_title());
+	         form.setM_title(title);
+	      }
+		return movieInfoes;
+	}
 }

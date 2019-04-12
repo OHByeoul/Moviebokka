@@ -410,4 +410,29 @@ public boolean createReview(Review review) {
 		}
 		return false;
 	}
+
+	public List<GetMovieInfoForm> getSearchedMovieList(String search) {
+		List<GetMovieInfoForm> movieInfoForms = new ArrayList<>();
+		GetMovieInfoForm getMovieInfoForm = new GetMovieInfoForm();
+		String query = "SELECT m_code FROM movie WHERE m_title LIKE '%' || ? || '%'";
+		conn = instance.getConnection();
+		List<Integer> codes = new ArrayList<>();
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setString(1, search);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				int movieCode = rs.getInt("m_code");
+				codes.add(movieCode);
+			}
+			for (Integer code : codes) {
+				movieInfoForms.add(getMovieDetailInfo(code));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		return movieInfoForms;
+	}
 }

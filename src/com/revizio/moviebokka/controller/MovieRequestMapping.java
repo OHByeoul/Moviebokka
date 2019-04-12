@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.JsonArray;
 import com.revizio.moviebokka.dao.MovieDAO;
 import com.revizio.moviebokka.dto.GetMovieInfoForm;
 import com.revizio.moviebokka.dto.Member;
@@ -17,6 +18,7 @@ import com.revizio.moviebokka.dto.MovieInfo;
 import com.revizio.moviebokka.dto.Review;
 import com.revizio.moviebokka.service.MovieService;
 import com.revizio.moviebokka.service.UserService;
+import com.revizio.moviebokka.util.JsonMaker;
 
 public class MovieRequestMapping implements RequestDispatcher {
    private MovieService movieService;
@@ -30,7 +32,29 @@ public class MovieRequestMapping implements RequestDispatcher {
    
    @Override
    public void dispatcherRoute(String route, HttpServletRequest request, HttpServletResponse response) {
-      if(route.equals(Route.REVIEW_FORM.getRoute())) {
+	   if(route.equals(Route.SEARCH_DETAIL_INFO.getRoute())) {
+		   
+	   } else if(route.equals(Route.GET_MOVIE_SEARCH.getRoute())){
+		   String search = request.getParameter("search");
+		   List<GetMovieInfoForm> movieInfoFormList = new ArrayList<>();
+	         movieInfoFormList = movieService.getSearchedMovieList(search);
+	         for(GetMovieInfoForm m : movieInfoFormList) {
+	            System.out.println(m.getM_code());
+	            System.out.println(m.getM_title());
+	         }
+	         //가져온  movieInfoFormList를 json형식으로 만든다.
+	         JsonMaker jsonMaker = new JsonMaker();
+	         String toJson = jsonMaker.convertObjectToJson(movieInfoFormList);
+	         System.out.println(toJson);
+	         request.setAttribute("movieInfoFormList", movieInfoFormList);
+	         response.setContentType("application/json");
+	         response.setCharacterEncoding("UTF-8");
+	         try {
+	            response.getWriter().write(toJson);
+	         } catch (IOException e) {
+	            e.printStackTrace();
+	         }
+	   } else if(route.equals(Route.REVIEW_FORM.getRoute())) {
     	int movieCode = Integer.parseInt(request.getParameter("movieCode"));		
         session = request.getSession();
         Member member =  (Member) session.getAttribute("user");
