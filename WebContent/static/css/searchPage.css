@@ -1,0 +1,61 @@
+@charset "UTF-8";
+
+.row {
+  margin-left : 350px;
+}
+body {
+  background-color :  #666666;
+}
+.title {
+  font-size : 25px;
+  color :  #E4E4E4;
+  border-left: 7px solid red;
+}
+.line {
+  border-bottom: 2px solid #E4E4E4;
+}
+.sub {
+  margin-left : 20px;
+  font-size : 15px;
+  color :  #E4E4E4;
+}
+.search-movie-form {
+  margin-top : 40px;
+}
+.search-review-form {
+  margin-top : 80px;
+}
+.search-community-form {
+  margin-top : 80px;
+}
+#custom-search-input{
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+#custom-search-input input{
+    border: 0;
+    box-shadow: none;
+}
+
+#custom-search-input button{
+    margin: 2px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input button:hover{
+    border: 0;
+    box-shadow: none;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input .glyphicon-search{
+    font-size: 23px;
+}
