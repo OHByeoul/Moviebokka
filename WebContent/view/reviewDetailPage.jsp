@@ -61,7 +61,7 @@ h2 {
 			</div>
 		</div>
 	</div>
-	<form action="/Moviebokka/movie/deleteReview" method="POST" id="deleteReviewForm" style="display: hidden">
+	<form action="/Moviebokka/review/deleteReview" method="POST" id="deleteReviewForm" style="display: hidden">
 	  <input type="hidden" id="revId" name="revId" value=""/>
 	  <input type="hidden" id="movieCode" name="movieCode" value=""/>
 	</form>
@@ -90,7 +90,7 @@ h2 {
 			});
 			
 			$('#update').on('click', function(){
-				location.href = "/Moviebokka/movie/updateReviewForm?revId="+revId;
+				location.href = "/Moviebokka/review/updateReviewForm?revId="+revId;
 			});
 			
 			$('#list').on('click', function(){

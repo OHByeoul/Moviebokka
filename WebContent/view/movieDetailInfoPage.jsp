@@ -86,7 +86,7 @@
 					temp="";
 						temp+='<tr id="temp${status.index}">';
 						temp+='<td>${item.rev_id}</td>';
-						temp+='<td><a href="/Moviebokka/movie/getSelectedReview?revId=${item.rev_id}">${item.rev_title}</a></td>';
+						temp+='<td><a href="/Moviebokka/review/getSelectedReview?revId=${item.rev_id}">${item.rev_title}</a></td>';
 						temp+='<td>${item.mem_nick}</td>';
 						temp+='<td>${item.rev_regdate}</td>';
 						temp+="</tr>";
@@ -96,7 +96,7 @@
 			
 			$('#create_review').on('click', function(){
 				let movieCode = ${movieInfoForm.m_code};
-				location.href = "/Moviebokka/movie/reviewForm?movieCode="+movieCode;
+				location.href = "/Moviebokka/review/reviewForm?movieCode="+movieCode;
 			});
 		});
 	</script>

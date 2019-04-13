@@ -17,4 +17,8 @@
     <servlet-name>BoardController</servlet-name>
     <servlet-class>com.revizio.moviebokka.controller.BoardController</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ReviewController</servlet-name>
+    <servlet-class>com.revizio.moviebokka.controller.ReviewController</servlet-class>
+  </servlet>
 </web-app>

@@ -115,50 +115,11 @@ public class MovieService implements MovieServiceImpl{
       return movieDAO.getMovieDetailInfo(movieCode);
    }
 
-	public Review createReview(Review review) {
-		Review getReview = new Review();
-		review.setRev_regdate(getNowDate());
-		boolean result = movieDAO.createReview(review);
-		int revId = movieDAO.getReviewId();
-		if(result && revId != 0) {
-			getReview = movieDAO.getReviewDetailInfo(revId);
-			System.out.println("review : "+getReview.getMem_id()+" "+getReview.getRev_content());
-		} 
-		return getReview;
-	}
+	
 
-	private Date getNowDate() {
-		SimpleDateFormat format = new SimpleDateFormat(Constants.DATEFORMAT);
-		
-		java.util.Date date = new java.util.Date();
-		String formatedDate = format.format(date);
-        System.out.println("date "+date);
-        System.out.println("formatedDate "+formatedDate);
-		Date nowDate = Date.valueOf(formatedDate);
-		System.out.println(nowDate);
-		return nowDate;
-	}
+	
 
-	public List<Review> getReviewList(int movieCode) {
-		return movieDAO.getReviewList(movieCode);
-	}
 
-	public Review getSelectedReviewDetail(String revId) {
-		int id = Integer.parseInt(revId); 
-		return movieDAO.getReviewDetailInfo(id);
-	}
-
-	public boolean deleteSelectedReview(String revId) {
-		int id = Integer.parseInt(revId); 
-		return movieDAO.deleteReview(id); 
-	}
-
-	public Review updateSelectedReview(String revId, String title, String content) {
-		int id = Integer.parseInt(revId);
-		boolean result = movieDAO.updateSelectedReview(id,title,content);
-		  
-		return movieDAO.getReviewDetailInfo(id);
-	}
 
 	public List<GetMovieInfoForm> getSearchedMovieList(String search) {
 		List<GetMovieInfoForm> movieInfoes = new ArrayList<>();

@@ -16,16 +16,19 @@ import com.revizio.moviebokka.dto.Member;
 import com.revizio.moviebokka.dto.MovieInfo;
 import com.revizio.moviebokka.dto.Review;
 import com.revizio.moviebokka.service.MovieService;
+import com.revizio.moviebokka.service.ReviewService;
 import com.revizio.moviebokka.service.UserService;
 import com.revizio.moviebokka.util.JsonMaker;
 
 public class MovieRequestMapping implements RequestDispatcher {
    private MovieService movieService;
+   private ReviewService reviewService;
    private UserService userService;
    private HttpSession session;
    
    public MovieRequestMapping() {
       movieService = new MovieService();
+      reviewService = new ReviewService();
       userService = new UserService();
    }
    
@@ -53,70 +56,7 @@ public class MovieRequestMapping implements RequestDispatcher {
 	         } catch (IOException e) {
 	            e.printStackTrace();
 	         }
-	   } else if(route.equals(Route.REVIEW_FORM.getRoute())) {
-    	int movieCode = Integer.parseInt(request.getParameter("movieCode"));		
-        session = request.getSession();
-        Member member =  (Member) session.getAttribute("user");
-        
-        request.setAttribute("movieCode", movieCode);
-        request.setAttribute("member", member);
-      } else if(route.equals(Route.CREATE_REVIEW.getRoute())) {
-    	  try {
-			request.setCharacterEncoding("UTF-8");
-			int movieCode = Integer.parseInt(request.getParameter("movieCode"));
-			String title = request.getParameter("title");
-			String content = request.getParameter("content");
-			int memId = Integer.parseInt(request.getParameter("memId"));
-			String nick = request.getParameter("nick");
-			String ip = userService.getClientIP(request);
-			Review review = new Review(title,content,memId,nick,movieCode,ip);
-			
-			Review getDetailReview = movieService.createReview(review);
-			request.setAttribute("reviewDetail", getDetailReview);
-			System.out.println("last innn "+movieCode+" "+title+" "+content+" "+ip+" "+nick);
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-      } else if(route.equals(Route.GET_REVIEW_INFO.getRoute())) {
-    	  String revId = request.getParameter("revId");
-    	  Review selectedReview = movieService.getSelectedReviewDetail(revId);
-    	  session = request.getSession();
-    	  Member member =  (Member) session.getAttribute("user");
-    	  session.setAttribute("session", member);
-    	  request.setAttribute("reviewDetail", selectedReview);
-      } else if(route.equals(Route.UPDATE_FORM.getRoute())) {
-    	  String revId = request.getParameter("revId");
-    	  Review selectedReview = movieService.getSelectedReviewDetail(revId);
-    	  Member member =  (Member) session.getAttribute("user");
-    	  session.setAttribute("session", member);
-    	  request.setAttribute("review", selectedReview);
-      } else if(route.equals(Route.UPDATE_REVIEW.getRoute())) {
-    	  try {
-			request.setCharacterEncoding("UTF-8");
-			String revId = request.getParameter("revId");
-			String title = request.getParameter("title");
-			String content = request.getParameter("content");
-			Review selectedReview = movieService.updateSelectedReview(revId,title,content);
-			
-			Member member =  (Member) session.getAttribute("user");
-			session.setAttribute("session", member);
-			request.setAttribute("reviewDetail", selectedReview);
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-      } else if(route.equals(Route.DELETE_REVIEW.getRoute())) {
-    	  int movieCode = Integer.parseInt(request.getParameter("movieCode"));
-    	  String revId = request.getParameter("revId");
-    	  movieService.deleteSelectedReview(revId);
-          GetMovieInfoForm getMovieInfoForm = movieService.getSelectedMovieDetail(movieCode);
-  
-          List<Review> reviews = movieService.getReviewList(movieCode);
-          request.setAttribute("reviews", reviews);
-          request.setAttribute("movieInfoForm", getMovieInfoForm);
-    	  
-      } else if(route.equals(Route.GET_MOVIE_INFO.getRoute())) {
+	   } else if(route.equals(Route.GET_MOVIE_INFO.getRoute())) {
          int code = Integer.parseInt(request.getParameter("code"));
          String title = request.getParameter("title");
          String img = request.getParameter("img");
@@ -159,7 +99,7 @@ public class MovieRequestMapping implements RequestDispatcher {
          int movieCode = Integer.parseInt(request.getParameter("movieCode"));
          GetMovieInfoForm getMovieInfoForm = movieService.getSelectedMovieDetail(movieCode);
  
-         List<Review> reviews = movieService.getReviewList(movieCode);
+         List<Review> reviews = reviewService.getReviewList(movieCode);
          request.setAttribute("reviews", reviews);
          request.setAttribute("movieInfoForm", getMovieInfoForm);
       } else if(route.equals(Route.GET_MAIN.getRoute())) {

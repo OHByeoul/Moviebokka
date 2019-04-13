@@ -14,17 +14,20 @@ public enum Route {
 	SEARCH_MOVIENAME("searchMovieName","searchMoviePage.jsp"),
 	SEARCH_DETAIL_INFO("searchDetailInfo","searchPage.jsp"),
 	GET_MOVIE_SEARCH("searchMovies", "ajax"),
-	REVIEW_FORM("reviewForm","reviewCreateForm.jsp"),
-	CREATE_REVIEW("createReview","reviewDetailPage.jsp"),
-	UPDATE_FORM("updateReviewForm", "reviewUpdateForm.jsp"),
-	UPDATE_REVIEW("updateReview","reviewDetailPage.jsp"),
-	DELETE_REVIEW("deleteReview", "movieDetailInfoPage.jsp"),
-	GET_REVIEW_INFO("getSelectedReview","reviewDetailPage.jsp"),
 	GET_MOVIE_INFOES("getMovieInfoes","ajax"),
 	GET_MOVIE_INFO("getMovieInfo","movieDetailInfoPage.jsp"),
 	GET_MOVIE_DETAIL("getMovieDetail","movieDetailInfoPage.jsp"),
 	GET_MOVIE_MAIN("main","mainPage.jsp"),
 	GET_MAIN("/","mainPage.jsp"),
+	
+	//Review
+	REVIEW_FORM("reviewForm","reviewCreateForm.jsp"),
+	CREATE_REVIEW("createReview","reviewDetailPage.jsp"),
+	GET_REVIEW_INFO("getSelectedReview","reviewDetailPage.jsp"),
+	UPDATE_REVIEW_FORM("updateReviewForm", "reviewUpdateForm.jsp"),
+	UPDATE_REVIEW_PAGE("updateReview","reviewDetailPage.jsp"),
+	DELETE_REVIEW_PAGE("deleteReview", "movieDetailInfoPage.jsp"),
+	
 	
 	//Board
 	CREATE_BOARD("createBoard","boardCreateForm.jsp"),

@@ -17,7 +17,7 @@
 <body>
     <div class="container">
             <h2>리뷰 작성</h2>
-            <form class="form-horizontal" action="/Moviebokka/movie/createReview" id = "review_form" method="post" accept-charset="UTF-8">
+            <form class="form-horizontal" action="/Moviebokka/review/createReview" id = "review_form" method="post" accept-charset="UTF-8">
            		 <input type="hidden" name="movieCode" value="${movieCode}" >
            		 <input type="hidden" name="memId" value="${member.mem_id}" >
               <div class="form-group">
