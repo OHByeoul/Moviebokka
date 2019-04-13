@@ -12,6 +12,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.revizio.moviebokka.dto.GetMovieInfoForm;
 import com.revizio.moviebokka.dto.Review;
 
 public class ReviewDAO {
@@ -195,6 +196,31 @@ public class ReviewDAO {
 				review.setRev_regdate(rs.getDate("rev_regdate"));
 				reviews.add(review);
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		return reviews;
+	}
+	
+	public List<Review> getSearchedReviewList(String search) {
+		List<Review> reviews = new ArrayList<>();
+		String query = "SELECT rev_id,rev_title, rev_regdate FROM review WHERE rev_content LIKE '%' || ? || '%'";
+		conn = instance.getConnection();
+
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setString(1, search);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				Review review = new Review();
+				review.setRev_id(rs.getInt("rev_id"));
+				review.setRev_title(rs.getString("rev_title"));
+				review.setRev_regdate(rs.getDate("rev_regdate"));
+				reviews.add(review);
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

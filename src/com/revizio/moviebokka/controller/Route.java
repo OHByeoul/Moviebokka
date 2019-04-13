@@ -11,22 +11,23 @@ public enum Route {
 	EDIT_MYPAGE("",""),
 	
 	//Movie
-	SEARCH_MOVIENAME("searchMovieName","searchMoviePage.jsp"),
+	SEARCH_MOVIENAME("searchMovieName","/movie/"+"searchMoviePage.jsp"),
 	SEARCH_DETAIL_INFO("searchDetailInfo","searchPage.jsp"),
+	GET_REVIEW_SEARCH("searchReviews","ajax"),
 	GET_MOVIE_SEARCH("searchMovies", "ajax"),
 	GET_MOVIE_INFOES("getMovieInfoes","ajax"),
-	GET_MOVIE_INFO("getMovieInfo","movieDetailInfoPage.jsp"),
-	GET_MOVIE_DETAIL("getMovieDetail","movieDetailInfoPage.jsp"),
+	GET_MOVIE_INFO("getMovieInfo","/movie/"+"movieDetailInfoPage.jsp"),
+	GET_MOVIE_DETAIL("getMovieDetail","/movie/"+"movieDetailInfoPage.jsp"),
 	GET_MOVIE_MAIN("main","mainPage.jsp"),
 	GET_MAIN("/","mainPage.jsp"),
 	
 	//Review
-	REVIEW_FORM("reviewForm","reviewCreateForm.jsp"),
-	CREATE_REVIEW("createReview","reviewDetailPage.jsp"),
-	GET_REVIEW_INFO("getSelectedReview","reviewDetailPage.jsp"),
-	UPDATE_REVIEW_FORM("updateReviewForm", "reviewUpdateForm.jsp"),
-	UPDATE_REVIEW_PAGE("updateReview","reviewDetailPage.jsp"),
-	DELETE_REVIEW_PAGE("deleteReview", "movieDetailInfoPage.jsp"),
+	REVIEW_FORM("reviewForm","/review/"+"reviewCreateForm.jsp"),
+	CREATE_REVIEW("createReview","/review/"+"reviewDetailPage.jsp"),
+	GET_REVIEW_INFO("getSelectedReview","/review/"+"reviewDetailPage.jsp"),
+	UPDATE_REVIEW_FORM("updateReviewForm", "/review/"+"reviewUpdateForm.jsp"),
+	UPDATE_REVIEW_PAGE("updateReview","/review/"+"reviewDetailPage.jsp"),
+	DELETE_REVIEW_PAGE("deleteReview", "/movie/"+"movieDetailInfoPage.jsp"),
 	
 	
 	//Board

@@ -58,4 +58,8 @@ public class ReviewService {
 	public List<Review> getReviewList(int movieCode) {
 		return reviewDAO.getReviewList(movieCode);
 	}
+
+	public List<Review> getSearchedReviewList(String search) {
+		return reviewDAO.getSearchedReviewList(search);
+	}
 }

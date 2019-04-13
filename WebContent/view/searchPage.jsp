@@ -95,7 +95,14 @@
 		        		searchMovie(result[i].m_title,result[i].m_img,result[i].m_user_rating,result[i].m_code);
 		        		clickedEvent();
 		        	});
-		        }); 
+		        });
+		        
+		        $.getJSON('/Moviebokka/review/searchReviews',{search : $input},function(result){
+		        	$.each(result, function(i){
+		        		searchMovie(result[i].rev_title,result[i].m_user_rating,result[i].m_code);
+		        		clickedEvent();
+		        	});
+		        });
 		   
 		  });
 		 
