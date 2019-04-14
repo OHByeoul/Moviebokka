@@ -112,10 +112,16 @@
 		        		searchMovie(result[i].m_title,result[i].m_img,result[i].m_user_rating,result[i].m_code);
 		        		clickedEvent();
 		        	});
+		        	
 		        });
 		        
 		        $.getJSON('/Moviebokka/review/searchReviews',{search : $input},function(result){
 		        	$('#tbody').empty();
+		        	$('.review-result').empty();
+		        		if(result.length === 0){
+		        			let empty = "<div>검색된 결과가 없습니다.</div>";
+		        			$('.review-result').append(empty);
+		        		}
 		        	$.each(result, function(i){
 		        		searchReview(result[i].rev_id,result[i].rev_title,result[i].rev_regdate,result[i].mem_nick);
 		        	});
@@ -160,7 +166,7 @@
 				$target = $clone.find('.rating').find('.fa.fa-star');
 				setUserRating(rating, $target);
 				$('.movie-result').append($clone);
-				$('.search-movie-form').css("margin-bottom",80*cnt);
+			//	$('.search-movie-form').css("margin-bottom",80*cnt);
 		
 			function setUserRating(rating, target) {
 				let highStar = 4;

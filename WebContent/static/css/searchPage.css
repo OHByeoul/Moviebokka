@@ -11,6 +11,7 @@ body {
   background-color :  #666666;
 }
 .result-title {
+  margin-top : 20px;
   font-size : 25px;
   color :  #E4E4E4;
   border-left: 7px solid red;
@@ -30,7 +31,7 @@ body {
   margin-top : 40px;
 }
 .search-review-form {
-  margin-top : 80px;
+  margin-top : 280px;
 }
 .search-community-form {
   margin-top : 80px;
