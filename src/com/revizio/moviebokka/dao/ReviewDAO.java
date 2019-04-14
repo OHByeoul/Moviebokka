@@ -204,14 +204,25 @@ public class ReviewDAO {
 		return reviews;
 	}
 	
-	public List<Review> getSearchedReviewList(String search) {
+	public List<Review> getSearchedReviewList(String search, int start, int end) {
 		List<Review> reviews = new ArrayList<>();
-		String query = "SELECT * FROM review WHERE rev_content LIKE '%' || ? || '%'";
+		 String query =	"SELECT S2.rnum, S2.rev_id, S2.rev_title, S2.mem_nick, S2.rev_regdate "+
+						"FROM (SELECT ROWNUM as rnum, S1.rev_id, S1.rev_title, S1.mem_nick, S1.rev_regdate "+
+								"FROM (SELECT rev_id, rev_title, mem_nick, rev_regdate "+
+										"FROM review "+ 
+		                                "WHERE rev_title LIKE '%' || ? || '%' OR rev_content LIKE '%' || ? || '%' "+
+										"ORDER BY rev_id ASC) S1 "+ 
+								"WHERE ROWNUM <= ?) S2 "+ 
+					"WHERE rnum >= ?";
+		
 		conn = instance.getConnection();
 
 		try {
 			preparedStatement = conn.prepareStatement(query);
 			preparedStatement.setString(1, search);
+			preparedStatement.setString(2, search);
+			preparedStatement.setInt(3, end);
+			preparedStatement.setInt(4, start);
 			rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				Review review = new Review();

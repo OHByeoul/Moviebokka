@@ -39,21 +39,35 @@ public class ReviewRequestMapping implements RequestDispatcher {
         request.setAttribute("member", member);
       } else if(route.equals(Route.GET_REVIEW_SEARCH.getRoute())) {
     	  String search  = request.getParameter("search");
-    	  List<Review> reviewLists = reviewService.getSearchedReviewList(search);
+    	  String startNum = request.getParameter("startNum");
+    	  String endNum = request.getParameter("endNum");
+    	  List<Review> reviewLists = reviewService.getSearchedReviewList(search,startNum, endNum);
+    	  for(Review r : reviewLists) {
+    		  System.out.println(r.getMem_id()+" "+r.getRev_title());
+    	  }
+    	  request.setAttribute("search", search);
+    	  request.setAttribute("start", startNum);
+    	  request.setAttribute("end", endNum);
+    	  request.setAttribute("reviewLists", reviewLists);
+      }else if(route.equals(Route.GET_REVIEW_MORE.getRoute())){
+    	  String search  = request.getParameter("search");
+    	  String startNum = request.getParameter("startNum");
+    	  String endNum = request.getParameter("endNum");
+    	  List<Review> reviewLists = reviewService.getSearchedReviewList(search,startNum, endNum);
     	  
     	  JsonMaker jsonMaker = new JsonMaker();
-	         String toJson = jsonMaker.convertObjectToJson(reviewLists);
-	         System.out.println(toJson);
-	         request.setAttribute("reviewLists", reviewLists);
-	         response.setContentType("application/json");
-	         response.setCharacterEncoding("UTF-8");
-	         try {
-	            response.getWriter().write(toJson);
-	         } catch (IOException e) {
-	            e.printStackTrace();
-	         }
+    	  String toJson = jsonMaker.convertObjectToJson(reviewLists);
+    	  System.out.println(toJson);
+    	  request.setAttribute("reviewLists", reviewLists);
+    	  response.setContentType("application/json");
+    	  response.setCharacterEncoding("UTF-8");
+    	  try {
+    		  response.getWriter().write(toJson);
+    	  } catch (IOException e) {
+    		  e.printStackTrace();
+    	  }
     	  
-      }else if(route.equals(Route.CREATE_REVIEW.getRoute())) {
+      } else if(route.equals(Route.CREATE_REVIEW.getRoute())) {
     	  try {
 			request.setCharacterEncoding("UTF-8");
 			int movieCode = Integer.parseInt(request.getParameter("movieCode"));

@@ -59,7 +59,9 @@ public class ReviewService {
 		return reviewDAO.getReviewList(movieCode);
 	}
 
-	public List<Review> getSearchedReviewList(String search) {
-		return reviewDAO.getSearchedReviewList(search);
+	public List<Review> getSearchedReviewList(String search, String startNum, String endNum) {
+		int start = Integer.parseInt(startNum);
+		int end = Integer.parseInt(endNum);
+		return reviewDAO.getSearchedReviewList(search,start,end);
 	}
 }
