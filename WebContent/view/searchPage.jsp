@@ -38,7 +38,21 @@
 		            <div class = "search-review-form">
 		                <span class="result-title">리뷰에서 검색 결과</span><span class="sub">더보기</span>
 		                <div class="line"></div>
-		                <div class="review-result"></div>
+		                <div class="review-result">
+		                	<table class="table table-hover" id="temp-review" style="display:none">
+							    <thead>
+							      <tr>
+							        <th>번호</th>
+							        <th>제목</th>
+							        <th>닉네임</th>
+							        <th>날짜</th>
+							      </tr>
+							    </thead>
+							    <tbody id = "tbody">
+							     
+							    </tbody>
+							  </table>
+		                </div>
 		                <!-- 리뷰 검색 결과 들어가야됨-->
 		            </div>
 		            <div class = "search-community-form">
@@ -82,15 +96,18 @@
 				</div>
 			</div>
 		</div>
+		
 <script>
 	$(function(){
 		var cnt = 1;
+		var rev = 1;
 		var page = 1;
 		 $('#search').on('click', function(){
 		        let $input = $(this).closest('#custom-search-input').find('#input').val();
 		        console.log($input);
 		        
 		        $.getJSON('/Moviebokka/movie/searchMovies',{search : $input},function(result){
+		        	$('.movie-result').empty();
 		        	$.each(result, function(i){
 		        		searchMovie(result[i].m_title,result[i].m_img,result[i].m_user_rating,result[i].m_code);
 		        		clickedEvent();
@@ -98,13 +115,28 @@
 		        });
 		        
 		        $.getJSON('/Moviebokka/review/searchReviews',{search : $input},function(result){
+		        	$('#tbody').empty();
 		        	$.each(result, function(i){
-		        		searchMovie(result[i].rev_title,result[i].m_user_rating,result[i].m_code);
-		        		clickedEvent();
+		        		searchReview(result[i].rev_id,result[i].rev_title,result[i].rev_regdate,result[i].mem_nick);
 		        	});
 		        });
 		   
 		  });
+		 
+		 function searchReview(rev_id,rev_title,rev_regdate,mem_nick){
+			 let $review = $('#temp-review');
+			 
+				let temp = "";
+					temp="";
+						temp+='<tr>';
+						temp+='<td>'+rev_id+'</td>';
+						temp+='<td><a href="/Moviebokka/review/getSelectedReview?revId='+rev_id+'">'+rev_title+'</a></td>';
+						temp+='<td>'+mem_nick+'</td>';
+						temp+='<td>'+rev_regdate+'</td>';
+						temp+="</tr>";
+						$review.find('#tbody').append(temp);
+				$review.show();
+		 }
 		 
 		 
 		function searchMovie(m_title, m_img, m_rating,m_code){
@@ -144,7 +176,6 @@
 			for(let i = 0; i<cnt; i++){
 				$('body').on('click', '#movie'+i, function(){
 					let movieCode = $(this).find('#movieCode').val();
-					console.log("눌리냥??");
 					console.log(movieCode);
 					location.href = "/Moviebokka/movie/getMovieDetail?movieCode="+movieCode;
 				});

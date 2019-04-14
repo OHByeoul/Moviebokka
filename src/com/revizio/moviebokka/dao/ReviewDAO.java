@@ -206,7 +206,7 @@ public class ReviewDAO {
 	
 	public List<Review> getSearchedReviewList(String search) {
 		List<Review> reviews = new ArrayList<>();
-		String query = "SELECT rev_id,rev_title, rev_regdate FROM review WHERE rev_content LIKE '%' || ? || '%'";
+		String query = "SELECT * FROM review WHERE rev_content LIKE '%' || ? || '%'";
 		conn = instance.getConnection();
 
 		try {
@@ -218,6 +218,7 @@ public class ReviewDAO {
 				review.setRev_id(rs.getInt("rev_id"));
 				review.setRev_title(rs.getString("rev_title"));
 				review.setRev_regdate(rs.getDate("rev_regdate"));
+				review.setMem_nick(rs.getString("mem_nick"));
 				reviews.add(review);
 			}
 
