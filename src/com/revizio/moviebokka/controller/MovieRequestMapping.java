@@ -34,9 +34,7 @@ public class MovieRequestMapping implements RequestDispatcher {
    
    @Override
    public void dispatcherRoute(String route, HttpServletRequest request, HttpServletResponse response) {
-	   if(route.equals(Route.SEARCH_DETAIL_INFO.getRoute())) {
-		   
-	   } else if(route.equals(Route.GET_MOVIE_SEARCH.getRoute())){
+	  if(route.equals(Route.GET_MOVIE_SEARCH.getRoute())){
 		   String search  = request.getParameter("search");
 		   String startNum = request.getParameter("startNum");
 		   String endNum = request.getParameter("endNum");
@@ -46,28 +44,6 @@ public class MovieRequestMapping implements RequestDispatcher {
 		   request.setAttribute("movieInfoFormList", movieInfoFormList);
 		   request.setAttribute("startM", startNum);
 	       request.setAttribute("endM", endNum);
-	   } else if(route.equals(Route.GET_MOVIE_MORE.getRoute())) {
-		   String search = request.getParameter("search");
-		   String startNum = request.getParameter("startNum");
-		   String endNum = request.getParameter("endNum");
-		   List<GetMovieInfoForm> movieInfoFormList = new ArrayList<>();
-	         movieInfoFormList = movieService.getSearchedMovieList(search,startNum,endNum);
-	         for(GetMovieInfoForm m : movieInfoFormList) {
-	            System.out.println(m.getM_code());
-	            System.out.println(m.getM_title());
-	         }
-	         //가져온  movieInfoFormList를 json형식으로 만든다.
-	         JsonMaker jsonMaker = new JsonMaker();
-	         String toJson = jsonMaker.convertObjectToJson(movieInfoFormList);
-	         System.out.println(toJson);
-	         request.setAttribute("movieInfoFormList", movieInfoFormList);
-	         response.setContentType("application/json");
-	         response.setCharacterEncoding("UTF-8");
-	         try {
-	            response.getWriter().write(toJson);
-	         } catch (IOException e) {
-	            e.printStackTrace();
-	         }
 	   } else if(route.equals(Route.GET_MOVIE_INFO.getRoute())) {
          int code = Integer.parseInt(request.getParameter("code"));
          String title = request.getParameter("title");
