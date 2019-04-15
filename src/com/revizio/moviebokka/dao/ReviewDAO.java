@@ -241,4 +241,23 @@ public class ReviewDAO {
 		return reviews;
 	}
 
+	public boolean updateViewCnt(int revId) {
+		String query = "UPDATE review SET rev_view = rev_view+1 WHERE rev_id = ?";
+		conn = instance.getConnection();
+		int result = 0;
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setInt(1, revId);
+			result = preparedStatement.executeUpdate();
+			if(result > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		return false;
+	}
+
 }

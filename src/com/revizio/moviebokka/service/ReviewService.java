@@ -40,6 +40,10 @@ public class ReviewService {
 
 	public Review getSelectedReviewDetail(String revId) {
 		int id = Integer.parseInt(revId); 
+		boolean result = reviewDAO.updateViewCnt(id);
+		if(!result) {
+			
+		}
 		return reviewDAO.getReviewDetailInfo(id);
 	}
 	

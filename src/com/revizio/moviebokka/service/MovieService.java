@@ -1,9 +1,6 @@
 package com.revizio.moviebokka.service;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +11,6 @@ import com.revizio.moviebokka.constant.Constants;
 import com.revizio.moviebokka.dao.MovieDAO;
 import com.revizio.moviebokka.dto.GetMovieInfoForm;
 import com.revizio.moviebokka.dto.MovieInfo;
-import com.revizio.moviebokka.dto.Review;
 import com.revizio.moviebokka.serviceimpl.MovieServiceImpl;
 import com.revizio.moviebokka.util.Crawling;
 import com.revizio.moviebokka.util.MovieInfoRequest;
@@ -118,12 +114,6 @@ public class MovieService implements MovieServiceImpl{
 	  }
       return movieDAO.getMovieDetailInfo(movieCode);
    }
-
-	
-
-	
-
-
 
 	public List<GetMovieInfoForm> getSearchedMovieList(String search, String startNum, String endNum) {
 		int start = Integer.parseInt(startNum);
