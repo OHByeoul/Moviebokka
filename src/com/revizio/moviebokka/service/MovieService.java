@@ -121,9 +121,11 @@ public class MovieService implements MovieServiceImpl{
 
 
 
-	public List<GetMovieInfoForm> getSearchedMovieList(String search) {
+	public List<GetMovieInfoForm> getSearchedMovieList(String search, String startNum, String endNum) {
+		int start = Integer.parseInt(startNum);
+		int end = Integer.parseInt(endNum);
 		List<GetMovieInfoForm> movieInfoes = new ArrayList<>();
-	      movieInfoes = movieDAO.getSearchedMovieList(search);
+	      movieInfoes = movieDAO.getSearchedMovieList(search, start, end);
 	      for(GetMovieInfoForm form : movieInfoes) {
 	         String title = crawling.htmlTotext(form.getM_title());
 	         form.setM_title(title);

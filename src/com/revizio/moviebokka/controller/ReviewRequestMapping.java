@@ -22,6 +22,7 @@ public class ReviewRequestMapping implements RequestDispatcher {
    private UserService userService;
    private HttpSession session;
    
+   
    public ReviewRequestMapping() {
       movieService = new MovieService();
       userService = new UserService();
@@ -41,18 +42,19 @@ public class ReviewRequestMapping implements RequestDispatcher {
     	  String search  = request.getParameter("search");
     	  String startNum = request.getParameter("startNum");
     	  String endNum = request.getParameter("endNum");
+    	  
     	  List<Review> reviewLists = reviewService.getSearchedReviewList(search,startNum, endNum);
     	  for(Review r : reviewLists) {
     		  System.out.println(r.getMem_id()+" "+r.getRev_title());
     	  }
     	  request.setAttribute("search", search);
-    	  request.setAttribute("start", startNum);
-    	  request.setAttribute("end", endNum);
+    	
     	  request.setAttribute("reviewLists", reviewLists);
       }else if(route.equals(Route.GET_REVIEW_MORE.getRoute())){
     	  String search  = request.getParameter("search");
     	  String startNum = request.getParameter("startNum");
     	  String endNum = request.getParameter("endNum");
+    	  
     	  List<Review> reviewLists = reviewService.getSearchedReviewList(search,startNum, endNum);
     	  
     	  JsonMaker jsonMaker = new JsonMaker();

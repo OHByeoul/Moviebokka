@@ -37,9 +37,21 @@ public class MovieRequestMapping implements RequestDispatcher {
 	   if(route.equals(Route.SEARCH_DETAIL_INFO.getRoute())) {
 		   
 	   } else if(route.equals(Route.GET_MOVIE_SEARCH.getRoute())){
-		   String search = request.getParameter("search");
+		   String search  = request.getParameter("search");
+		   String startNum = request.getParameter("startNum");
+		   String endNum = request.getParameter("endNum");
 		   List<GetMovieInfoForm> movieInfoFormList = new ArrayList<>();
-	         movieInfoFormList = movieService.getSearchedMovieList(search);
+	       movieInfoFormList = movieService.getSearchedMovieList(search,startNum,endNum);
+	       
+		   request.setAttribute("movieInfoFormList", movieInfoFormList);
+		   request.setAttribute("startM", startNum);
+	       request.setAttribute("endM", endNum);
+	   } else if(route.equals(Route.GET_MOVIE_MORE.getRoute())) {
+		   String search = request.getParameter("search");
+		   String startNum = request.getParameter("startNum");
+		   String endNum = request.getParameter("endNum");
+		   List<GetMovieInfoForm> movieInfoFormList = new ArrayList<>();
+	         movieInfoFormList = movieService.getSearchedMovieList(search,startNum,endNum);
 	         for(GetMovieInfoForm m : movieInfoFormList) {
 	            System.out.println(m.getM_code());
 	            System.out.println(m.getM_title());

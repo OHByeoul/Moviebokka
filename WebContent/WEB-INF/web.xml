@@ -21,4 +21,8 @@
     <servlet-name>ReviewController</servlet-name>
     <servlet-class>com.revizio.moviebokka.controller.ReviewController</servlet-class>
   </servlet>
+   <servlet>
+    <servlet-name>SearchController</servlet-name>
+    <servlet-class>com.revizio.moviebokka.controller.SearchController</servlet-class>
+  </servlet>
 </web-app>

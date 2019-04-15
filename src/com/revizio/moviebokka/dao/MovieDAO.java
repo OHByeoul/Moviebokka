@@ -270,15 +270,26 @@ public class MovieDAO {
 
 
 
-	public List<GetMovieInfoForm> getSearchedMovieList(String search) {
+	public List<GetMovieInfoForm> getSearchedMovieList(String search, int start, int end) {
 		List<GetMovieInfoForm> movieInfoForms = new ArrayList<>();
 		GetMovieInfoForm getMovieInfoForm = new GetMovieInfoForm();
-		String query = "SELECT m_code FROM movie WHERE m_title LIKE '%' || ? || '%'";
+		String query = "SELECT S2.rnum, S2.m_code "+
+							"FROM (SELECT ROWNUM as rnum, S1.m_code "+
+									"FROM (SELECT m_code "+
+											"FROM movie "+ 
+					                        "WHERE m_title LIKE '%' || ? || '%' OR m_story LIKE '%' || ? || '%' "+
+											"ORDER BY m_user_rating DESC) S1 "+ 
+									"WHERE ROWNUM <= ?) S2 "+ 
+						"WHERE rnum >= ?";
+		
 		conn = instance.getConnection();
 		List<Integer> codes = new ArrayList<>();
 		try {
 			preparedStatement = conn.prepareStatement(query);
 			preparedStatement.setString(1, search);
+			preparedStatement.setString(2, search);
+			preparedStatement.setInt(3, end);
+			preparedStatement.setInt(4, start);
 			rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				int movieCode = rs.getInt("m_code");
