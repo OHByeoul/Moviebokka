@@ -12,8 +12,13 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.revizio.moviebokka.controller.ReviewRequestMapping;
 import com.revizio.moviebokka.dto.GetMovieInfoForm;
 import com.revizio.moviebokka.dto.Review;
+import com.revizio.moviebokka.dto.UserRecommand;
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
+import sun.dc.pr.PRError;
 
 public class ReviewDAO {
 	private static ReviewDAO instance;
@@ -258,6 +263,163 @@ public class ReviewDAO {
 			closeIdleConnection();
 		}
 		return false;
+	}
+
+	public boolean updateRecommand(int id, boolean isReccomand) {
+		String query = "UPDATE review SET rev_recommand = rev_recommand+? WHERE rev_id=?";
+		conn = instance.getConnection();
+		int result = 0;
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			if(isReccomand) {
+				preparedStatement.setInt(1, 1);
+			} else {
+				preparedStatement.setInt(1, -1);
+			}
+			preparedStatement.setInt(2, id);
+			result = preparedStatement.executeUpdate();
+			if(result > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		return false;
+	}
+
+	public boolean updateUnrecommand(int id, boolean isReccomand) {
+		String query = "UPDATE review SET rev_unrecommand = rev_unrecommand+? WHERE rev_id=?";
+		conn = instance.getConnection();
+		int result = 0;
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			if(isReccomand) {
+				preparedStatement.setInt(1, 1);
+			} else {
+				preparedStatement.setInt(1, -1);
+			}
+			preparedStatement.setInt(2, id);
+			result = preparedStatement.executeUpdate();
+			if(result > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		return false;
+	}
+
+	public boolean checkRecomExist(int id, String memEmail) {
+		String query = "SELECT rev_id, mem_email FROM userRecommand WHERE rev_id=? AND mem_email=?";
+		conn = instance.getConnection();
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setInt(1, id);
+			preparedStatement.setString(2, memEmail);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		return false;
+	}
+
+	public boolean createUserRecommand(int id, String memEmail, int recom, int unrecom) {
+		String query = "INSERT INTO userRecommand VALUES (?,?,?,?)";
+		boolean result = false;
+		conn = instance.getConnection();
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setInt(1, id);
+			preparedStatement.setString(2, memEmail);
+			preparedStatement.setInt(3, recom);
+			preparedStatement.setInt(4, unrecom);
+		
+			int queryResult = preparedStatement.executeUpdate();
+			if (queryResult >= 1) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		return result;
+	}
+
+	public boolean updateUserRecommand(int id, String memEmail, int recom, int unrecom) {
+		String query = "UPDATE userRecommand SET recom_status = ?, unrecom_status=? WHERE rev_id=? AND mem_email=?";
+		conn = instance.getConnection();
+		int result = 0;
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setInt(1, recom);
+			preparedStatement.setInt(2, unrecom);
+			preparedStatement.setInt(3, id);
+			preparedStatement.setString(4, memEmail);
+			result = preparedStatement.executeUpdate();
+			if(result > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		return false;
+	}
+
+	public boolean deleteUserRecommand(int id, String memEmail) {
+		String query = "DELETE userRecommand WHERE rev_id=? AND mem_email=?";
+		conn = instance.getConnection();
+		int result = 0;
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setInt(1, id);
+			preparedStatement.setString(2, memEmail);
+			result = preparedStatement.executeUpdate();
+			if(result > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		return false;
+	}
+
+	public UserRecommand getReivewRecomInfo(int id, String memEmail) {
+		System.out.println(id+" "+memEmail);
+		String query = "SELECT recom_status, unrecom_status FROM userrecommand WHERE rev_id=? AND mem_email=?";
+		UserRecommand userRecomman = new UserRecommand();
+		conn = instance.getConnection();
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setInt(1, id);
+			preparedStatement.setString(2, memEmail);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				userRecomman.setRecom_status(rs.getInt("recom_status"));
+				userRecomman.setUnrecom_status(rs.getInt("unrecom_status"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		return userRecomman;
+		
 	}
 
 }

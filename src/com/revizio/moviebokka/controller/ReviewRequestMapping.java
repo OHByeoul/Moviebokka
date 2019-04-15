@@ -1,6 +1,5 @@
 package com.revizio.moviebokka.controller;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -11,10 +10,10 @@ import javax.servlet.http.HttpSession;
 import com.revizio.moviebokka.dto.GetMovieInfoForm;
 import com.revizio.moviebokka.dto.Member;
 import com.revizio.moviebokka.dto.Review;
+import com.revizio.moviebokka.dto.UserRecommand;
 import com.revizio.moviebokka.service.MovieService;
 import com.revizio.moviebokka.service.ReviewService;
 import com.revizio.moviebokka.service.UserService;
-import com.revizio.moviebokka.util.JsonMaker;
 
 public class ReviewRequestMapping implements RequestDispatcher {
    private ReviewService reviewService;
@@ -59,8 +58,34 @@ public class ReviewRequestMapping implements RequestDispatcher {
     	  Review selectedReview = reviewService.getSelectedReviewDetail(revId);
     	  session = request.getSession();
     	  Member member =  (Member) session.getAttribute("user");
+    	  UserRecommand userRecommand = new UserRecommand();
+    	  if(member != null) {
+    		  userRecommand = reviewService.getUserRecommandStatus(revId,member.getMem_email());
+    	  }
     	  session.setAttribute("session", member);
     	  request.setAttribute("reviewDetail", selectedReview);
+    	  request.setAttribute("recommand", userRecommand);
+      } else if(route.equals(Route.RECOMMAND_REVIEW.getRoute())) {
+    	  String revId = request.getParameter("revId");
+    	  String status = request.getParameter("status"); 
+    	  System.out.println(status);
+    	  reviewService.updateRecommand(revId,status);
+      } else if(route.equals(Route.UNRECOMMAND_REVIEW.getRoute())) {
+    	  String revId = request.getParameter("revId");
+    	  String status = request.getParameter("status"); 
+    	  reviewService.updateUnrecommand(revId,status);
+    	  
+      } else if(route.equals(Route.CHECK_USER_RECOMMAND.getRoute())) {
+    	  String revId = request.getParameter("revId"); 
+    	  String nick = request.getParameter("nick");
+    	  String status = request.getParameter("status");
+    	  String unStatus = request.getParameter("unStatus");
+    	  Member member =  (Member) session.getAttribute("user");
+    	  String email = "";
+    	  if(member != null) {
+    		  email = member.getMem_email();
+    	  }
+    	  reviewService.checkUserRecommand(revId, email,status,unStatus);
       } else if(route.equals(Route.UPDATE_REVIEW_FORM.getRoute())) {
     	  String revId = request.getParameter("revId");
     	  Review selectedReview = reviewService.getSelectedReviewDetail(revId);

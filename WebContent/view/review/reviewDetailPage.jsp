@@ -53,13 +53,15 @@ h2 {
 				<div class="Panel with panel-info class">
 					<div class="panel-heading">
 					
-						<span class="nick">닉네임 ${reviewDetail.mem_nick}</span> <span class="time">추천 ${reviewDetail.rev_recommand}</span> 
-						<span class="view">조회수 ${reviewDetail.rev_view}</span> <span class="recommand">시간 ${reviewDetail.rev_regdate}</span>
+						<span class="nick">닉네임 ${reviewDetail.mem_nick}</span> <span class="recommand">추천 ${reviewDetail.rev_recommand}</span> 
+						<span class="view">조회수 ${reviewDetail.rev_view}</span> <span class="time">시간 ${reviewDetail.rev_regdate}</span>
 					</div>
 					<div class="panel-body">${reviewDetail.rev_content}</div>
 				</div>
 			</div>
 		</div>
+		<button type="button" id="recommand" class="btn btn-success">추천<span id="score"> ${reviewDetail.rev_recommand}</span></button>
+		<button type="button" id="unrecommand" class="btn btn-danger">비추천 <span id="unscore">${reviewDetail.rev_unrecommand}</span></button>
 	</div>
 	<form action="/Moviebokka/review/deleteReview" method="POST" id="deleteReviewForm" style="display: hidden">
 	  <input type="hidden" id="revId" name="revId" value=""/>
@@ -97,6 +99,118 @@ h2 {
 				let code = ${reviewDetail.m_code};
 				location.href = "/Moviebokka/movie/getMovieDetail?movieCode="+code;
 			});			
+			
+			let recomStatus = false;
+			if("${recommand.recom_status}"==1){
+				recomStatus = true;
+			} 
+			let unrecomStatus = false;
+			if("${recommand.unrecom_status}"==1){
+				unrecomStatus = true;
+			}
+			alert(recomStatus+" "+unrecomStatus);
+			$('#recommand').on('click', function(){
+				if(unrecomStatus){
+					alert("비추를 해제해야 ㅊㅊ가능");
+					return false;
+				}
+				if(recomStatus){
+					recomStatus = false;
+				} else {
+					recomStatus = true;
+				}
+				$.ajax({
+					url : "/Moviebokka/review/checkUserRecommand",
+					type : "GET",
+					data : {revId : revId, nick:nick, status : recomStatus, unStatus : unrecomStatus}
+				}).done(function(result){
+					console.log(result);
+				}).fail(function(fail){
+					console.log(fail);
+				});
+				
+				if(recomStatus){
+					$.ajax({
+						url : "/Moviebokka/review/recommandReview",
+						type : "GET",
+						data : {revId : revId, status : recomStatus}
+					}).done(function(result){
+						console.log(result);
+					}).fail(function(fail){
+						console.log(fail);
+					});
+					let $score = $('#score').text();
+					let score = String(Number($score)+1);
+					$('#score').text(score);
+				} else {
+					$.ajax({
+						url : "/Moviebokka/review/recommandReview",
+						type : "GET",
+						data : {revId : revId, status : recomStatus}
+					}).done(function(result){
+						console.log(result);
+					}).fail(function(fail){
+						console.log(fail);
+					});
+					let $score = $('#score').text();
+					let score = String(Number($score)-1);
+					$('#score').text(score);
+				}
+				
+				
+			});
+			
+			$('#unrecommand').on('click', function(){
+				if(recomStatus){
+					alert("추천을 해제해야 비추 가능함 ㅇㅋ?");
+					return false;
+				}
+				if(unrecomStatus){
+					unrecomStatus = false;
+				} else {
+					unrecomStatus = true;
+				}
+				$.ajax({
+					url : "/Moviebokka/review/checkUserRecommand",
+					type : "GET",
+					data : {revId : revId, nick:nick, status : recomStatus, unStatus : unrecomStatus}
+				}).done(function(result){
+					console.log(result);
+				}).fail(function(fail){
+					console.log(fail);
+				});
+				
+				if(unrecomStatus){
+					$.ajax({
+						url : "/Moviebokka/review/unrecommandReview",
+						type : "GET",
+						data : {revId : revId, status : unrecomStatus}
+					}).done(function(result){
+						console.log(result);
+					}).fail(function(fail){
+						console.log(fail);
+					});
+					let $score = $('#unscore').text();
+					let score = String(Number($score)+1);
+					$('#unscore').text(score);
+				} else {
+					$.ajax({
+						url : "/Moviebokka/review/unrecommandReview",
+						type : "GET",
+						data : {revId : revId, status : unrecomStatus}
+					}).done(function(result){
+						console.log(result);
+					}).fail(function(fail){
+						console.log(fail);
+					});
+					let $score = $('#unscore').text();
+					let score = String(Number($score)-1);
+					$('#unscore').text(score);
+				}
+				
+			});
+			
+			
 		});
 	</script>
 </body>

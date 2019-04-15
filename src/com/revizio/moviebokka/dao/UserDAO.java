@@ -173,5 +173,23 @@ public class UserDAO {
 		}
 		return false;
 	}
+
+	public String geUserEmailByNick(String nick) {
+		String query = "SELECT mem_email FROM member WHERE mem_nick = ?";
+		conn = instance.getConnection();
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setString(1, nick);
+			rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				return rs.getString("mem_email");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		return null;
+	}
 }
 

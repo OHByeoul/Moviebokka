@@ -26,14 +26,16 @@ public enum Route {
 	GET_REVIEW_MORE("searchReviewMore","ajax"),
 	
 	//Review
-	GET_REVIEW_SEARCH("searchReviews","searchPage.jsp"),//GET_REVIEW_SEARCH("searchReviews","ajax"),
-//	GET_REVIEW_MORE("searchReviewMore","ajax"),
+	//GET_REVIEW_SEARCH("searchReviews","searchPage.jsp"),
 	REVIEW_FORM("reviewForm","/review/"+"reviewCreateForm.jsp"),
 	CREATE_REVIEW("createReview","/review/"+"reviewDetailPage.jsp"),
 	GET_REVIEW_INFO("getSelectedReview","/review/"+"reviewDetailPage.jsp"),
 	UPDATE_REVIEW_FORM("updateReviewForm", "/review/"+"reviewUpdateForm.jsp"),
 	UPDATE_REVIEW_PAGE("updateReview","/review/"+"reviewDetailPage.jsp"),
 	DELETE_REVIEW_PAGE("deleteReview", "/movie/"+"movieDetailInfoPage.jsp"),
+	RECOMMAND_REVIEW("recommandReview","ajax"),
+	UNRECOMMAND_REVIEW("unrecommandReview","ajax"),
+	CHECK_USER_RECOMMAND("checkUserRecommand","ajax"),
 	
 	
 	//Board
