@@ -34,7 +34,9 @@ public class ReviewService {
 	public Review updateSelectedReview(String revId, String title, String content) {
 		int id = Integer.parseInt(revId);
 		boolean result = reviewDAO.updateSelectedReview(id,title,content);
-		  
+		 if(!result) {
+			  //exception
+		  }  
 		return reviewDAO.getReviewDetailInfo(id);
 	}
 
