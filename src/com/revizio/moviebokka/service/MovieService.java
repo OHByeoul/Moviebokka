@@ -112,6 +112,10 @@ public class MovieService implements MovieServiceImpl{
    }
 
    public GetMovieInfoForm getSelectedMovieDetail(int movieCode) {
+	  boolean result = movieDAO.updateViewCnt(movieCode);
+	  if(!result) {
+		  //exception
+	  }
       return movieDAO.getMovieDetailInfo(movieCode);
    }
 

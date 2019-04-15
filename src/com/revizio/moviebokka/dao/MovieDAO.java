@@ -305,4 +305,24 @@ public class MovieDAO {
 		}
 		return movieInfoForms;
 	}
+
+	public boolean updateViewCnt(int movieCode) {
+		String query = "UPDATE movie SET m_cnt = m_cnt+1 WHERE m_code = ?";
+		conn = instance.getConnection();
+		int result = 0;
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setInt(1, movieCode);
+			result = preparedStatement.executeUpdate();
+			if(result > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		return false;
+	}
 }
