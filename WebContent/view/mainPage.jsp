@@ -219,7 +219,7 @@
 		}
 		
 		for(let i = 0; i<cnt; i++){
-			$('.top10').on('click', '#movie'+i, function(){
+			$('.container').on('click', '#movie'+i, function(){
 				let movieCode = $(this).find('#movieCode').val();
 				console.log(movieCode);
 				location.href = "/Moviebokka/movie/getMovieDetail?movieCode="+movieCode;

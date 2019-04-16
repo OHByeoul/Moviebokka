@@ -124,7 +124,6 @@ footer {
 }
 .rating li{font-size:40px;color:#ffd200;transition:all .3s ease 0s}
 .rating li.disable{color:rgba(0,0,0,.2)}
-.rating {list-style:none}
 
 
 </style>
