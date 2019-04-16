@@ -1,38 +1,71 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <jsp:include page="../partial/header.jsp" />
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="../static/css/searchMoviePage.css">
+<jsp:include page="../partial/navbar.jsp" />
+<link rel="stylesheet" href="/Moviebokka/static/css/mainPage.css">
+
+<title>무비보까 검색 페이지</title>
+<style type="text/css">
+.jumbotron {
+	display: block;
+	background-size: cover;
+	width: 100%;
+	padding: 0px;
+	margin-bottom: 0;
+	margin-top: 0;
+	background-color: #141414;
+}
+
+h1 {
+	margin: 0;
+}
+
+h3 {
+	color: white;
+	padding: 20px;
+}
+
+button:hover {
+	color: cyan;
+}
+</style>
 </head>
 
 <body>
-	<form action="" class="center_block" id="search_form" method="get">
-		<input type="text" class="search-query" name="movieName" id="search"
-			placeholder="검색">
-		<button class="btn btn-warning" id="search_btn" type="submit">검색</button>
-	</form>
+	<div class="text-center padding_top padding_bottom">
+		<h3>영화검색</h3>
+		<form action="" class="center_block" id="search_form" method="get">
+			<input type="text" class="search-query" name="movieName" id="search" placeholder="검색">
+			<button class="btn search_btn_color" id="search_btn" type="submit">검색</button>
+		</form>
+	</div>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3" id="col">
-				<div class="list-group">
-					
-				</div>
+				<div class="list-group"></div>
 			</div>
 		</div>
 
 		<form id="template" style="display: none">
-			<div class="list-group-item active">
-				<img class="col" src="" id="image" alt="이미지없오">
-					<div class="content">
-						<div><h4 class="list-group-item-heading" id="title"></h4></div>
-						<div><p class="list-group-item-text" id="actor"></p></div>
-						<div><p class="list-group-item-text" id="pub_date"></p></div>
-						<div><p class="list-group-item-text" id="user_rating"></p></div>
+			<div class="list-group-item col-sm-12"
+				style="background-color: black;">
+				<div>
+					<img class="col-sm-4 search_movie_img_center" src="" id="image" alt="이미지없오" height="auto" width="auto">
+				</div>
+				<div class="row">
+					<div class="col-sm-4 well"> 
+						영화제목: <h5 class="list-group-item-heading search_movie_detail" id="title"></h5>
 					</div>
+					<div class="col-sm-4 well">
+						배우: <p class="list-group-item-text search_movie_detail" id="actor"></p>
+					</div>
+					<div class="col-sm-4 well">
+						영화개봉일: <p class="list-group-item-text search_movie_detail" id="pub_date"></p>
+					</div>
+					<div class="col-sm-4 well">
+						관람객 평점: <p class="list-group-item-text search_movie_detail" id="user_rating"></p>
+					</div>
+				</div>
 			</div>
 		</form>
 	</div>
@@ -106,4 +139,6 @@
 
 		});
 	</script>
+	<!-- footer&scripts -->
+	<jsp:include page="../partial/footer.jsp" />
 </body>
