@@ -2,8 +2,7 @@
 	pageEncoding="UTF-8"%>
 <jsp:include page="../partial/header.jsp" />
 <jsp:include page="../partial/navbar.jsp" />
-<link rel="stylesheet" href="/Moviebokka/static/css/mainPage.css">
-
+<link rel="stylesheet" href="/Moviebokka/static/css/page.css">
 <title>무비보까 검색 페이지</title>
 <style type="text/css">
 .jumbotron {
@@ -16,59 +15,71 @@
 	background-color: #141414;
 }
 
-h1 {
-	margin: 0;
-}
-
-h3 {
-	color: white;
-	padding: 20px;
-}
-
 button:hover {
 	color: cyan;
 }
+
+.container-form .input-group {
+   padding: 30px 0;
+}
+
+.search-image {
+    width: 150px !important;
+    height: 210px !important;
+}
+
+.list-group-item {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
 </style>
 </head>
-
 <body>
-	<div class="text-center padding_top padding_bottom">
-		<h3>영화검색</h3>
-		<form action="" class="center_block" id="search_form" method="get">
-			<input type="text" class="search-query" name="movieName" id="search" placeholder="검색">
-			<button class="btn search_btn_color" id="search_btn" type="submit">검색</button>
-		</form>
-	</div>
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3" id="col">
-				<div class="list-group"></div>
-			</div>
-		</div>
+<div class="container container-form">
+    <div class="row">
+        <div class="col-sm-12">
+            <form action="" class="form" id="search_form" method="get">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default btn-lg" type="button" disabled>영화 검색</button>
+                    </span>
+                    <input type="text" class="form-control input-lg" placeholder="검색어" name="movieName" id="search">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default btn-lg" id="search_btn" type="submit">검 색</button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row row-result">
+    </div>
+</div>
 
-		<form id="template" style="display: none">
-			<div class="list-group-item col-sm-12"
-				style="background-color: black;">
-				<div>
-					<img class="col-sm-4 search_movie_img_center" src="" id="image" alt="이미지없오" height="auto" width="auto">
-				</div>
-				<div class="row">
-					<div class="col-sm-4 well"> 
-						영화제목: <h5 class="list-group-item-heading search_movie_detail" id="title"></h5>
-					</div>
-					<div class="col-sm-4 well">
-						배우: <p class="list-group-item-text search_movie_detail" id="actor"></p>
-					</div>
-					<div class="col-sm-4 well">
-						영화개봉일: <p class="list-group-item-text search_movie_detail" id="pub_date"></p>
-					</div>
-					<div class="col-sm-4 well">
-						관람객 평점: <p class="list-group-item-text search_movie_detail" id="user_rating"></p>
-					</div>
-				</div>
-			</div>
-		</form>
-	</div>
+    <form id="template" style="display: none;">
+        <div class="col-sm-2">
+            <a href="#" class="thumbnail">
+                <img id="image" class="search-image">
+            </a>
+        </div>
+        <div class="col-sm-4">
+            <div class="list-group">
+                <div class="list-group-item">
+                    영화제목: <span id="title"></span>
+                </div>
+                <div class="list-group-item">
+                    배우: <span id="actor"></span>
+                </div>
+                <div class="list-group-item">
+                    영화개봉일: <span id="pub_date"></span>
+                </div>
+                <div class="list-group-item">
+                    관람객 평점: <span id="user_rating"></span>
+                </div>
+                <div class="list-group-item"></div>
+            </div>
+        </div>
+    </form>
 
 	<script>
 		$(function() {
@@ -82,7 +93,7 @@ button:hover {
 					type : 'GET',
 					data : data
 				}).done(function(result) {
-					$('.list-group').empty();
+					$('.row.row-result').empty();//
 					$.each(result, function(key, value) {
 						if (key === "items") {
 							$.each(value, function(index, obj) {
@@ -100,45 +111,54 @@ button:hover {
 			function createNewForm(index, obj) {
 				let element = "";
 				let $temp = $('#template').clone();
-				$temp.attr('id', "temp" + index);
-				$temp.find("#image").attr("src", obj['image']);
-				$temp.find("#title").html(obj['title']);
-				$temp.find("#actor").text(obj['actor']);
-				$temp.find("#pub_date").text(obj['pubDate']);
-				$temp.find("#user_rating").text(obj['userRating']);
-				$temp.css("display", "block");
-				element += "<input type='hidden' name='title' value='"+obj['title']+"'>";
-				element += "<input type='hidden' name='pubDate' value='"+obj['pubDate']+"'>";
-				element += "<input type='hidden' name='img' value='"+obj['image']+"'>";
-				element += "<input type='hidden' name='director' value='"+obj['director']+"'>";
-				element += "<input type='hidden' name='actor' value='"+obj['actor']+"'>";
-				element += "<input type='hidden' name='userRating' value='"+obj['userRating']+"'>";
-				$temp.append(element);
-				let btn = "<button type='button' id='btn"+index+"' class='btn btn-warning'>영화정보보기</button>";
-				$temp.find(".list-group-item.active").append(btn);
-				let $group = $('.list-group');
-				$group.append($temp);
+				if(obj['title'] !== '' && obj['title'] !== 'undefined') {
+                    $temp.attr('id', "temp" + index);
+                    if(obj['image'].length > 0) {
+                        $temp.find("#image").attr("src", obj['image']);
+                    } else {
+                    	$temp.find("#image").attr("src", '/Moviebokka/static/images/not-available.jpg');
+                    }
+                    $temp.find("#title").html(obj['title']);
+                    $temp.find("#actor").text(obj['actor']);
+                    $temp.find("#pub_date").text(obj['pubDate']);
+                    $temp.find("#user_rating").text(obj['userRating']);
+                    $temp.css("display", "block");
+                    element += "<input type='hidden' name='title' value='"+obj['title']+"'>";
+                    element += "<input type='hidden' name='pubDate' value='"+obj['pubDate']+"'>";
+                    element += "<input type='hidden' name='img' value='"+obj['image']+"'>";
+                    element += "<input type='hidden' name='director' value='"+obj['director']+"'>";
+                    element += "<input type='hidden' name='actor' value='"+obj['actor']+"'>";
+                    element += "<input type='hidden' name='userRating' value='"+obj['userRating']+"'>";
+                    $temp.append(element);
+                    let btn = "<button type='button' id='btn"+index+"' class='btn btn-block btn-warning'>영화정보보기</button>";
+                    $temp.find(".list-group-item:last").append(btn);
+                    console.log(obj['title'] + " : " + obj['image']);
+                    $('.row-result').append($temp);	
+                    console.log($temp.html());
+                    //let $group = $('.list-group');
+                    //$group.append($temp);
+				}
 			}
 
 			function addBtnEvent(index, obj) {
-				$(document).on(
-						'click',
-						'#btn' + index,
-						function(e) {
-							e.preventDefault();
-
-							let link = obj['link'];
-							let temp = link.split("?");
-							let code = temp[1].substring(5, temp[1].length);
-							let param = $(this).closest("#temp"+index).serialize();
-
-							location.href = "/Moviebokka/movie/getMovieInfo?code="
-									+ code + "&" + param;
-						});
+				$(document)
+						.on(
+								'click',
+								'#btn' + index,
+								function(e) {
+									e.preventDefault();
+									let link = obj['link'];
+									let temp = link.split("?");
+									let code = temp[1].substring(5, temp[1].length);
+									let param = $(this).closest("#temp"+index).serialize();
+									location.href = "/Moviebokka/movie/getMovieInfo?code="
+											+ code + "&" + param;
+								});
 			}
 
 		});
 	</script>
+
 	<!-- footer&scripts -->
 	<jsp:include page="../partial/footer.jsp" />
 </body>
