@@ -77,7 +77,6 @@ public class ReviewRequestMapping implements RequestDispatcher {
     	  
       } else if(route.equals(Route.CHECK_USER_RECOMMAND.getRoute())) {
     	  String revId = request.getParameter("revId"); 
-    	  String nick = request.getParameter("nick");
     	  String status = request.getParameter("status");
     	  String unStatus = request.getParameter("unStatus");
     	  Member member =  (Member) session.getAttribute("user");

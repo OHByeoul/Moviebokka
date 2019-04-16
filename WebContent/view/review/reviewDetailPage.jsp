@@ -108,7 +108,7 @@ h2 {
 			if("${recommand.unrecom_status}"==1){
 				unrecomStatus = true;
 			}
-			alert(recomStatus+" "+unrecomStatus);
+			
 			$('#recommand').on('click', function(){
 				if(unrecomStatus){
 					alert("비추를 해제해야 ㅊㅊ가능");
@@ -119,43 +119,26 @@ h2 {
 				} else {
 					recomStatus = true;
 				}
-				$.ajax({
-					url : "/Moviebokka/review/checkUserRecommand",
-					type : "GET",
-					data : {revId : revId, nick:nick, status : recomStatus, unStatus : unrecomStatus}
-				}).done(function(result){
-					console.log(result);
-				}).fail(function(fail){
-					console.log(fail);
-				});
 				
+				checkUserRecommand();
+				
+					$.ajax({
+						url : "/Moviebokka/review/recommandReview",
+						type : "GET",
+						data : {revId : revId, status : recomStatus}
+					}).done(function(result){
+						console.log(result);
+					}).fail(function(fail){
+						console.log(fail);
+					});
+					let $score = $('#score').text();
+					let score;
 				if(recomStatus){
-					$.ajax({
-						url : "/Moviebokka/review/recommandReview",
-						type : "GET",
-						data : {revId : revId, status : recomStatus}
-					}).done(function(result){
-						console.log(result);
-					}).fail(function(fail){
-						console.log(fail);
-					});
-					let $score = $('#score').text();
-					let score = String(Number($score)+1);
-					$('#score').text(score);
+					score = String(Number($score)+1);
 				} else {
-					$.ajax({
-						url : "/Moviebokka/review/recommandReview",
-						type : "GET",
-						data : {revId : revId, status : recomStatus}
-					}).done(function(result){
-						console.log(result);
-					}).fail(function(fail){
-						console.log(fail);
-					});
-					let $score = $('#score').text();
-					let score = String(Number($score)-1);
-					$('#score').text(score);
+					score = String(Number($score)-1);
 				}
+					$('#score').text(score);
 				
 				
 			});
@@ -170,45 +153,39 @@ h2 {
 				} else {
 					unrecomStatus = true;
 				}
+				checkUserRecommand();
+				
+					$.ajax({
+						url : "/Moviebokka/review/unrecommandReview",
+						type : "GET",
+						data : {revId : revId, status : unrecomStatus}
+					}).done(function(result){
+						console.log(result);
+					}).fail(function(fail){
+						console.log(fail);
+					});
+					let $score = $('#unscore').text();
+					let score;
+					if(unrecomStatus){
+						score = String(Number($score)+1);
+					} else {
+						score = String(Number($score)-1);
+					}
+					$('#unscore').text(score);
+				
+			});
+			
+			function checkUserRecommand(){
 				$.ajax({
 					url : "/Moviebokka/review/checkUserRecommand",
 					type : "GET",
-					data : {revId : revId, nick:nick, status : recomStatus, unStatus : unrecomStatus}
+					data : {revId : revId, status : recomStatus, unStatus : unrecomStatus}
 				}).done(function(result){
 					console.log(result);
 				}).fail(function(fail){
 					console.log(fail);
 				});
-				
-				if(unrecomStatus){
-					$.ajax({
-						url : "/Moviebokka/review/unrecommandReview",
-						type : "GET",
-						data : {revId : revId, status : unrecomStatus}
-					}).done(function(result){
-						console.log(result);
-					}).fail(function(fail){
-						console.log(fail);
-					});
-					let $score = $('#unscore').text();
-					let score = String(Number($score)+1);
-					$('#unscore').text(score);
-				} else {
-					$.ajax({
-						url : "/Moviebokka/review/unrecommandReview",
-						type : "GET",
-						data : {revId : revId, status : unrecomStatus}
-					}).done(function(result){
-						console.log(result);
-					}).fail(function(fail){
-						console.log(fail);
-					});
-					let $score = $('#unscore').text();
-					let score = String(Number($score)-1);
-					$('#unscore').text(score);
-				}
-				
-			});
+			}
 			
 			
 		});
