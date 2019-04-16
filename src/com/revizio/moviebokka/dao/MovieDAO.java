@@ -325,4 +325,27 @@ public class MovieDAO {
 		}
 		return false;
 	}
+
+	public List<GetMovieInfoForm> getMovieRecomList() {
+		 List<GetMovieInfoForm> movieInfoForms = new ArrayList<>();
+	      String query = "SELECT m_code FROM movie WHERE ROWNUM >= 1 AND ROWNUM <= 6 ORDER BY m_cnt DESC";
+	      conn = instance.getConnection();
+	      List<Integer> codes = new ArrayList<>();
+	      try {
+	         preparedStatement = conn.prepareStatement(query);
+	         rs = preparedStatement.executeQuery();
+	         while(rs.next()) {
+	            int movieCode = rs.getInt("m_code");
+	            codes.add(movieCode);
+	         }
+	         for(Integer code : codes) {
+	            movieInfoForms.add(getMovieDetailInfo(code));
+	         }
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         closeIdleConnection();
+	      }
+	      return movieInfoForms;
+	}
 }

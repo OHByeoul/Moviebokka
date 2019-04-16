@@ -75,14 +75,16 @@ public class MovieRequestMapping implements RequestDispatcher {
             e.printStackTrace();
          }
       } else if(route.equals(Route.GET_MOVIE_MAIN.getRoute())) {
-         List<GetMovieInfoForm> movieInfoFormList = new ArrayList<>();
-         movieInfoFormList = movieService.getMovieDetailInfoList();
+         List<GetMovieInfoForm> movieInfoFormList = movieService.getMovieDetailInfoList();
+         List<GetMovieInfoForm> movieRecomList = movieService.getMovieRecomList();
+         
          for(GetMovieInfoForm m : movieInfoFormList) {
             System.out.println(m.getM_code());
             System.out.println(m.getM_title());
          }
                
          request.setAttribute("movieInfoFormList", movieInfoFormList);
+         request.setAttribute("movieRecomList", movieRecomList);
       } else if(route.equals(Route.GET_MOVIE_DETAIL.getRoute())) {
          int movieCode = Integer.parseInt(request.getParameter("movieCode"));
          GetMovieInfoForm getMovieInfoForm = movieService.getSelectedMovieDetail(movieCode);

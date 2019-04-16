@@ -113,7 +113,7 @@
 			<div class="col-md-2 col-sm-6">
 				<div class="movie-grid">
 					<div class="movie-image">
-						<a href="#"> <img class="pic-1" src="" alt="이미지 없음"> <img
+						<a href="#"> <img class="pic-1" src="" onerror="this.src='/Moviebokka/static/images/no-photo.jpg'"alt="임시 이미지"> <img
 							class="pic-2" src="" alt="이미지 없음">
 						</a> <a href="#" class="fa fa-search movie-full-view"></a>
 					</div>
@@ -147,7 +147,8 @@
 	$(function() {
 		var cnt = 1;
 		setMovieMain();
-
+		setMovieRecommand();
+		
 		function setMovieMain(){
 			let $clone = $('.temp_movie').clone();
 			let $target;
@@ -155,6 +156,7 @@
 			let img;
 			let rating;
 			let code;
+			let getClone;
 			
 			<c:forEach var="item" items="${movieInfoFormList}">
 				title = "${item.m_title}";
@@ -163,20 +165,48 @@
 				code = ${item.m_code};
 				
 				console.log(title);
-				$clone = $('.temp_movie').clone();
-				$clone.attr("class", "movie");
-				$clone.attr("id", "movie" + cnt++);
-				$clone.find('.title').find('a').html(title);
-				$clone.find('.pic-1').attr("src", img);
-				$clone.find('.pic-2').attr("src", img);
-				$clone.find('.user_rating').html(rating);
-				$clone.find('#movieCode').val(code);
-				$clone.show();
-						
-				$target = $clone.find('.rating').find('.fa.fa-star');
-				setUserRating(rating, $target);
-				$('.top10').append($clone);
+				getClone = setTempAttribute(title, img, rating, code);
+				
+				$('.top10').append(getClone);
 			</c:forEach>
+		}
+		
+		function setMovieRecommand(){
+			let $clone = $('.temp_movie').clone();
+			let $target;
+			let title;
+			let img;
+			let rating;
+			let code;
+			let getClone;
+			
+			<c:forEach var="item" items="${movieRecomList}">
+				title = "${item.m_title}";
+				img = "${item.m_img}";
+				rating = ${item.m_user_rating};
+				code = ${item.m_code};
+				
+				console.log(title);
+				getClone = setTempAttribute(title, img, rating, code);
+				
+				$('.recommand').append(getClone);
+			</c:forEach>
+		}
+		
+		function setTempAttribute(title, img, rating, code){
+			$clone = $('.temp_movie').clone();
+			$clone.attr("class", "movie");
+			$clone.attr("id", "movie" + cnt++);
+			$clone.find('.title').find('a').html(title);
+			$clone.find('.pic-1').attr("src", img);
+			$clone.find('.pic-2').attr("src", img);
+			$clone.find('.user_rating').html(rating);
+			$clone.find('#movieCode').val(code);
+			$clone.show();
+					
+			$target = $clone.find('.rating').find('.fa.fa-star');
+			setUserRating(rating, $target);
+			return $clone;
 		}
 		
 		function setUserRating(rating, target) {

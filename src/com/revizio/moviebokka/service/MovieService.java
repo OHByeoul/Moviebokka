@@ -126,4 +126,14 @@ public class MovieService implements MovieServiceImpl{
 	      }
 		return movieInfoes;
 	}
+
+	public List<GetMovieInfoForm> getMovieRecomList() {
+		 List<GetMovieInfoForm> movieInfoes = new ArrayList<>();
+	      movieInfoes = movieDAO.getMovieRecomList();
+	      for(GetMovieInfoForm form : movieInfoes) {
+	         String title = crawling.htmlTotext(form.getM_title());
+	         form.setM_title(title);
+	      }
+	      return movieInfoes;
+	}
 }
