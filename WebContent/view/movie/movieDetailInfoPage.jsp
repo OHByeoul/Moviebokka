@@ -2,9 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%
-	String imagePath = request.getContextPath() + "/static/images/";
-%>
+
 <jsp:include page="../partial/header.jsp" />
 <jsp:include page="../partial/navbar.jsp" />
 <link rel="stylesheet" href="/Moviebokka/static/css/mainPage.css">
@@ -12,7 +10,7 @@
 <title>${movieInfoForm.m_title}정보</title>
 <style type="text/css">
 .jumbotron {
-	background-image: url(<%=imagePath%>); /* 무비보까 배너이미지 */
+
 	background-repeat: no-repeat;
 	display: block;
 	background-size: cover;
@@ -26,6 +24,109 @@
 h1 {
 	margin: 0;
 }
+
+.navbar {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+
+/********************* text-size **********************/
+a {
+   font-size: 0.9em;
+}
+
+ul {
+   font-size: 1.3em;
+}
+
+.footer_quick_link {
+   font-size: 2em;
+   color: cyan;
+}
+
+.nav_name {
+   font-size: 0.3em;
+   color: white;
+}
+
+
+/********************* boot-strap **********************/
+.jumbotron {
+   background-color: #141414;
+}
+
+h2, .info {
+   color: #ffffff;
+}
+
+.review_table {
+   color: #141414;
+   background-color: #E6E6E6;
+}
+
+.well {
+   color: white;
+   background: #141414;
+}
+
+.review_btn_color {
+   color: #141414;
+}
+
+.search_btn_color {
+   color: #141414;
+}
+
+.padding_top {
+   padding-top: 60px;
+}
+.padding_bottom {
+   padding-bottom: 60px;
+}
+
+.search_movie_img_center {
+   margin: auto;
+   width: 50%;
+   padding: 10px;
+}
+
+.search_movie_detail {
+   text-align: left;
+}
+
+.spacing {
+   padding: 30px;
+}
+
+.review_btn_text_color {
+   color: white;
+}
+
+body {
+   background-color: #333333;
+   margin: none;
+   padding: none;
+}
+
+content {
+    background-color : #3c3c3c;
+}
+
+/* Add a gray background color and some padding to the footer */
+footer {
+  background-color: #f2f2f2;
+  padding: 25px;
+}
+.rating {
+	margin-top : 20px;
+	margin-left : 15px;
+}
+.rating li{font-size:40px;color:#ffd200;transition:all .3s ease 0s}
+.rating li.disable{color:rgba(0,0,0,.2)}
+.rating {list-style:none}
+
+
 </style>
 </head>
 <body>
@@ -33,20 +134,19 @@ h1 {
 	<div class="content">
 
 		<!-- movieDetailInfoStart -->
+		
 		<div class="container padding_top">
 			<!-- movieImageStart -->
 			<div class="col-sm-6">
 				<img src="${movieInfoForm.m_img}" alt="이미지 없음"
 					class="img-responsive vcenter" height="450" width="300">
-				<div class="text-center">
-					<ul class="rating vcenter">
-						<li class="fa fa-star" style="font-size: 28px; color: yellow"></li>
-						<li class="fa fa-star" style="font-size: 28px; color: yellow"></li>
-						<li class="fa fa-star" style="font-size: 28px; color: yellow"></li>
-						<li class="fa fa-star" style="font-size: 28px; color: yellow"></li>
-						<li class="fa fa-star disable" style="font-size: 28px; color: yellow"></li>
+					<ul class="rating">
+						<li class="fa fa-star"></li>
+						<li class="fa fa-star"></li>
+						<li class="fa fa-star"></li>
+						<li class="fa fa-star"></li>
+						<li class="fa fa-star"></li>
 					</ul>
-				</div>
 			</div>
 			<!-- MovieImageEnd -->
 
@@ -55,23 +155,28 @@ h1 {
 				<div class="col-sm-6">
 					<div class="text-left">
 						<div>
-							<div class="well">영화 코드 : ${movieInfoForm.m_code}</div>
 							<div class="well">영화 제목 : ${movieInfoForm.m_title}</div>
 							<div class="well">영화 개봉일 : ${movieInfoForm.m_pub_date}</div>
 							<div class="well">영화 평점 : ${movieInfoForm.m_user_rating}</div>
-
+							
+							<div class="well">장르 : 
 							<c:forEach items="${movieInfoForm.genre}" var="item"
 								varStatus="status">
-								<span class="well">${item} |</span>
+								${item} |
 							</c:forEach>
+							</div>
+							<div class="well">배우 :
 							<c:forEach items="${movieInfoForm.actor}" var="item"
 								varStatus="status">
-								<span class="well">${item} |</span>
+								${item} |
 							</c:forEach>
+							</div>
+							<div class="well">감독 :
 							<c:forEach items="${movieInfoForm.director}" var="item"
 								varStatus="status">
-								<span class="well">${item} |</span>
+								${item} |
 							</c:forEach>
+							</div>
 							<div class="well">
 								<h4>영화 시놉시스 :</h4>
 								<div>
@@ -122,6 +227,9 @@ h1 {
 	<script>
 		$(function(){			
 			setInitReview();
+			let $target = $('.rating').find('.fa.fa-star');
+			let rating = ${movieInfoForm.m_user_rating};
+			setUserRating(rating, $target);
 			
 			function setInitReview(){
 				let $tbody = $('#tbody');
@@ -142,10 +250,21 @@ h1 {
 				let movieCode = ${movieInfoForm.m_code};
 				location.href = "/Moviebokka/review/reviewForm?movieCode="+movieCode;
 			});
+			
+			
+			function setUserRating(rating, target) {
+				let highStar = 4;
+				let limit = Math.round(rating/2);
+				console.log(limit);
+				for (let i = highStar; i >= limit; i--) {
+					target.eq(i).attr("class", "fa fa-star disable");
+				}
+			}
 		});
 	</script>
 <!-- movieDetailinfoPageScriptEnd -->
 
 	<!-- footerStart -->
 	<jsp:include page="../partial/footer.jsp"></jsp:include>
+	</body>
 	<!-- footerEnd -->
