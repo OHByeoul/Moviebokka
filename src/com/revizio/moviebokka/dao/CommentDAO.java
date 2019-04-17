@@ -105,6 +105,7 @@ public class CommentDAO {
 				reviewComment.setCom_order(rs.getString("com_order"));
 				reviewComment.setCom_ip(rs.getString("com_ip"));
 				reviewComment.setMem_id(rs.getInt("mem_id"));
+				reviewComment.setMem_nick(rs.getString("mem_nick"));
 				reviewComment.setRev_id(rs.getInt("rev_id"));
 				reviewComments.add(reviewComment);
 			}

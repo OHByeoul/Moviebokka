@@ -121,7 +121,7 @@ h2 {
 						<div class="col-sm-12 node-parent" data-box="${comment.com_data_box}" data-parent="none" data-group="${comment.com_group}" data-depth="0" data-seq="0">  
 							<div class="panel panel-default">       
 								<div class="panel-heading">          
-									<img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" width="25" height="25"> ${comment.com_regdate}  ${comment.mem_nick}        
+									<img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" width="25" height="25">${comment.mem_nick} ${comment.com_regdate}         
 										<div class="btn-group pull-right">
 											<button class="btn btn-xs btn-default btn-reply" data-node="${comment.com_data_box}">댓글</button><button class="btn btn-xs btn-default btn-mod" data-node="${comment.com_data_box}">수 정</button><button class="btn btn-xs btn-default btn-del" data-node="${comment.com_data_box}">삭 제</button></div>      
 										 </div>       
@@ -139,7 +139,7 @@ h2 {
 							<div class="col-sm-12 node-child" data-box="${comment.com_data_box}" data-parent="${comment.com_group}" data-group="${comment.com_group}" data-depth="${comment.com_depth}" data-seq="${comment.com_order}">
 								<div class="panel panel-default">
 									<div class="panel-heading">          
-										<img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" width="25" height="25"> ${comment.com_regdate}  ${comment.mem_nick}          
+										<img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" width="25" height="25">${comment.mem_nick} ${comment.com_regdate}            
 										<div class="btn-group pull-right"><button class="btn btn-xs btn-default btn-reply" data-node="${comment.com_data_box}">댓글</button><button class="btn btn-xs btn-default btn-mod" data-node="${comment.com_data_box}">수 정</button><button class="btn btn-xs btn-default btn-del" data-node="${comment.com_data_box}">삭 제</button>
 									</div>       
 								</div>       

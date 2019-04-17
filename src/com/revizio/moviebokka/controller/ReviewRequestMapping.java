@@ -71,7 +71,6 @@ public class ReviewRequestMapping implements RequestDispatcher {
     	  session.setAttribute("session", member);
     	  
     	  request.setAttribute("gCnt", gCnt);
-    	  System.out.println("gcnt "+gCnt);
     	  request.setAttribute("reviewComments", reviewComments);
     	  request.setAttribute("reviewDetail", selectedReview);
     	  request.setAttribute("recommand", userRecommand);
