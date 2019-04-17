@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../partial/header.jsp"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -97,7 +98,6 @@ h2 {
 		<button type="button" id="recommand" class="btn btn-success">추천<span id="score"> ${reviewDetail.rev_recommand}</span></button>
 		<button type="button" id="unrecommand" class="btn btn-danger">비추천 <span id="unscore">${reviewDetail.rev_unrecommand}</span></button>
 		<div class="row" id="cmt-wrapper">
-			<!--상위의 댓글이 붙는곳-->
 			<div class="col-sm-12">
 				<div class="panel panel-white post panel-shadow">
 					<div>
@@ -113,6 +113,45 @@ h2 {
 					</div>
 				</div>
 			</div>
+			<!--상위의 댓글이 붙는곳-->
+			<!-- if depth가 0이라면 node-parent -->
+			<!-- else if depth가 0보다 크다면 node-child 그리고 depth의 크기만큼 덮개를 씌운다-->
+			<c:forEach items="${reviewComments}" var="comment" varStatus="status">
+				<c:set var="depth" value="${comment.com_depth}" />
+				<c:choose>
+			
+
+					<c:when test = '${depth eq 0}'>
+						<div class="col-sm-12 node-parent" data-box="${status.index}" data-parent="none" data-group="${comment.com_group}" data-depth="0" data-seq="0">  
+							<div class="panel panel-default">       
+								<div class="panel-heading">          
+									<img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" width="25" height="25"> "${comment.com_regdate}"  "${comment.mem_nick}"        
+										<div class="btn-group pull-right">
+											<button class="btn btn-xs btn-default btn-reply" data-node="${status.index}">댓글</button><button class="btn btn-xs btn-default btn-mod" data-node="${status.index}">수 정</button><button class="btn btn-xs btn-default btn-del" data-node="${status.index}">삭 제</button></div>      
+										 </div>       
+										 <div class="panel-body node-text">           
+										 	<div class="node-text-inner">${comment.com_content}</div>       
+										 </div>  
+							</div>
+						</div>
+					</c:when>
+			
+					<c:otherwise>
+						<div class="col-sm-12 node-child" data-box="" data-parent="" data-group="1" data-depth="1" data-seq="1">
+							<div class="panel panel-default">
+								<div class="panel-heading">          
+									<img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" width="25" height="25"> 2019-04-05 14:20          
+									<div class="btn-group pull-right"><button class="btn btn-xs btn-default btn-reply" data-node=".hx93juge8fw">댓글</button><button class="btn btn-xs btn-default btn-mod" data-node=".hx93juge8fw">수 정</button><button class="btn btn-xs btn-default btn-del" data-node=".hx93juge8fw">삭 제</button>
+								</div>       
+							</div>       
+							<div class="panel-body node-text">           
+								<div class="node-text-inner">sdfsdfsdf</div>       
+							</div>  
+							</div>
+						</div>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
 		</div>
 	</div>
 	<form action="/Moviebokka/review/deleteReview" method="POST" id="deleteReviewForm" style="display: hidden">
@@ -302,19 +341,23 @@ h2 {
 			       $('#cmt-wrapper').append(line);
 			        let inputComment = $('#cmt-txt').val();
 			        let revId = "${reviewDetail.rev_id}";
-			       $.ajax({
-			            url : '/Moviebokka/comment/createComment',
-			            type : 'GET',
-			            data : {group : gCnt, depth : 0, order : 0, input : inputComment, revId : revId}
-			       }).done(function(result){
+			       let dataBox = uniqueId;
 
-			       }).fail(function(fail){
-
-			       });
+				       $.ajax({
+				            url : '/Moviebokka/comment/createComment',
+				            type : 'GET',
+				            data : {group : gCnt, depth : 0, order : 0, input : inputComment, revId : revId, dataBox : dataBox}
+				       }).done(function(result){
+	
+				       }).fail(function(fail){
+	
+				       });			        	
+			       
 			       $('#cmt-txt').val('');
 			      
 
 			    });
+			    
 			    
 			    $('body').on('click', '.btn-mod', function(e) { //수정 버튼 눌렀을때
 			       removeInput();
@@ -375,22 +418,20 @@ h2 {
 			    });
 			    
 			    //댓글 입력
-			    $('body').on('click', '.reply-input-btn', function() { //대댓글에서 버튼 눌렀을때
+			    $('body').on('click', '.reply-input-btn', function() {
 			       var uniqueId = getUnique();
 			       var node =  $(this).closest('.panel');
-			       //var thisNode = $(this).closest('.node-reply');
-			       var thisNode = $(this).closest('.panel-body'); // 댓글형태 시작점
+			       var thisNode = $(this).closest('.panel-body');
 			       var parentId = $(this).data('node');
-			       var input = thisNode.find('.reply-input-txt'); //입력한 값
-			       var childNodes = node.siblings('[data-parent="' + parentId + '"]'); // 안에 값을 넣으므로써 해당 태그 특정
-			    /**/var pGroup = $(this).closest('.node-parent').attr("data-group");
+			       var input = thisNode.find('.reply-input-txt');
+			       var childNodes = node.siblings('[data-parent="' + parentId + '"]');
+			       var pGroup = $(this).closest('.node-parent').attr("data-group");
 			    
-			        var myDepth = $(this).closest('.col-sm-12').attr("data-depth"); //
-			        var length = $(this).closest('.node-parent').children().length;
+			       var myDepth = $(this).closest('.col-sm-12').attr("data-depth"); 
+			       var length = $(this).closest('.node-parent').children().length;
 
-			        
 			        myDepth = parseInt(myDepth)+1;
-			       // console.log(pSeq);
+			       
 			       if(input.val().trim() == "") {
 			          alert("댓글을 입력하세요.");
 			          input.focus();

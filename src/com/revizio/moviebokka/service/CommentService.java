@@ -2,6 +2,7 @@ package com.revizio.moviebokka.service;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import com.revizio.moviebokka.constant.Constants;
 import com.revizio.moviebokka.dao.CommentDAO;
@@ -34,6 +35,10 @@ public class CommentService {
 		Date nowDate = Date.valueOf(formatedDate);
 		System.out.println(nowDate);
 		return nowDate;
+	}
+
+	public List<ReviewComment> getReviewCommentById(String revId) {
+		return commentDAO.getReviewCommentById(revId);
 	}
 
 }

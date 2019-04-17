@@ -10,11 +10,17 @@ public class ReviewComment {
 	private String com_depth;
 	private String com_order;
 	private String com_ip;
+	private String com_data_box;
 	private int mem_id;
 	private String mem_nick;
 	private int rev_id;
 	
-	public ReviewComment(String input, String group, String depth, String order, int mem_id, String mem_nick,int rev_id) {
+	
+	public ReviewComment() {
+		
+	}
+	
+	public ReviewComment(String input, String group, String depth, String order, int mem_id, String mem_nick,int rev_id,String dataBox) {
 		this.com_content = input;
 		this.com_group = group;
 		this.com_depth = depth;
@@ -22,6 +28,7 @@ public class ReviewComment {
 		this.mem_id = mem_id;
 		this.mem_nick = mem_nick;
 		this.rev_id = rev_id;
+		this.com_data_box = dataBox;
 	}
 	public int getCom_id() {
 		return com_id;
@@ -82,5 +89,13 @@ public class ReviewComment {
 	}
 	public void setCom_ip(String com_ip) {
 		this.com_ip = com_ip;
+	}
+	
+	public String getCom_data_box() {
+		return com_data_box;
+	}
+
+	public void setCom_data_box(String com_data_box) {
+		this.com_data_box = com_data_box;
 	}
 }

@@ -27,12 +27,13 @@ public class CommentRequestMapping implements RequestDispatcher {
 		  String depth = request.getParameter("depth");
 		  String order = request.getParameter("order");
 		  String revId = request.getParameter("revId");
+		  String dataBox = request.getParameter("dataBox");
 		  int id = Integer.parseInt(revId);
 		  
 		  session = request.getSession();
     	  Member member =  (Member) session.getAttribute("user");
 		  
-    	  ReviewComment reviewComment = new ReviewComment(input,group,depth,order,member.getMem_id(),member.getMem_nick(),id);
+    	  ReviewComment reviewComment = new ReviewComment(input,group,depth,order,member.getMem_id(),member.getMem_nick(),id,dataBox);
     	  String ip = userService.getClientIP(request);
     	  commentService.createReviewComment(reviewComment, input, ip);
 	  }

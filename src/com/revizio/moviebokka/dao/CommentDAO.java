@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -45,7 +47,7 @@ public class CommentDAO {
 	}
 	
 	public boolean createReviewComment(ReviewComment com) {
-		String query = "INSERT INTO reviewcom VALUES (com_seq.nextval,?,?,?,?,?,?,?,?,?)";
+		String query = "INSERT INTO reviewcom VALUES (com_seq.nextval,?,?,?,?,?,?,?,?,?,?)";
 		conn = instance.getConnection();
 		int result = 0;
 		try {
@@ -56,9 +58,10 @@ public class CommentDAO {
 			preparedStatement.setString(4, com.getCom_depth());
 			preparedStatement.setString(5, com.getCom_order());
 			preparedStatement.setString(6, com.getCom_ip());
-			preparedStatement.setInt(7, com.getMem_id());
-			preparedStatement.setString(8, com.getMem_nick());
-			preparedStatement.setInt(9, com.getRev_id());
+			preparedStatement.setString(7, com.getCom_data_box());
+			preparedStatement.setInt(8, com.getMem_id());
+			preparedStatement.setString(9, com.getMem_nick());
+			preparedStatement.setInt(10, com.getRev_id());
 			result = preparedStatement.executeUpdate();
 			if(result > 0) {
 				return true;
@@ -86,6 +89,32 @@ public class CommentDAO {
 	         e.printStackTrace();
 	      }
 	   }
+
+	public List<ReviewComment> getReviewCommentById(String revId) {
+		String query = "SELECT * FROM reviewcom WHERE rev_id=? ORDER BY com_group ASC, com_order ASC";
+		List<ReviewComment> reviewComments = new ArrayList<>();
+		try {
+			conn = instance.getConnection();
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setString(1, revId);
+			rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				ReviewComment reviewComment = new ReviewComment();
+				reviewComment.setCom_content(rs.getString("com_content"));
+				reviewComment.setCom_regdate(rs.getDate("com_regdate"));
+				reviewComment.setCom_group(rs.getString("com_group"));
+				reviewComment.setCom_depth(rs.getString("com_depth"));
+				reviewComment.setCom_order(rs.getString("com_order"));
+				reviewComment.setCom_ip(rs.getString("com_ip"));
+				reviewComment.setMem_id(rs.getInt("mem_id"));
+				reviewComment.setRev_id(rs.getInt("rev_id"));
+				reviewComments.add(reviewComment);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return reviewComments;
+	}
 
 
 

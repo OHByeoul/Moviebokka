@@ -10,7 +10,9 @@ import javax.servlet.http.HttpSession;
 import com.revizio.moviebokka.dto.GetMovieInfoForm;
 import com.revizio.moviebokka.dto.Member;
 import com.revizio.moviebokka.dto.Review;
+import com.revizio.moviebokka.dto.ReviewComment;
 import com.revizio.moviebokka.dto.UserRecommand;
+import com.revizio.moviebokka.service.CommentService;
 import com.revizio.moviebokka.service.MovieService;
 import com.revizio.moviebokka.service.ReviewService;
 import com.revizio.moviebokka.service.UserService;
@@ -19,6 +21,7 @@ public class ReviewRequestMapping implements RequestDispatcher {
    private ReviewService reviewService;
    private MovieService movieService;
    private UserService userService;
+   private CommentService commentService;
    private HttpSession session;
    
    
@@ -26,6 +29,7 @@ public class ReviewRequestMapping implements RequestDispatcher {
       movieService = new MovieService();
       userService = new UserService();
       reviewService = new ReviewService();
+      commentService = new CommentService();
    }
    
    @Override
@@ -62,7 +66,10 @@ public class ReviewRequestMapping implements RequestDispatcher {
     	  if(member != null) {
     		  userRecommand = reviewService.getUserRecommandStatus(revId,member.getMem_email());
     	  }
+    	  List<ReviewComment> reviewComments = commentService.getReviewCommentById(revId);
     	  session.setAttribute("session", member);
+    	  
+    	  request.setAttribute("reviewComments", reviewComments);
     	  request.setAttribute("reviewDetail", selectedReview);
     	  request.setAttribute("recommand", userRecommand);
       } else if(route.equals(Route.RECOMMAND_REVIEW.getRoute())) {
