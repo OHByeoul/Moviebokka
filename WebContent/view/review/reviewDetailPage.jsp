@@ -114,20 +114,16 @@ h2 {
 				</div>
 			</div>
 			<!--상위의 댓글이 붙는곳-->
-			<!-- if depth가 0이라면 node-parent -->
-			<!-- else if depth가 0보다 크다면 node-child 그리고 depth의 크기만큼 덮개를 씌운다-->
 			<c:forEach items="${reviewComments}" var="comment" varStatus="status">
 				<c:set var="depth" value="${comment.com_depth}" />
 				<c:choose>
-			
-
 					<c:when test = '${depth eq 0}'>
-						<div class="col-sm-12 node-parent" data-box="${status.index}" data-parent="none" data-group="${comment.com_group}" data-depth="0" data-seq="0">  
+						<div class="col-sm-12 node-parent" data-box="${comment.com_data_box}" data-parent="none" data-group="${comment.com_group}" data-depth="0" data-seq="0">  
 							<div class="panel panel-default">       
 								<div class="panel-heading">          
-									<img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" width="25" height="25"> "${comment.com_regdate}"  "${comment.mem_nick}"        
+									<img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" width="25" height="25"> ${comment.com_regdate}  ${comment.mem_nick}        
 										<div class="btn-group pull-right">
-											<button class="btn btn-xs btn-default btn-reply" data-node="${status.index}">댓글</button><button class="btn btn-xs btn-default btn-mod" data-node="${status.index}">수 정</button><button class="btn btn-xs btn-default btn-del" data-node="${status.index}">삭 제</button></div>      
+											<button class="btn btn-xs btn-default btn-reply" data-node="${comment.com_data_box}">댓글</button><button class="btn btn-xs btn-default btn-mod" data-node="${comment.com_data_box}">수 정</button><button class="btn btn-xs btn-default btn-del" data-node="${comment.com_data_box}">삭 제</button></div>      
 										 </div>       
 										 <div class="panel-body node-text">           
 										 	<div class="node-text-inner">${comment.com_content}</div>       
@@ -137,18 +133,24 @@ h2 {
 					</c:when>
 			
 					<c:otherwise>
-						<div class="col-sm-12 node-child" data-box="" data-parent="" data-group="1" data-depth="1" data-seq="1">
-							<div class="panel panel-default">
-								<div class="panel-heading">          
-									<img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" width="25" height="25"> 2019-04-05 14:20          
-									<div class="btn-group pull-right"><button class="btn btn-xs btn-default btn-reply" data-node=".hx93juge8fw">댓글</button><button class="btn btn-xs btn-default btn-mod" data-node=".hx93juge8fw">수 정</button><button class="btn btn-xs btn-default btn-del" data-node=".hx93juge8fw">삭 제</button>
+						<c:forEach var = "i" begin = "0" end = "${comment.com_depth}">
+							  <div class="panel-heading">
+						</c:forEach>
+							<div class="col-sm-12 node-child" data-box="${comment.com_data_box}" data-parent="${comment.com_group}" data-group="${comment.com_group}" data-depth="${comment.com_depth}" data-seq="${comment.com_order}">
+								<div class="panel panel-default">
+									<div class="panel-heading">          
+										<img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" width="25" height="25"> ${comment.com_regdate}  ${comment.mem_nick}          
+										<div class="btn-group pull-right"><button class="btn btn-xs btn-default btn-reply" data-node="${comment.com_data_box}">댓글</button><button class="btn btn-xs btn-default btn-mod" data-node="${comment.com_data_box}">수 정</button><button class="btn btn-xs btn-default btn-del" data-node="${comment.com_data_box}">삭 제</button>
+									</div>       
 								</div>       
-							</div>       
-							<div class="panel-body node-text">           
-								<div class="node-text-inner">sdfsdfsdf</div>       
-							</div>  
+								<div class="panel-body node-text">           
+									<div class="node-text-inner">${comment.com_content}</div>       
+								</div>  
+								</div>
 							</div>
-						</div>
+						<c:forEach var = "i" begin = "0" end = "${comment.com_depth}">
+							</div>
+						</c:forEach>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
@@ -307,10 +309,10 @@ h2 {
 
 			}
 
-			    /*
-			    let gCnt = "${gCnt}"==="" ? 1 : "${gCnt}"; //제일큰 그룹값에 +1
-			    */
-			    let gCnt = "0";
+			   
+			    let gCnt = "${gCnt}"==="" ? 0 : "${gCnt}"; //제일큰 그룹값에 +1
+			   
+			    //let gCnt = "0";
 
 			 
 

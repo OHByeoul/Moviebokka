@@ -12,8 +12,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.revizio.moviebokka.dto.Member;
-import com.revizio.moviebokka.dto.Member1;
 import com.revizio.moviebokka.dto.ReviewComment;
 
 public class CommentDAO {
@@ -112,8 +110,30 @@ public class CommentDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
 		}
 		return reviewComments;
+	}
+
+	public int getMaxGroupId() {
+		String query = "SELECT MAX(com_group) FROM reviewcom";
+		int result = 0;
+		conn = instance.getConnection();
+		
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		
+		return result;
 	}
 
 

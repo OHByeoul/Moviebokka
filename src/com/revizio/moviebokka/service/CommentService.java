@@ -41,4 +41,8 @@ public class CommentService {
 		return commentDAO.getReviewCommentById(revId);
 	}
 
+	public int getMaxGroupId() {
+		return commentDAO.getMaxGroupId();
+	}
+
 }

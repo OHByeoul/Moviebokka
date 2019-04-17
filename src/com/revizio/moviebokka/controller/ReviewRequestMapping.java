@@ -67,8 +67,11 @@ public class ReviewRequestMapping implements RequestDispatcher {
     		  userRecommand = reviewService.getUserRecommandStatus(revId,member.getMem_email());
     	  }
     	  List<ReviewComment> reviewComments = commentService.getReviewCommentById(revId);
+    	  int gCnt = commentService.getMaxGroupId();
     	  session.setAttribute("session", member);
     	  
+    	  request.setAttribute("gCnt", gCnt);
+    	  System.out.println("gcnt "+gCnt);
     	  request.setAttribute("reviewComments", reviewComments);
     	  request.setAttribute("reviewDetail", selectedReview);
     	  request.setAttribute("recommand", userRecommand);
