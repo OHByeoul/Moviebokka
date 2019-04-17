@@ -37,6 +37,9 @@ public enum Route {
 	UNRECOMMAND_REVIEW("unrecommandReview","ajax"),
 	CHECK_USER_RECOMMAND("checkUserRecommand","ajax"),
 	
+	//comment
+	CREATE_COMMENT("createComment","/review/"+"reviewDetailPage.jsp"),
+	
 	
 	//Board
 	CREATE_BOARD("createBoard","boardCreateForm.jsp"),
