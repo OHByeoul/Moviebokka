@@ -45,7 +45,7 @@ public class CommentDAO {
 	}
 	
 	public boolean createReviewComment(ReviewComment com) {
-		String query = "INSERT INTO reviewcom VALUES (com_seq.nextval,?,?,?,?,?,?,?,?,?,?)";
+		String query = "INSERT INTO reviewcom VALUES (com_seq.nextval,?,?,?,?,?,?,?,?,?,?,?)";
 		conn = instance.getConnection();
 		int result = 0;
 		try {
@@ -57,9 +57,10 @@ public class CommentDAO {
 			preparedStatement.setString(5, com.getCom_order());
 			preparedStatement.setString(6, com.getCom_ip());
 			preparedStatement.setString(7, com.getCom_data_box());
-			preparedStatement.setInt(8, com.getMem_id());
-			preparedStatement.setString(9, com.getMem_nick());
-			preparedStatement.setInt(10, com.getRev_id());
+			preparedStatement.setString(8, com.getCom_data_parent());
+			preparedStatement.setInt(9, com.getMem_id());
+			preparedStatement.setString(10, com.getMem_nick());
+			preparedStatement.setInt(11, com.getRev_id());
 			result = preparedStatement.executeUpdate();
 			if(result > 0) {
 				return true;
@@ -106,6 +107,8 @@ public class CommentDAO {
 				reviewComment.setCom_ip(rs.getString("com_ip"));
 				reviewComment.setMem_id(rs.getInt("mem_id"));
 				reviewComment.setMem_nick(rs.getString("mem_nick"));
+				reviewComment.setCom_data_box(rs.getString("com_data_box"));
+				reviewComment.setCom_data_parent(rs.getString("com_data_parent"));
 				reviewComment.setRev_id(rs.getInt("rev_id"));
 				reviewComments.add(reviewComment);
 			}

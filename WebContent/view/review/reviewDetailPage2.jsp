@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="../partial/header.jsp"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -114,50 +113,61 @@ h2 {
 					</div>
 				</div>
 			</div>
-		</div>	
 			<!--상위의 댓글이 붙는곳-->
-	
+			<c:forEach items="${reviewComments}" var="comment" varStatus="status">
+				<c:set var="depth" value="${comment.com_depth}" />
+			
+					<c:if test = '${depth eq 0}'>
+						<div class="col-sm-12 node-parent" data-box="${comment.com_data_box}" data-parent="none" data-group="${comment.com_group}" data-depth="0" data-seq="0">  
+							<div class="panel panel-default">       
+								<div class="panel-heading">          
+									<img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" width="25" height="25">${comment.mem_nick} ${comment.com_regdate}         
+										<div class="btn-group pull-right">
+											<button class="btn btn-xs btn-default btn-reply" data-node="${comment.com_data_box}">댓글</button><button class="btn btn-xs btn-default btn-mod" data-node="${comment.com_data_box}">수 정</button><button class="btn btn-xs btn-default btn-del" data-node="${comment.com_data_box}">삭 제</button></div>      
+										 </div>       
+										 <div class="panel-body node-text">           
+										 	<div class="node-text-inner">${comment.com_content}</div>       
+										 </div>  				 
+							</div>
+					</c:if>
+					<c:if test = '${depth gt 0}'>
+							<c:forEach var = "i" begin = "1" end = "${comment.com_depth}">
+								<div class="col-sm-12 order">
+							</c:forEach>
+							<div class="col-sm-12 node-child" data-box="${comment.com_data_box}" data-parent="${comment.com_group}" data-group="${comment.com_group}" data-depth="${comment.com_depth}" data-seq="${comment.com_order}">
+								<div class="panel panel-default">
+									<div class="panel-heading">          
+										<img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" width="25" height="25">${comment.mem_nick} ${comment.com_regdate}            
+										<div class="btn-group pull-right"><button class="btn btn-xs btn-default btn-reply" data-node="${comment.com_data_box}">댓글</button><button class="btn btn-xs btn-default btn-mod" data-node="${comment.com_data_box}">수 정</button><button class="btn btn-xs btn-default btn-del" data-node="${comment.com_data_box}">삭 제</button>
+									</div>       
+								</div>       
+								<div class="panel-body node-text">           
+									<div class="node-text-inner">${comment.com_content}</div>       
+								</div>  
+								</div>
+							</div>
+							<c:forEach var = "i" begin = "0" end = "${comment.com_depth}">
+								</div>
+							</c:forEach>
+							<!-- $('.node-parent')여기에 child들이 붙어야함 -->
+					</c:if>
+					<c:if test = '${depth eq 0}'>
+						</div>
+					</c:if>
+			
+			</c:forEach>
+		</div>
+	</div>
 	<form action="/Moviebokka/review/deleteReview" method="POST" id="deleteReviewForm" style="display: hidden">
 	  <input type="hidden" id="revId" name="revId" value=""/>
 	  <input type="hidden" id="movieCode" name="movieCode" value=""/>
 	</form>
-	
-	<div class="tempParent" style='display:none'>
-		<div class="col-sm-12 node-parent"  data-parent="none" data-group="" data-depth="0" data-seq="0">  
-			<div class="panel panel-default">       
-				<div class="panel-heading">          
-					<img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" width="25" height="25"><span id="comNick"> ${comment.mem_nick}</span><span id="comRegdate">  ${comment.com_regdate}</span>       
-						<div class="btn-group pull-right">
-							<button class="btn btn-xs btn-default btn-reply" data-node="">댓글</button><button class="btn btn-xs btn-default btn-mod" data-node="${comment.com_data_box}">수 정</button><button class="btn btn-xs btn-default btn-del" data-node="${comment.com_data_box}">삭 제</button></div>      
-						 </div>       
-						 <div class="panel-body node-text">           
-						 	<div class="node-text-inner"></div>       
-						 </div>  				 
-			</div>
-		</div>
-	</div>
-	
-	<div class="tempChild" style='display:none'>
-		<div class="col-sm-12 node-child" data-box="" data-parent="" data-group="" data-depth="" data-seq="">
-			<div class="panel panel-default">
-				<div class="panel-heading">          
-					<img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" width="25" height="25"><span id="comNick"> ${comment.mem_nick}</span><span id="comRegdate">  ${comment.com_regdate}</span>            
-					<div class="btn-group pull-right"><button class="btn btn-xs btn-default btn-reply" data-node="${comment.com_data_box}">댓글</button><button class="btn btn-xs btn-default btn-mod" data-node="${comment.com_data_box}">수 정</button><button class="btn btn-xs btn-default btn-del" data-node="${comment.com_data_box}">삭 제</button>
-				</div>       
-			</div>       
-			<div class="panel-body node-text">           
-				<div class="node-text-inner">${comment.com_content}</div>       
-			</div>  
-		</div>
-	</div>
-	</div>
 	<script>
 		$(function(){
 			let session = "${session.mem_nick}";
 			let nick = "${reviewDetail.mem_nick}";
 			let movieCode = "${reviewDetail.m_code}";
 			let revId = "${reviewDetail.rev_id}";
-			var spot;
 			
 			if(session !== 'undefined' && nick !== 'undefined'){
 				if(session == nick){
@@ -273,81 +283,8 @@ h2 {
 			}
 			
 			////
+
 		
-			var dataes = [];
-			<c:forEach items="${reviewComments}" var="comment" varStatus="status">
-					var depth = "${comment.com_depth}";
-					var pId = "${comment.com_group}";
-					var dataBox = "${comment.com_data_box}";
-					var group = "${comment.com_group}";
-					var order = "${comment.com_order}";
-					var input = "${comment.com_content}";
-					var comNick = "${comment.mem_nick}";
-					var comRegdate = "${comment.com_regdate}";
-					var parent = "${comment.com_data_parent}";
-					var spot;
-					//	console.log('${reviewComments}'.length);
-					var tlqkf= $('#cmt-wrapper').find('.col-sm-12').length;
-					
-						if(depth == 0){
-							getParent(pId,dataBox,input,comNick,comRegdate,group);
-							console.log(tlqkf);
-						} else {
-							getChild(pId,dataBox,input,comNick,comRegdate,group,order,depth,parent);
-							console.log(tlqkf);
-						}
-						
-						function getParent(pId,dataBox,input,nick,regdate){
-							let $clone = $('.tempParent').clone();
-						
-							$clone.attr("class",dataBox);
-							$clone.find('.node-parent').attr("data-box",dataBox);
-							$clone.find('.node-parent').attr("data-group",group);
-							$clone.find('button').attr("node-box",dataBox);
-							$clone.find('.node-text-inner').text(input);
-							$clone.find('#comNick').text(comNick);
-							$clone.find('#comRegdate').text(comRegdate);
-							$clone.show();
-							$('#cmt-wrapper').append($clone);
-							let box = $clone.find('.node-parent').attr("data-box");
-							
-							//dataes.push(box);
-							
-						}
-						
-						function getChild(pId,dataBox,input,nick,regdate,group,order,depth,parent){
-							let $clone = $('.tempChild').clone();
-						
-							$clone.attr("class",dataBox);
-						
-							$clone.find('.node-child').attr("data-box",dataBox);
-							$clone.find('.node-child').attr("data-group",group);
-							$clone.find('.node-child').attr("data-seq",order);
-							$clone.find('.node-child').attr("data-depth",depth);
-							$clone.find('.node-child').attr("data-parent",parent);
-							$clone.find('.node-text-inner').text(input);
-							$clone.find('#comNick').text(comNick);
-							$clone.find('#comRegdate').text(comRegdate);
-							$clone.find('button').attr("data-node",dataBox);
-							$clone.show();
-							let len = $('#cmt-wrapper').find('.col-sm-12').length;
-							console.log(len);
-							/*
-							var target = $clone.closest('.node-parent');
-							console.log(target.html());
-							for(let i = 0; i<target.length; i++){
-								if(target.attr('data-box')==$clone.find('.node-child').attr("data-parent")){
-							
-									target.append($clone);
-								}
-							}*/
-							
-							//spot.append($clone);
-							//spot = $clone.find('.node-child');
-		
-						}
-			</c:forEach>
-	
 		
 
 			var old;
@@ -413,7 +350,7 @@ h2 {
 				       $.ajax({
 				            url : '/Moviebokka/comment/createComment',
 				            type : 'GET',
-				            data : {group : gCnt, depth : 0, order : 0, input : inputComment, revId : revId, dataBox : dataBox, dataParent : "none"}
+				            data : {group : gCnt, depth : 0, order : 0, input : inputComment, revId : revId, dataBox : dataBox}
 				       }).done(function(result){
 	
 				       }).fail(function(fail){
@@ -489,15 +426,14 @@ h2 {
 			       var uniqueId = getUnique();
 			       var node =  $(this).closest('.panel');
 			       var thisNode = $(this).closest('.panel-body');
-			       //var parentId = $(this).data('node');
-			       var parentId = $(this).closest('.col-sm-12').attr("data-box");
+			       var parentId = $(this).data('node');
 			       var input = thisNode.find('.reply-input-txt');
 			       var childNodes = node.siblings('[data-parent="' + parentId + '"]');
 			       var pGroup = $(this).closest('.node-parent').attr("data-group");
 			    
 			       var myDepth = $(this).closest('.col-sm-12').attr("data-depth"); 
 			       var length = $(this).closest('.node-parent').children().length;
-			      
+
 			        myDepth = parseInt(myDepth)+1;
 			       
 			       if(input.val().trim() == "") {
@@ -505,9 +441,7 @@ h2 {
 			          input.focus();
 			          return;
 			       }
-			       
-			       console.log(pGroup);
-			       console.log(parentId);
+			             
 			       var line = '<div class="col-sm-12 node-child" data-box="' + uniqueId + '" data-parent="' + parentId + '" data-group="'+pGroup+'" data-depth="'+myDepth+'" data-seq="0">';
 			       line += '  <div class="panel panel-default">';
 			        line += '       <div class="panel-heading">';
@@ -535,13 +469,16 @@ h2 {
 			       thisNode.remove();
 			        
 			     
+			   	console.log(revId);
 			       let pg = $(this).closest('.node-parent');
 			   
+			       console.log(order);
+					console.log(pGroup);
 			       let content = input.val().trim();
 			       $.ajax({
 			            url : '/Moviebokka/comment/createComment',
 			            type : 'GET',
-			            data : {group : pGroup, depth : myDepth, order : order, input : content, revId : revId, dataBox : uniqueId, dataParent : parentId}
+			            data : {group : pGroup, depth : myDepth, order : order, input : content, revId : revId, dataBox : uniqueId}
 			       }).done(function(result){
 			    	   
 			       }).fail(function(fail){

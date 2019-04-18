@@ -23,19 +23,22 @@ public class CommentRequestMapping implements RequestDispatcher {
    public void dispatcherRoute(String route, HttpServletRequest request, HttpServletResponse response) {
 	  if(route.equals(Route.CREATE_COMMENT.getRoute())){
 		  String input = request.getParameter("input");
+		  System.out.println(input);
 		  String group = request.getParameter("group");
 		  String depth = request.getParameter("depth");
 		  String order = request.getParameter("order");
 		  String revId = request.getParameter("revId");
 		  String dataBox = request.getParameter("dataBox");
+		  String dataParent = request.getParameter("dataParent");
 		  int id = Integer.parseInt(revId);
 		  
 		  session = request.getSession();
     	  Member member =  (Member) session.getAttribute("user");
 		  
-    	  ReviewComment reviewComment = new ReviewComment(input,group,depth,order,member.getMem_id(),member.getMem_nick(),id,dataBox);
+    	  ReviewComment reviewComment = new ReviewComment(input,group,depth,order,member.getMem_id(),member.getMem_nick(),id,dataBox,dataParent);
     	  String ip = userService.getClientIP(request);
     	  commentService.createReviewComment(reviewComment, input, ip);
+    	  
 	  }
    }
 }

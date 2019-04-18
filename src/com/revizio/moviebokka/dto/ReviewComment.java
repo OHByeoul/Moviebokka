@@ -11,16 +11,14 @@ public class ReviewComment {
 	private String com_order;
 	private String com_ip;
 	private String com_data_box;
+	private String com_data_parent;
 	private int mem_id;
 	private String mem_nick;
 	private int rev_id;
 	
-	
 	public ReviewComment() {
-		
 	}
-	
-	public ReviewComment(String input, String group, String depth, String order, int mem_id, String mem_nick,int rev_id,String dataBox) {
+	public ReviewComment(String input, String group, String depth, String order, int mem_id, String mem_nick,int rev_id,String dataBox,String dataParent) {
 		this.com_content = input;
 		this.com_group = group;
 		this.com_depth = depth;
@@ -29,6 +27,14 @@ public class ReviewComment {
 		this.mem_nick = mem_nick;
 		this.rev_id = rev_id;
 		this.com_data_box = dataBox;
+		this.com_data_parent = dataParent;
+	}
+	
+	public String getCom_data_parent() {
+		return com_data_parent;
+	}
+	public void setCom_data_parent(String com_data_parent) {
+		this.com_data_parent = com_data_parent;
 	}
 	public int getCom_id() {
 		return com_id;
