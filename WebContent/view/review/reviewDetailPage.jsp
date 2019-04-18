@@ -114,6 +114,8 @@ h2 {
 					</div>
 				</div>
 			</div>
+		</div>
+		<div id="children" style='display:none'>
 		</div>	
 			<!--상위의 댓글이 붙는곳-->
 	
@@ -123,7 +125,7 @@ h2 {
 	</form>
 	
 	<div class="tempParent" style='display:none'>
-		<div class="col-sm-12 node-parent"  data-parent="none" data-group="" data-depth="0" data-seq="0">  
+		<div class="col-sm-12 node-parent"  data-parent="none" data-group="" data-depth="0" data-seq="0" data-box="">  
 			<div class="panel panel-default">       
 				<div class="panel-heading">          
 					<img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" width="25" height="25"><span id="comNick"> ${comment.mem_nick}</span><span id="comRegdate">  ${comment.com_regdate}</span>       
@@ -274,7 +276,7 @@ h2 {
 			
 			////
 		
-			var dataes = [];
+			
 			<c:forEach items="${reviewComments}" var="comment" varStatus="status">
 					var depth = "${comment.com_depth}";
 					var pId = "${comment.com_group}";
@@ -286,21 +288,17 @@ h2 {
 					var comRegdate = "${comment.com_regdate}";
 					var parent = "${comment.com_data_parent}";
 					var spot;
-					//	console.log('${reviewComments}'.length);
-					var tlqkf= $('#cmt-wrapper').find('.col-sm-12').length;
 					
 						if(depth == 0){
 							getParent(pId,dataBox,input,comNick,comRegdate,group);
-							console.log(tlqkf);
+
 						} else {
 							getChild(pId,dataBox,input,comNick,comRegdate,group,order,depth,parent);
-							console.log(tlqkf);
 						}
 						
 						function getParent(pId,dataBox,input,nick,regdate){
-							let $clone = $('.tempParent').clone();
+							let $clone = $($('.tempParent')[0]).clone();
 						
-							$clone.attr("class",dataBox);
 							$clone.find('.node-parent').attr("data-box",dataBox);
 							$clone.find('.node-parent').attr("data-group",group);
 							$clone.find('button').attr("node-box",dataBox);
@@ -310,15 +308,10 @@ h2 {
 							$clone.show();
 							$('#cmt-wrapper').append($clone);
 							let box = $clone.find('.node-parent').attr("data-box");
-							
-							//dataes.push(box);
-							
 						}
 						
 						function getChild(pId,dataBox,input,nick,regdate,group,order,depth,parent){
-							let $clone = $('.tempChild').clone();
-						
-							$clone.attr("class",dataBox);
+							let $clone = $($('.tempChild')[0]).clone();
 						
 							$clone.find('.node-child').attr("data-box",dataBox);
 							$clone.find('.node-child').attr("data-group",group);
@@ -330,25 +323,37 @@ h2 {
 							$clone.find('#comRegdate').text(comRegdate);
 							$clone.find('button').attr("data-node",dataBox);
 							$clone.show();
-							let len = $('#cmt-wrapper').find('.col-sm-12').length;
-							console.log(len);
-							/*
-							var target = $clone.closest('.node-parent');
-							console.log(target.html());
-							for(let i = 0; i<target.length; i++){
-								if(target.attr('data-box')==$clone.find('.node-child').attr("data-parent")){
-							
-									target.append($clone);
-								}
-							}*/
-							
-							//spot.append($clone);
-							//spot = $clone.find('.node-child');
-		
+							$('#children').append($clone);
+						
 						}
 			</c:forEach>
 	
-		
+			var p= $('#cmt-wrapper').find('.node-parent'); 
+			var c =$('#children').find('.node-child');
+			
+			for(let i = 0; i<p.length; i++){ 
+					for(let j = 0; j<c.length; j++){
+						if(p.eq(i).attr("data-box") === c.eq(j).attr("data-parent")){
+							p.eq(i).append(c.eq(j));
+						}
+					}
+			}
+			
+			var hideChildren = $('#children').find('.node-child');
+			var children = $('#cmt-wrapper').find('.node-child');
+			var loop = $('#children').find('.tempChild').length;
+			
+			for(let k = 0; k<loop; k++){
+				children = $('#cmt-wrapper').find('.node-child');
+				for(let i = 0; i<children.length; i++){
+					for(let j = 0; j<hideChildren.length; j++){
+						if(children.eq(i).attr("data-box")===hideChildren.eq(j).attr("data-parent")){
+							children.eq(i).append(hideChildren.eq(j));
+						}
+					}
+				}
+			}
+			
 
 			var old;
 
@@ -375,13 +380,10 @@ h2 {
 			}
 
 			   
-			    let gCnt = "${gCnt}"==="" ? 0 : "${gCnt}"; //제일큰 그룹값에 +1
-			   
-			    //let gCnt = "0";
-
+			    let gCnt = "${gCnt}"==="" ? 0 : "${gCnt}";
 			 
 
-			    $('#cmt-add').on('click', function() {  /// 젤 상위의 댓글 버튼이 눌렸을 때
+			    $('#cmt-add').on('click', function() {  
 			       if($('#cmt-txt').val().trim() == "") {
 			          alert("댓글을 입력하세요");
 			          $('#cmt-txt').focus();
@@ -506,8 +508,7 @@ h2 {
 			          return;
 			       }
 			       
-			       console.log(pGroup);
-			       console.log(parentId);
+			       
 			       var line = '<div class="col-sm-12 node-child" data-box="' + uniqueId + '" data-parent="' + parentId + '" data-group="'+pGroup+'" data-depth="'+myDepth+'" data-seq="0">';
 			       line += '  <div class="panel panel-default">';
 			        line += '       <div class="panel-heading">';
