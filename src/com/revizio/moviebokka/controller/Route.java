@@ -39,6 +39,7 @@ public enum Route {
 	
 	//comment
 	CREATE_COMMENT("createComment","/review/"+"reviewDetailPage.jsp"),
+	UPDATE_COMMENT("updateComment","/review/"+"reviewDetailPage.jsp"),
 	
 	
 	//Board

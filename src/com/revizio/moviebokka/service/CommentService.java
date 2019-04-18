@@ -45,4 +45,11 @@ public class CommentService {
 		return commentDAO.getMaxGroupId();
 	}
 
+	public void updateReviewComment(String input, String dataBox) {
+		boolean result = commentDAO.updateReviewComment(input,dataBox);
+		if(!result) {
+			System.out.println("조짐");
+		}
+	}
+
 }

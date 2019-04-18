@@ -438,6 +438,8 @@ h2 {
 			        input += '</div>';
 			        target.replaceWith(input); 
 			        $('body').find('.node-input').focus();
+			        
+			        
 			    });
 
 			    $('body').on('click', '.node-input, .node-input-btn, .btn-mod, .btn-reply, .reply-input-txt, .reply-input-btn', function(e) { e.stopPropagation(); });
@@ -484,6 +486,17 @@ h2 {
 			        }
 			        var line = '<div class="node-text-inner">' + el.val().trim() + '</div>';
 			       $(this).closest('.node-modify').replaceWith(line);
+			       
+			       $.ajax({
+			    	   url : '/Moviebokka/comment/updateComment',
+			    	   type : 'GET',
+			    	   data : {input : el.val(), dataBox : $(this).closest('.col-sm-12').attr("data-box")}
+			       }).done(function(success){
+			    	   
+			       }).fail(function(fail){
+			    	   
+			       });
+			    	   
 			    });
 			    
 			    //댓글 입력

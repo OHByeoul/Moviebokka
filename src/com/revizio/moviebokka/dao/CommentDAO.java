@@ -140,6 +140,27 @@ public class CommentDAO {
 		return result;
 	}
 
+	public boolean updateReviewComment(String input, String dataBox) {
+		String query = "UPDATE reviewcom SET com_content = ? WHERE com_data_box = ?";
+		int result = 0;
+		conn = instance.getConnection();
+
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setString(1, input);
+			preparedStatement.setString(2, dataBox);
+			result = preparedStatement.executeUpdate();
+			if (result > 0) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		return false;
+	}
+
 
 
 	
