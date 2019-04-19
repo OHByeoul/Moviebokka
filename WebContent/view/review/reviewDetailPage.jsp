@@ -161,18 +161,18 @@ h2 {
 			let revId = "${reviewDetail.rev_id}";
 			var spot;
 			
-		
-			
 			let check = "${deletedReview}";
 			let del = "${reviewDetail.rev_del}";
 			
 			if(session !== 'undefined' && nick !== 'undefined'){
 				if(session == nick && (check===false ||del==="0")){
 					$('#delete').show();
-					$('#update').show();
-					
+					$('#update').show();	
 				}
 			}
+			
+			
+			
 			
 			if(check===true || del==="1"){
 				$('#cmt-txt').attr('readonly',true);
@@ -325,6 +325,11 @@ h2 {
 							$clone.find('#comRegdate').text(comRegdate);
 							$clone.find('button').attr("data-node",dataBox);
 							$clone.show();
+							if(session !== comNick){
+								console.log("in--p");
+								$clone.find('.btn-mod').hide();
+								$clone.find('.btn-del').hide();
+							}
 							$('#cmt-wrapper').append($clone);
 							let box = $clone.find('.node-parent').attr("data-box");
 						}
@@ -342,6 +347,11 @@ h2 {
 							$clone.find('#comRegdate').text(comRegdate);
 							$clone.find('button').attr("data-node",dataBox);
 							$clone.show();
+							if(session !== comNick){
+								console.log("in--c");
+								$clone.find('.btn-mod').hide();
+								$clone.find('.btn-del').hide();
+							}
 							$('#children').append($clone);
 						
 						}
