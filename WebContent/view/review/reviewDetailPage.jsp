@@ -348,7 +348,6 @@ h2 {
 							$clone.find('button').attr("data-node",dataBox);
 							$clone.show();
 							if(session !== comNick){
-								console.log("in--c");
 								$clone.find('.btn-mod').hide();
 								$clone.find('.btn-del').hide();
 							}
@@ -478,6 +477,7 @@ h2 {
 			    $('body').on('click', '.node-input, .node-input-btn, .btn-mod, .btn-reply, .reply-input-txt, .reply-input-btn', function(e) { e.stopPropagation(); });
 			    $('body').on('click', 'button.btn-del', function() {  //삭제
 			       var node = $(this).closest('[data-box]');
+			    /*
 			        if(node.data('parent') == 'none') {
 			           if(node.find('.node-child').length > 0) {
 			              $(this).closest('.panel').remove(); 
@@ -491,7 +491,27 @@ h2 {
 			              node.remove();
 			           }
 			        }
-			       //var node = $(this).closest('.panel').remove(); 
+			    */
+			        let dataNode = $(this).attr("data-node");
+			        let input = $(this).closest('.col-sm-12').find('.node-text-inner').eq(0);
+			        let replyBtn = $(this).closest('.col-sm-12').find('.btn-reply').eq(0);
+			        let modifyBtn = $(this).closest('.col-sm-12').find('.btn-mod').eq(0);
+			        let delBtn = $(this);
+			        $.ajax({
+			            url : '/Moviebokka/comment/deleteComment',
+			            type : 'GET',
+			            data : {input : input.text(),dataBox : dataNode}
+			       }).done(function(result,e){
+			    	   console.log(result);
+
+			    	   input.text(result);
+			    	   replyBtn.hide();
+			    	   modifyBtn.hide();
+			    	   delBtn.hide();
+			    	   //e.stopPropagation();
+			       }).fail(function(fail){
+						console.log(fail);
+			       });	
 			    });
 			    $(document).on('click', function(e) { removeInput(); });
 			    

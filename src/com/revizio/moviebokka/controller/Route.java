@@ -26,7 +26,6 @@ public enum Route {
 	GET_REVIEW_MORE("searchReviewMore","ajax"),
 	
 	//Review
-	//GET_REVIEW_SEARCH("searchReviews","searchPage.jsp"),
 	REVIEW_FORM("reviewForm","/review/"+"reviewCreateForm.jsp"),
 	CREATE_REVIEW("createReview","/review/"+"reviewDetailPage.jsp"),
 	GET_REVIEW_INFO("getSelectedReview","/review/"+"reviewDetailPage.jsp"),
@@ -40,6 +39,7 @@ public enum Route {
 	//comment
 	CREATE_COMMENT("createComment","/review/"+"reviewDetailPage.jsp"),
 	UPDATE_COMMENT("updateComment","/review/"+"reviewDetailPage.jsp"),
+	DELETE_COMMENT("deleteComment","ajax"),
 	
 	
 	//Board

@@ -1,13 +1,17 @@
 package com.revizio.moviebokka.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
 import com.revizio.moviebokka.dto.Member;
 import com.revizio.moviebokka.dto.ReviewComment;
 import com.revizio.moviebokka.service.CommentService;
 import com.revizio.moviebokka.service.UserService;
+import com.revizio.moviebokka.util.JsonMaker;
 
 public class CommentRequestMapping implements RequestDispatcher {
 	private CommentService commentService; 
@@ -43,6 +47,16 @@ public class CommentRequestMapping implements RequestDispatcher {
 		  String dataBox = request.getParameter("dataBox");
 		  System.out.println(input+" "+dataBox);
 		  commentService.updateReviewComment(input, dataBox);
+	  } else if(route.equals(Route.DELETE_COMMENT.getRoute())) {
+		  String dataBox = request.getParameter("dataBox");
+		  String result = commentService.deleteReviewComment(dataBox);
+		 
+	         response.setCharacterEncoding("UTF-8");
+	         try {
+	            response.getWriter().write(result);
+	         } catch (IOException e) {
+	            e.printStackTrace();
+	         }
 	  }
    }
 }

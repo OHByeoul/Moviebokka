@@ -48,11 +48,16 @@ public class CommentService {
 
 	public void updateReviewComment(String input, String dataBox) {
 		try {
-		boolean result = commentDAO.updateReviewComment(input,dataBox);
+			boolean result = commentDAO.updateReviewComment(input,dataBox);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	
+	}
+
+	public String deleteReviewComment(String dataBox) {
+		boolean result = commentDAO.deleteReviewComment(dataBox,Constants.DELETE_COMMENT_MSG);
+		return Constants.DELETE_COMMENT_MSG;
 	}
 
 }

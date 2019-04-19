@@ -46,7 +46,7 @@ public class CommentDAO {
 	}
 	
 	public boolean createReviewComment(ReviewComment com) {
-		String query = "INSERT INTO reviewcom VALUES (com_seq.nextval,?,?,?,?,?,?,?,?,?,?,?)";
+		String query = "INSERT INTO reviewcom VALUES (com_seq.nextval,?,?,?,?,?,?,?,?,?,?,?,?)";
 		conn = instance.getConnection();
 		boolean result = false;
 		int cnt = 0;
@@ -63,6 +63,7 @@ public class CommentDAO {
 			preparedStatement.setInt(9, com.getMem_id());
 			preparedStatement.setString(10, com.getMem_nick());
 			preparedStatement.setInt(11, com.getRev_id());
+			preparedStatement.setString(12, "0");
 			cnt = preparedStatement.executeUpdate();
 			if(cnt > 0) {
 				result =  true;
@@ -155,6 +156,27 @@ public class CommentDAO {
 //			preparedStatement.setString(1, input);
 //			preparedStatement.setString(2, dataBox);
 //			result = preparedStatement.executeUpdate();
+			if (cnt > 0) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		return result;
+	}
+
+	public boolean deleteReviewComment(String dataBox, String deleteCommentMsg) {
+		String query = "UPDATE reviewcom SET com_content = ? WHERE com_data_box = ? ";
+		int cnt = 0;
+		boolean result = false;
+		conn = instance.getConnection();
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setString(1, deleteCommentMsg);
+			preparedStatement.setString(2, dataBox);
+			cnt = preparedStatement.executeUpdate();
 			if (cnt > 0) {
 				result = true;
 			}
