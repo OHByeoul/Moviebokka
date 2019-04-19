@@ -63,6 +63,8 @@ public class UserDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
 		}
 		return member;
 	}
@@ -123,19 +125,20 @@ public class UserDAO {
 	public String getUserEmail(String id) {
 		String query = "SELECT mem_email FROM member1 WHERE mem_email = ?";
 		conn = instance.getConnection();
+		String email = "";
 		try {
 			preparedStatement = conn.prepareStatement(query);
 			preparedStatement.setString(1, id);
 			rs = preparedStatement.executeQuery();
 			while(rs.next()) {
-				return rs.getString("mem_email");
+				email =  rs.getString("mem_email");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			closeIdleConnection();
 		}
-		return null;
+		return email;
 	}
 
 	public String getSelectedUserEmail(String id) {
@@ -160,36 +163,38 @@ public class UserDAO {
 	public boolean updateUserEmailAuthenticate(String id) {
 		String query = "UPDATE member1 SET mem_auth = 1 WHERE mem_email = ?";
 		conn = instance.getConnection();
-		int result = 0;
+		boolean result = false;
+		int cnt = 0;
 		try {
 			preparedStatement = conn.prepareStatement(query);
 			preparedStatement.setString(1, id);
-			result = preparedStatement.executeUpdate();
-			if(result==1) {
-				return true; 
+			cnt = preparedStatement.executeUpdate();
+			if(cnt==1) {
+				result = true; 
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return false;
+		return result;
 	}
 
 	public String geUserEmailByNick(String nick) {
 		String query = "SELECT mem_email FROM member WHERE mem_nick = ?";
 		conn = instance.getConnection();
+		String email = "";
 		try {
 			preparedStatement = conn.prepareStatement(query);
 			preparedStatement.setString(1, nick);
 			rs = preparedStatement.executeQuery();
 			while(rs.next()) {
-				return rs.getString("mem_email");
+				email = rs.getString("mem_email");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			closeIdleConnection();
 		}
-		return null;
+		return email;
 	}
 }
 

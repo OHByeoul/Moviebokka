@@ -34,14 +34,14 @@ public class CommentRequestMapping implements RequestDispatcher {
 		  
 		  session = request.getSession();
     	  Member member =  (Member) session.getAttribute("user");
-		  
+		  System.out.println("member nick?? "+member.getMem_nick());
     	  ReviewComment reviewComment = new ReviewComment(input,group,depth,order,member.getMem_id(),member.getMem_nick(),id,dataBox,dataParent);
     	  String ip = userService.getClientIP(request);
     	  commentService.createReviewComment(reviewComment, input, ip);
 	  } else if(route.equals(Route.UPDATE_COMMENT.getRoute())) {
 		  String input = request.getParameter("input");
 		  String dataBox = request.getParameter("dataBox");
-		  
+		  System.out.println(input+" "+dataBox);
 		  commentService.updateReviewComment(input, dataBox);
 	  }
    }

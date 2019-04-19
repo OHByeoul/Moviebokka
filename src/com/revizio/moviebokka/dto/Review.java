@@ -14,7 +14,10 @@ public class Review {
 	private int m_code;
 	private int mem_id;
 	private String mem_nick;
+	private String rev_del;
 	
+	
+
 	public Review() {
 	}
 	
@@ -95,6 +98,13 @@ public class Review {
 	}
 	public void setMem_nick(String mem_nick) {
 		this.mem_nick = mem_nick;
+	}
+	public String getRev_del() {
+		return rev_del;
+	}
+
+	public void setRev_del(String rev_del) {
+		this.rev_del = rev_del;
 	}
 }
 

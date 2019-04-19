@@ -19,6 +19,7 @@ public class CommentService {
 		reviewComment.setCom_content(input);
 		reviewComment.setCom_ip(ip);
 		reviewComment.setCom_regdate(getNowDate());
+		System.out.println("service nick : "+reviewComment.getMem_nick());
 		boolean result = commentDAO.createReviewComment(reviewComment);
 		if(!result) {
 			System.out.println("createReviewCOmment fail");
@@ -46,10 +47,12 @@ public class CommentService {
 	}
 
 	public void updateReviewComment(String input, String dataBox) {
+		try {
 		boolean result = commentDAO.updateReviewComment(input,dataBox);
-		if(!result) {
-			System.out.println("조짐");
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
+	
 	}
 
 }

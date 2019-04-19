@@ -7,6 +7,7 @@ import java.util.List;
 import com.revizio.moviebokka.constant.Constants;
 import com.revizio.moviebokka.dao.ReviewDAO;
 import com.revizio.moviebokka.dao.UserDAO;
+import com.revizio.moviebokka.dto.Member;
 import com.revizio.moviebokka.dto.Review;
 import com.revizio.moviebokka.dto.UserRecommand;
 
@@ -24,15 +25,22 @@ public class ReviewService {
 		review.setRev_regdate(getNowDate());
 		boolean result = reviewDAO.createReview(review);
 		int revId = reviewDAO.getReviewId();
+		
+		System.out.println("createreview service out");
+		System.out.println("result "+result);
+		System.out.println("revId "+revId);
 		if(result && revId != 0) {
+			System.out.println("inninininin");
 			getReview = reviewDAO.getReviewDetailInfo(revId);
+			System.out.println(getReview.getRev_content());
+			
 		} 
 		return getReview;
 	}
 
 	public boolean deleteSelectedReview(String revId) {
-		int id = Integer.parseInt(revId); 
-		return reviewDAO.deleteReview(id); 
+		int id = Integer.parseInt(revId);
+		return reviewDAO.deleteReview(id, Constants.DELETE_REIVIEW_MSG); 
 	}
 
 	public Review updateSelectedReview(String revId, String title, String content) {

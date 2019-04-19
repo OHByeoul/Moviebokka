@@ -161,11 +161,26 @@ h2 {
 			let revId = "${reviewDetail.rev_id}";
 			var spot;
 			
+		
+			
+			let check = "${deletedReview}";
+			let del = "${reviewDetail.rev_del}";
+			
 			if(session !== 'undefined' && nick !== 'undefined'){
-				if(session == nick){
+				if(session == nick && (check===false ||del==="0")){
 					$('#delete').show();
 					$('#update').show();
+					
 				}
+			}
+			
+			if(check===true || del==="1"){
+				$('#cmt-txt').attr('readonly',true);
+				$('#cmt-add').hide();
+				$('#delete').hide();
+				$('#update').hide();
+				$('#recommand').attr('disabled', true);
+				$('#unrecommand').attr('disabled', true);
 			}
 			
 			$('#delete').on('click', function(){
@@ -174,7 +189,8 @@ h2 {
 				if(result){
 					$('#revId').val(revId);
 					$('#movieCode').val(movieCode);
-					$("#deleteReviewForm").submit();	
+					$("#deleteReviewForm").submit();
+					
 				}
 			});
 			
@@ -183,8 +199,8 @@ h2 {
 			});
 			
 			$('#list').on('click', function(){
-				let code = ${reviewDetail.m_code};
-				location.href = "/Moviebokka/movie/getMovieDetail?movieCode="+code;
+				
+				location.href = "/Moviebokka/movie/getMovieDetail?movieCode="+movieCode;
 			});			
 			
 			let recomStatus = false;
@@ -275,7 +291,9 @@ h2 {
 			}
 			
 			////
-		
+			
+			//$('#cmt-wrapper').remove();
+			//$('#children').remove();
 			
 			<c:forEach items="${reviewComments}" var="comment" varStatus="status">
 					var depth = "${comment.com_depth}";
@@ -305,6 +323,7 @@ h2 {
 							$clone.find('.node-text-inner').text(input);
 							$clone.find('#comNick').text(comNick);
 							$clone.find('#comRegdate').text(comRegdate);
+							$clone.find('button').attr("data-node",dataBox);
 							$clone.show();
 							$('#cmt-wrapper').append($clone);
 							let box = $clone.find('.node-parent').attr("data-box");
@@ -437,6 +456,10 @@ h2 {
 			        input += '  <div class="input-group-btn node-input-btn"><button class="btn btn-primary btn-mod-complete"><i class="fa fa-edit"></i></button></div>';
 			        input += '</div>';
 			        target.replaceWith(input); 
+			        let dataNode = $(this).attr("data-node");
+			        console.log(dataNode);
+			        let dataBox = $(this).closest('.panel').find('.btn-mod-complete').attr("data-box",dataNode);
+			       // console.log($(this).closest('.panel').find('.btn-mod-complete').attr("data-box",dataNode));
 			        $('body').find('.node-input').focus();
 			        
 			        
@@ -487,10 +510,13 @@ h2 {
 			        var line = '<div class="node-text-inner">' + el.val().trim() + '</div>';
 			       $(this).closest('.node-modify').replaceWith(line);
 			       
+			       let dataBox = $(this).attr("data-box");
+			       console.log(el.val());
+			       console.log(dataBox);
 			       $.ajax({
 			    	   url : '/Moviebokka/comment/updateComment',
 			    	   type : 'GET',
-			    	   data : {input : el.val(), dataBox : $(this).closest('.col-sm-12').attr("data-box")}
+			    	   data : {input : el.val(), dataBox : dataBox}
 			       }).done(function(success){
 			    	   
 			       }).fail(function(fail){

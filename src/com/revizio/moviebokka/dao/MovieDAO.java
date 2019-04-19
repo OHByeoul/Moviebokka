@@ -309,13 +309,14 @@ public class MovieDAO {
 	public boolean updateViewCnt(int movieCode) {
 		String query = "UPDATE movie SET m_cnt = m_cnt+1 WHERE m_code = ?";
 		conn = instance.getConnection();
-		int result = 0;
+		boolean result = false;
+		int cnt = 0;
 		try {
 			preparedStatement = conn.prepareStatement(query);
 			preparedStatement.setInt(1, movieCode);
-			result = preparedStatement.executeUpdate();
-			if(result > 0) {
-				return true;
+			cnt = preparedStatement.executeUpdate();
+			if(cnt > 0) {
+				result = true;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -323,7 +324,7 @@ public class MovieDAO {
 		} finally {
 			closeIdleConnection();
 		}
-		return false;
+		return result;
 	}
 
 	public List<GetMovieInfoForm> getMovieRecomList() {

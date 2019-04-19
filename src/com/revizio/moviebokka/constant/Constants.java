@@ -10,6 +10,7 @@ public class Constants {
 	public static final int SECOND = 2;
 	public static final int THIRD = 3;
 	public static final String DATEFORMAT = "yyyy-MM-dd";
+	public static final String DELETE_REIVIEW_MSG = "삭제된 게시글 입니다.";
 	
 	//encryptManager
 	public static final String SHA = "SHA-512";

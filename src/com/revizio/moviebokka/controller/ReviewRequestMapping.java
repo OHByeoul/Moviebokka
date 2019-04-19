@@ -52,6 +52,7 @@ public class ReviewRequestMapping implements RequestDispatcher {
 			String ip = userService.getClientIP(request);
 			Review review = new Review(title,content,memId,nick,movieCode,ip);
 			
+			System.out.println("requestmmapping reivew");
 			Review getDetailReview = reviewService.createReview(review);
 			request.setAttribute("reviewDetail", getDetailReview);
 		} catch (UnsupportedEncodingException e) {
@@ -115,14 +116,25 @@ public class ReviewRequestMapping implements RequestDispatcher {
 			e.printStackTrace();
 		}
       } else if(route.equals(Route.DELETE_REVIEW_PAGE.getRoute())) {
-    	  int movieCode = Integer.parseInt(request.getParameter("movieCode"));
     	  String revId = request.getParameter("revId");
-    	  reviewService.deleteSelectedReview(revId);
-          GetMovieInfoForm getMovieInfoForm = movieService.getSelectedMovieDetail(movieCode);
   
-          List<Review> reviews = reviewService.getReviewList(movieCode);
-          request.setAttribute("reviews", reviews);
-          request.setAttribute("movieInfoForm", getMovieInfoForm);
+          Review selectedReview = reviewService.getSelectedReviewDetail(revId);
+    	  session = request.getSession();
+    	  Member member =  (Member) session.getAttribute("user");
+    	  boolean check = reviewService.deleteSelectedReview(revId);
+    	  UserRecommand userRecommand = new UserRecommand();
+    	  if(member != null) {
+    		  userRecommand = reviewService.getUserRecommandStatus(revId,member.getMem_email());
+    	  }
+    	  List<ReviewComment> reviewComments = commentService.getReviewCommentById(revId);
+    	  int gCnt = commentService.getMaxGroupId();
+    	  session.setAttribute("session", member);
+    	  
+    	  request.setAttribute("gCnt", gCnt);
+    	  request.setAttribute("deletedReview", check);
+    	  request.setAttribute("reviewComments", reviewComments);
+    	  request.setAttribute("reviewDetail", selectedReview);
+    	  request.setAttribute("recommand", userRecommand);
       } 
    }
 }

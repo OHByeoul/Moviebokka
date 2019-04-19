@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +48,8 @@ public class CommentDAO {
 	public boolean createReviewComment(ReviewComment com) {
 		String query = "INSERT INTO reviewcom VALUES (com_seq.nextval,?,?,?,?,?,?,?,?,?,?,?)";
 		conn = instance.getConnection();
-		int result = 0;
+		boolean result = false;
+		int cnt = 0;
 		try {
 			preparedStatement = conn.prepareStatement(query);
 			preparedStatement.setString(1, com.getCom_content());
@@ -61,16 +63,16 @@ public class CommentDAO {
 			preparedStatement.setInt(9, com.getMem_id());
 			preparedStatement.setString(10, com.getMem_nick());
 			preparedStatement.setInt(11, com.getRev_id());
-			result = preparedStatement.executeUpdate();
-			if(result > 0) {
-				return true;
+			cnt = preparedStatement.executeUpdate();
+			if(cnt > 0) {
+				result =  true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			closeIdleConnection();
 		}
-		return false;
+		return result;
 	}
 
 	private void closeIdleConnection() {
@@ -141,24 +143,27 @@ public class CommentDAO {
 	}
 
 	public boolean updateReviewComment(String input, String dataBox) {
-		String query = "UPDATE reviewcom SET com_content = ? WHERE com_data_box = ?";
-		int result = 0;
+		String query = "UPDATE reviewcom SET com_content = '" + input + "' WHERE com_data_box = '" + dataBox + "'";
+		int cnt = 0;
+		boolean result = false;
 		conn = instance.getConnection();
 
 		try {
-			preparedStatement = conn.prepareStatement(query);
-			preparedStatement.setString(1, input);
-			preparedStatement.setString(2, dataBox);
-			result = preparedStatement.executeUpdate();
-			if (result > 0) {
-				return true;
+			Statement stmt = conn.createStatement();
+			cnt = stmt.executeUpdate(query);
+//			preparedStatement = conn.prepareStatement(query);
+//			preparedStatement.setString(1, input);
+//			preparedStatement.setString(2, dataBox);
+//			result = preparedStatement.executeUpdate();
+			if (cnt > 0) {
+				result = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			closeIdleConnection();
 		}
-		return false;
+		return result;
 	}
 
 
