@@ -448,12 +448,11 @@ public class ReviewDAO {
 	}
 
 	public Review getRecentCreatedReview() {
-		String query = "SELECT * FROM review WHERE rev_id=?";
+		String query = "SELECT * FROM review WHERE rev_id = (SELECT MAX(rev_id) FROM review)";
 		Review review = new Review();
 		conn = instance.getConnection();
 		try {
 			preparedStatement = conn.prepareStatement(query);
-			preparedStatement.setInt(1, revId);
 			rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				review.setRev_id(rs.getInt("rev_id"));
