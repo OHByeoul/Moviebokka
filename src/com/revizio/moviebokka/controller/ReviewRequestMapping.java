@@ -66,8 +66,8 @@ public class ReviewRequestMapping implements RequestDispatcher {
 					
 			} 
 			else {
-				Review getRecentReview = reviewService.createReview(review);
-				request.setAttribute("reviewDetail", getDetailReview);
+				Review getRecentReview = reviewService.getRecentCreatedReview();
+				request.setAttribute("reviewDetail", getRecentReview);
 			}
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
