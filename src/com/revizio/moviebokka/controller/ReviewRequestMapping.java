@@ -1,6 +1,5 @@
 package com.revizio.moviebokka.controller;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -83,7 +82,7 @@ public class ReviewRequestMapping implements RequestDispatcher {
     	  }
     	  List<ReviewComment> reviewComments = commentService.getReviewCommentById(revId);
     	  int gCnt = commentService.getMaxGroupId();
-    	  session.setAttribute("session", member);
+    	 // session.setAttribute("session", member);
     	  
     	  request.setAttribute("gCnt", gCnt);
     	  request.setAttribute("reviewComments", reviewComments);
@@ -131,24 +130,17 @@ public class ReviewRequestMapping implements RequestDispatcher {
 		}
       } else if(route.equals(Route.DELETE_REVIEW_PAGE.getRoute())) {
     	  String revId = request.getParameter("revId");
+    	  int movieCode = Integer.parseInt(request.getParameter("movieCode"));
   
-          Review selectedReview = reviewService.getSelectedReviewDetail(revId);
-    	  session = request.getSession();
-    	  Member member =  (Member) session.getAttribute("user");
-    	  boolean check = reviewService.deleteSelectedReview(revId);
-    	  UserRecommand userRecommand = new UserRecommand();
-    	  if(member != null) {
-    		  userRecommand = reviewService.getUserRecommandStatus(revId,member.getMem_email());
+    	 // session = request.getSession();
+    	  if(revId != null) {
+    		  reviewService.deleteSelectedReview(revId);
     	  }
-    	  List<ReviewComment> reviewComments = commentService.getReviewCommentById(revId);
-    	  int gCnt = commentService.getMaxGroupId();
-    	  session.setAttribute("session", member);
+    	  GetMovieInfoForm getMovieInfoForm = movieService.getSelectedMovieDetail(movieCode);
+    	  List<Review> reviews = reviewService.getReviewList(movieCode);
     	  
-    	  request.setAttribute("gCnt", gCnt);
-    	  request.setAttribute("deletedReview", check);
-    	  request.setAttribute("reviewComments", reviewComments);
-    	  request.setAttribute("reviewDetail", selectedReview);
-    	  request.setAttribute("recommand", userRecommand);
+    	  request.setAttribute("movieInfoForm", getMovieInfoForm);
+    	  request.setAttribute("reviews", reviews);
       } 
    }
 }

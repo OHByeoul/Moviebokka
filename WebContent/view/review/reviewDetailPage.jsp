@@ -155,26 +155,24 @@ h2 {
 	</div>
 	<script>
 		$(function(){
-			let session = "${session.mem_nick}";
+			//let session = "${session.mem_nick}";
+			let session = "${sessionScope.user.mem_nick}";
 			let nick = "${reviewDetail.mem_nick}";
 			let movieCode = "${reviewDetail.m_code}";
 			let revId = "${reviewDetail.rev_id}";
 			var spot;
 			
-			let check = "${deletedReview}";
 			let del = "${reviewDetail.rev_del}";
 			
-			if(session !== 'undefined' && nick !== 'undefined'){
-				if(session == nick && (check===false ||del==="0")){
+			if(session !== 'undefined'){
+				if(session == nick && del==="0"){
 					$('#delete').show();
 					$('#update').show();	
 				}
 			}
 			
 			
-			
-			
-			if(check===true || del==="1"){
+			if(del==="1"){
 				$('#cmt-txt').attr('readonly',true);
 				$('#cmt-add').hide();
 				$('#delete').hide();

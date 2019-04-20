@@ -31,7 +31,8 @@ public enum Route {
 	GET_REVIEW_INFO("getSelectedReview","/review/"+"reviewDetailPage.jsp"),
 	UPDATE_REVIEW_FORM("updateReviewForm", "/review/"+"reviewUpdateForm.jsp"),
 	UPDATE_REVIEW_PAGE("updateReview","/review/"+"reviewDetailPage.jsp"),
-	DELETE_REVIEW_PAGE("deleteReview", "/review/"+"reviewDetailPage.jsp"), // /moive/ /movieDetailInfoPage.jsp
+	//DELETE_REVIEW_PAGE("deleteReview", "/review/"+"reviewDetailPage.jsp"), // /moive/ /movieDetailInfoPage.jsp
+	DELETE_REVIEW_PAGE("deleteReview", "/movie/"+"movieDetailInfoPage.jsp"),
 	RECOMMAND_REVIEW("recommandReview","ajax"),
 	UNRECOMMAND_REVIEW("unrecommandReview","ajax"),
 	CHECK_USER_RECOMMAND("checkUserRecommand","ajax"),
