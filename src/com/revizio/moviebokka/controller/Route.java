@@ -17,6 +17,7 @@ public enum Route {
 	GET_MOVIE_INFOES("getMovieInfoes","ajax"),
 	GET_MOVIE_INFO("getMovieInfo","/movie/"+"movieDetailInfoPage.jsp"),
 	GET_MOVIE_DETAIL("getMovieDetail","/movie/"+"movieDetailInfoPage.jsp"),
+	GET_MOVIE_GENRE("getMovieGenre","/movie/"+"movieGenreInfoPage.jsp"),
 	GET_MOVIE_MAIN("main","mainPage.jsp"),
 	GET_MAIN("/","mainPage.jsp"),
 	

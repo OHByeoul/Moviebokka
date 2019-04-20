@@ -40,8 +40,8 @@
 					<li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown" href="#">장르별 영화 <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li class="genre"><a id="action"href="#">액션</a></li>
-							<li class="genre"><a id="war" href="#">전쟁</a></li>
+							<li class="genre"><a id="action">액션</a></li>
+							<li class="genre"><a id="war">전쟁</a></li>
 							<li class="genre"><a id="fantasy" href="#">판타지</a></li>
 							<li class="genre"><a id="horror"href="#">공포</a></li>
 							<li class="genre"><a id="comedy" href="#">코미디</a></li>

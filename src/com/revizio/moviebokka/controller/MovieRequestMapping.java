@@ -97,6 +97,8 @@ public class MovieRequestMapping implements RequestDispatcher {
          movieInfoFormList = movieService.getMovieDetailInfoList();
                
          request.setAttribute("movieInfoFormList", movieInfoFormList);
+      } else if(route.equals(Route.GET_MOVIE_GENRE.getRoute())) {
+    	  
       }
    }
 }

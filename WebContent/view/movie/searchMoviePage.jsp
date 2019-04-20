@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <jsp:include page="../partial/header.jsp" />
 <jsp:include page="../partial/navbar.jsp" />
-<link rel="stylesheet" href="/Moviebokka/static/css/page.css">
+<link rel="stylesheet" href="/Moviebokka/static/css/mainPage.css">
 <title>무비보까 검색 페이지</title>
 <style type="text/css">
 .jumbotron {

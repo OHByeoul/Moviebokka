@@ -14,7 +14,10 @@
             <div>
                 <h3 class="h3"></h3>
                 </div>
-                <div class="recommand"></div>
+                <div class="recommand">
+                	sdfsadfasdfasdf
+               
+                </div>
         
                 <div class="temp_movie" style="display: none">
                     <div class="col-md-2 col-sm-6">
@@ -51,9 +54,11 @@
             $('.genre').on('click', function(e){
                 let $target = $(e.target);
                 title = $target.text();
+                console.log(title);
+                let link = '/Moviebokka/movie/getMovieGenre?genreName='+title;
+                location.href=link;
                 $('.h3').text(title);
-              //  let link = '/Moviebokka/movie/getGenre?genreName='+title;
-                $target.attr("href",link);
+               // $target.attr("href",link);
             });
             
             
