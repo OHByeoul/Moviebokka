@@ -447,4 +447,35 @@ public class ReviewDAO {
 		
 	}
 
+	public Review getRecentCreatedReview() {
+		String query = "SELECT * FROM review WHERE rev_id=?";
+		Review review = new Review();
+		conn = instance.getConnection();
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setInt(1, revId);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				review.setRev_id(rs.getInt("rev_id"));
+				review.setRev_title(rs.getString("rev_title"));
+				review.setRev_content(rs.getString("rev_content"));
+				review.setRev_recommand(rs.getInt("rev_recommand"));
+				review.setRev_unrecommand(rs.getInt("rev_unrecommand"));
+				review.setRev_regdate(rs.getDate("rev_regdate"));
+				review.setRev_ip(rs.getString("rev_ip"));
+				review.setRev_view(rs.getInt("rev_view"));
+				review.setM_code(rs.getInt("m_code"));
+				review.setMem_id(rs.getInt("mem_id"));
+				review.setMem_nick(rs.getString("mem_nick"));
+				review.setRev_del(rs.getString("rev_del"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		return review;
+	}
+
 }

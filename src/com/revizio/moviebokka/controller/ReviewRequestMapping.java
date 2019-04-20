@@ -1,5 +1,6 @@
 package com.revizio.moviebokka.controller;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -44,17 +45,30 @@ public class ReviewRequestMapping implements RequestDispatcher {
       } else if(route.equals(Route.CREATE_REVIEW.getRoute())) {
     	  try {
 			request.setCharacterEncoding("UTF-8");
-			int movieCode = Integer.parseInt(request.getParameter("movieCode"));
+			String needToParseParam1 = request.getParameter("movieCode");
+			String needToParseParam2 = request.getParameter("memId");
+			int movieCode = 0;
+			int memId = 0;
+			if(needToParseParam1 != null && needToParseParam2 != null) {
+				movieCode = Integer.parseInt(needToParseParam1);
+				memId = Integer.parseInt(needToParseParam2);
+			}
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
-			int memId = Integer.parseInt(request.getParameter("memId"));
 			String nick = request.getParameter("nick");
 			String ip = userService.getClientIP(request);
+			if(needToParseParam1 != null && needToParseParam2 != null) {
 			Review review = new Review(title,content,memId,nick,movieCode,ip);
 			
 			System.out.println("requestmmapping reivew");
 			Review getDetailReview = reviewService.createReview(review);
 			request.setAttribute("reviewDetail", getDetailReview);
+					
+			} 
+			else {
+				Review getRecentReview = reviewService.createReview(review);
+				request.setAttribute("reviewDetail", getDetailReview);
+			}
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}

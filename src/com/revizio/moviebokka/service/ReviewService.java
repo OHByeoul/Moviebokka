@@ -137,4 +137,9 @@ public class ReviewService {
 		UserRecommand userRecommand = reviewDAO.getReivewRecomInfo(id, memEmail);
 		return userRecommand; 
 	}
+
+	public Review getRecentCreatedReview() {
+		return reviewDAO.getRecentCreatedReview();
+
+	}
 }
