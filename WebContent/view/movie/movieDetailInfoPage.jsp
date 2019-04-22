@@ -5,7 +5,7 @@
 
 <jsp:include page="../partial/header.jsp" />
 <jsp:include page="../partial/navbar.jsp" />
-<link rel="stylesheet" href="/Moviebokka/static/css/mainPage.css">
+<link rel="stylesheet" href="/Moviebokka/static/css/mainPage.css?after">
 
 <title>${movieInfoForm.m_title}정보</title>
 <style type="text/css">

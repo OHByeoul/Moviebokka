@@ -25,7 +25,7 @@
                     <div class="col-md-2 col-sm-6">
                         <div class="movie-grid">
                             <div class="movie-image">
-                                <a href="#"> <img class="pic-1" src="" onerror="this.src='/Moviebokka/static/images/no-photo.jpg'"alt="임시 이미지"> <img
+                                <a href="#"> <img class="pic-1" src="" onerror="this.src='/Moviebokka/static/images/not-available.jpg'"alt="임시 이미지"> <img
                                     class="pic-2" src="" alt="이미지 없음">
                                 </a> <a href="#" class="fa fa-search movie-full-view"></a>
                             </div>
@@ -37,7 +37,7 @@
                                     <li class="fa fa-star"></li>
                                     <li class="fa fa-star"></li>
                                 </ul>
-                                <h3 class="title">
+                                <h3 class="title title_clip">
                                     <a href="#"></a>
                                 </h3>
                                 <div class="gernre"></div>

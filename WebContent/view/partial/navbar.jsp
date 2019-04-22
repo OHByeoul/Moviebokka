@@ -6,11 +6,12 @@
 	String imagePath = request.getContextPath() + "/static/images/";
 %>
 <div class="text-center">
-	<div class="jumbotron text-center">
-			<a class="text-center" href="/Moviebokka/movie/main">
-				<img class="img-responsive mx-auto" alt="" src="<%=imagePath%>logo.png" width="auto" height="200px;">
-			</a>
-	</div>
+<div class="jumbotron jumbotron_logo_style text-center">
+         <a class="text-center" href="/Moviebokka/movie/main">
+            <img class="jumbotron_logo_image" alt="" src="<%=imagePath%>movie-logo.png">
+         </a>
+   </div>
+	
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">

@@ -26,49 +26,39 @@
 						<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 						<li data-target="#myCarousel" data-slide-to="1"></li>
 						<li data-target="#myCarousel" data-slide-to="2"></li>
-						<li data-target="#myCarousel" data-slide-to="3"></li>
 					</ol>
 
 					<!-- Wrapper for slides -->
 					<div class="carousel-inner">
 						<div class="item active">
 							<div style="padding:30px;">
-								<img src="<%=imagePath%>1.jpg" alt="" height="340px" width="200px">
-								<img src="<%=imagePath%>2.jpg" alt="" height="340px" width="200px">
-								<img src="<%=imagePath%>3.jpg" alt="" height="340px" width="200px">
-								<img src="<%=imagePath%>4.jpg" alt="" height="340px" width="200px">
-								<img src="<%=imagePath%>5.jpg" alt="" height="340px" width="200px">
-								<img src="<%=imagePath%>1.jpg" alt="" height="340px" width="200px">
+							<a href = "http://localhost:8090/Moviebokka/movie/getMovieInfo?code=174050">
+								<img src="<%=imagePath%>birthday.jpg" alt="" height="340px" width="200px">
+								<img src="<%=imagePath%>birth2.jpg" alt="" height="340px" width="200px">
+								<img src="<%=imagePath%>birth3.jpg" alt="" height="340px" width="200px">
+								<img src="<%=imagePath%>birth4.jpg" alt="" height="340px" width="200px">
+								<img src="<%=imagePath%>birth5.jpg" alt="" height="340px" width="200px">
+							</a>
 							</div>
 						</div>
 						<div class="item">
 							<div style="padding:30px;">
-								<img src="<%=imagePath%>1.jpg" alt="" height="340px" width="200px">
-								<img src="<%=imagePath%>2.jpg" alt="" height="340px" width="200px">
-								<img src="<%=imagePath%>3.jpg" alt="" height="340px" width="200px">
-								<img src="<%=imagePath%>4.jpg" alt="" height="340px" width="200px">
-								<img src="<%=imagePath%>5.jpg" alt="" height="340px" width="200px">
-								<img src="<%=imagePath%>1.jpg" alt="" height="340px" width="200px">
+							<a href = http://localhost:8090/Moviebokka/movie/getMovieInfo?code=132623>
+								<img src="<%=imagePath%>cap1.jpg" alt="" height="340px" width="200px">
+								<img src="<%=imagePath%>cap.jpg" alt="" height="340px" width="200px">
+								<img src="<%=imagePath%>cap.jpg" alt="" height="340px" width="200px">
+								<img src="<%=imagePath%>cap.jpg" alt="" height="340px" width="200px">
+							</a>
 							</div>
 						</div>
 						<div class="item">
 							<div style="padding:30px;">
-								<img src="<%=imagePath%>1.jpg" alt="" height="340px" width="200px">
-								<img src="<%=imagePath%>2.jpg" alt="" height="340px" width="200px">
-								<img src="<%=imagePath%>3.jpg" alt="" height="340px" width="200px">
-								<img src="<%=imagePath%>4.jpg" alt="" height="340px" width="200px">
-								<img src="<%=imagePath%>5.jpg" alt="" height="340px" width="200px">
-								<img src="<%=imagePath%>1.jpg" alt="" height="340px" width="200px">
-							</div>
-						</div>
-						<div class="item">
-							<div style="padding:30px;">
-								<img src="<%=imagePath%>1.jpg" alt="" height="340px" width="200px">
-								<img src="<%=imagePath%>2.jpg" alt="" height="340px" width="200px">
-								<img src="<%=imagePath%>3.jpg" alt="" height="340px" width="200px">
-								<img src="<%=imagePath%>4.jpg" alt="" height="340px" width="200px">
-								<img src="<%=imagePath%>5.jpg" alt="" height="340px" width="200px">
-								<img src="<%=imagePath%>1.jpg" alt="" height="340px" width="200px">
+							<a href = http://localhost:8090/Moviebokka/movie/getMovieInfo?code=132623>
+								<img src="<%=imagePath%>yo.jpg" alt="" height="340px" width="200px">
+								<img src="<%=imagePath%>yo1.jpg" alt="" height="340px" width="200px">
+								<img src="<%=imagePath%>yo2.jpg" alt="" height="340px" width="200px">
+								<img src="<%=imagePath%>yo3.jpg" alt="" height="340px" width="200px">
+							</a>
 							</div>
 						</div>
 					</div>

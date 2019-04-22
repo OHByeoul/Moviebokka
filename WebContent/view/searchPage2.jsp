@@ -29,14 +29,14 @@
 		    <div class = "search-result-form">
 		        <div class = "search-in-movie">
 		            <div class = "search-movie-form" >
-		                <span class="result-title">영화에서 검색 결과</span><span class="sub">더보기</span>
+		                <span class="result-title">영화에서 검색 결과</span><span class="sub" id="movie_sub">더보기</span>
 		                <div class="line"></div>
 			                <div class="movie-result">
 			                <!-- 영화 검색 결과 들어가야됨-->
 			                </div>
 		            </div>
 		            <div class = "search-review-form">
-		                <span class="result-title">리뷰에서 검색 결과</span><span class="sub">더보기</span>
+		                <span class="result-title">리뷰에서 검색 결과</span><span class="sub" id="review_sub">더보기</span>
 		                <div class="line"></div>
 		                <div class="review-result">
 		                	<table class="table table-hover" id="temp-review" style="display:none">
@@ -63,13 +63,15 @@
 		            </div>
 		        </div>
 		    </div>
+		    <input type="hidden" id="startNum" name="startNum" value="">
+		    <input type="hidden" id="endNum" name="endNum" value="">
 		  </div>
 		  <!-- 영화 보여주는 form -->
 		  <div class="temp_movie" style="display: none">
 			<div class="col-md-2 col-sm-6">
 				<div class="movie-grid">
 					<div class="movie-image">
-						<a href="#"> <img class="pic-1" src="" alt="이미지 없음"> <img
+						<a href="#"> <img class="pic-1" src="" onerror="this.src='/Moviebokka/static/images/no-photo.jpg'" alt="이미지 없음"> <img
 							class="pic-2" src="" alt="이미지 없음">
 						</a> <a href="#" class="fa fa-search movie-full-view"></a>
 					</div>
@@ -102,46 +104,118 @@
 		var cnt = 1;
 		var rev = 1;
 		var page = 1;
+		let startM = "${startM}"=== ""? 1 : "${startM}";
+		let endM = "${endM}"=== ""? 5 : "${endM}";
+		let startR = "${startR}"=== ""? 1 : "${start}";
+		let endR = "${endR}"===""? 5 : "${end}";
+		
+		getMovieResult();
+		getSearchResult();
+		
+		function getMovieResult(){
+			let $target;
+			 <c:forEach  items="${movieInfoFormList}" var="item" varStatus="status">
+				$clone = $('.temp_movie').clone();
+				$clone.attr("class", "movie");
+				$clone.attr("id", "movie" + cnt++);
+				$clone.find('.title').find('a').html("${item.m_title}");
+				$clone.find('.pic-1').attr("src", "${item.m_img}");
+				$clone.find('.pic-2').attr("src", "${item.m_img}");
+				$clone.find('.user_rating').html("${item.m_user_rating}");
+				$clone.find('#movieCode').val("${item.m_code}");
+				$clone.show();
+						
+				$target = $clone.find('.rating').find('.fa.fa-star');
+				setUserRating("${item.m_user_rating}", $target);
+				$('.movie-result').append($clone);		
+				function setUserRating(rating, target) {
+					let highStar = 4;
+					let limit = Math.round(rating/2);
+					console.log(limit);
+					for (let i = highStar; i >= limit; i--) {
+						target.eq(i).attr("class", "fa fa-star disable");
+					}
+				}
+			</c:forEach>
+		}
+		function getSearchResult() {
+			 <c:forEach  items="${reviewLists}" var="item" varStatus="status">
+				temp="";
+				temp+="<tr>"
+					temp+='<td>${item.rev_id}</td>';
+					temp+='<td><a href="/Moviebokka/review/getSelectedReview?revId=${item.rev_id}">${item.rev_title}</a></td>';
+					temp+='<td>${item.mem_nick}</td>';
+					temp+='<td>${item.rev_regdate}</td>';
+					temp+="</tr>";
+				$('#tbody').append(temp);
+			</c:forEach>
+			$('#input').val("${search}");
+			$('#temp-review').show();
+			clickedEvent();
+			
+		}
 		 $('#search').on('click', function(){
 		        let $input = $(this).closest('#custom-search-input').find('#input').val();
+		        let start =1;
+		        let end = 5;
+		        
 		        console.log($input);
-		        
-		        $.getJSON('/Moviebokka/movie/searchMovies',{search : $input},function(result){
-		        	$('.movie-result').empty();
-		        	$.each(result, function(i){
-		        		searchMovie(result[i].m_title,result[i].m_img,result[i].m_user_rating,result[i].m_code);
-		        		clickedEvent();
-		        	});
-		        	
-		        });
-		        
-		        $.getJSON('/Moviebokka/review/searchReviews',{search : $input},function(result){
-		        	$('#tbody').empty();
-		        	$('.review-result').empty();
+		        location.href="/Moviebokka/search/searchContents?search="+$input+"&startNum="+start+"&endNum="+end;
+		    
+		 });
+		 
+		 $('#review_sub').on('click', function(){
+			let $input = "${search}";
+			
+			let s = Number(startR)+5;
+			let e = Number(endR)+5;
+			startR = String(s);
+			endR = String(e);
+			 $.getJSON('/Moviebokka/search/searchReviewMore',{search : $input, startNum : startR, endNum:endR},function(result){
 		        		if(result.length === 0){
 		        			let empty = "<div>검색된 결과가 없습니다.</div>";
 		        			$('.review-result').append(empty);
 		        		}
 		        	$.each(result, function(i){
+		        		console.log(result);
 		        		searchReview(result[i].rev_id,result[i].rev_title,result[i].rev_regdate,result[i].mem_nick);
 		        	});
 		        });
-		   
-		  });
+			 
+		 });
+		 
+		 $('#movie_sub').on('click', function(){
+			 let $input = "${search}";
+				
+			let s = Number(startM)+5;
+			let e = Number(endM)+5;
+			startM = String(s);
+			endM = String(e);
+			$.getJSON('/Moviebokka/search/searchMovieMore',{search : $input, startNum : startM, endNum:endM}, function(result){
+				if(result.length === 0){
+        			let empty = "<div>검색된 결과가 없습니다.</div>";
+        			$('.movie-result').append(empty);
+        		}
+				$.each(result, function(i){
+	        		console.log(result);
+	        		searchMovie(result[i].m_title,result[i].m_img,result[i].m_user_rating,result[i].m_code);
+	        		clickedEvent();
+	        	});
+			});
+		 });
 		 
 		 function searchReview(rev_id,rev_title,rev_regdate,mem_nick){
 			 let $review = $('#temp-review');
 			 
-				let temp = "";
-					temp="";
-						temp+='<tr>';
-						temp+='<td>'+rev_id+'</td>';
-						temp+='<td><a href="/Moviebokka/review/getSelectedReview?revId='+rev_id+'">'+rev_title+'</a></td>';
-						temp+='<td>'+mem_nick+'</td>';
-						temp+='<td>'+rev_regdate+'</td>';
-						temp+="</tr>";
-						$review.find('#tbody').append(temp);
-				$review.show();
+			let temp="";
+				temp+='<tr>';
+				temp+='<td>'+rev_id+'</td>';
+				temp+='<td><a href="/Moviebokka/review/getSelectedReview?revId='+rev_id+'">'+rev_title+'</a></td>';
+				temp+='<td>'+mem_nick+'</td>';
+				temp+='<td>'+rev_regdate+'</td>';
+				temp+="</tr>";
+				$('#tbody').append(temp);
+		
 		 }
 		 
 		 
