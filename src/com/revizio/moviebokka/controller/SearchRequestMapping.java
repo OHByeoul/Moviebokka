@@ -33,6 +33,11 @@ public class SearchRequestMapping implements RequestDispatcher {
 		   List<GetMovieInfoForm> movieInfoFormList = movieService.getSearchedMovieList(search,startNum,endNum);
 	       List<Review> reviewLists = reviewService.getSearchedReviewList(search,startNum, endNum);
 	       
+	       for(GetMovieInfoForm g : movieInfoFormList) {
+	    	   System.out.println(g.getM_code());
+	    	   System.out.println(g.getM_title());
+	       }
+	       
     	  request.setAttribute("search", search);
     	  request.setAttribute("movieInfoFormList", movieInfoFormList);
     	  request.setAttribute("reviewLists", reviewLists);
@@ -48,6 +53,7 @@ public class SearchRequestMapping implements RequestDispatcher {
 	            System.out.println(m.getM_code());
 	            System.out.println(m.getM_title());
 	         }
+	         System.out.println("done");
 	         
 	         JsonMaker jsonMaker = new JsonMaker();
 	         String toJson = jsonMaker.convertObjectToJson(movieInfoFormList);

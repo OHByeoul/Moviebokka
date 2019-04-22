@@ -26,6 +26,10 @@ public enum Route {
 	GET_MOVIE_MORE("searchMovieMore", "ajax"),
 	GET_REVIEW_MORE("searchReviewMore","ajax"),
 	
+	//Company
+	COMPANY_INTRO("companyIntro","/company/"+"companyIntro.jsp"),
+	COMPANY_ORG("companyOrg","/company/"+"companyOrg.jsp"),
+	
 	//Review
 	REVIEW_FORM("reviewForm","/review/"+"reviewCreateForm.jsp"),
 	CREATE_REVIEW("createReview","/review/"+"reviewDetailPage.jsp"),
