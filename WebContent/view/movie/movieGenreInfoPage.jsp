@@ -101,6 +101,14 @@
       				target.eq(i).attr("class", "fa fa-star disable");
       			}
       		} 
+      		
+      		for(let i = 0; i<cnt; i++){
+    			$('.genre_movie').on('click', '#movie'+i, function(){
+    				let movieCode = $(this).find('#movieCode').val();
+    				console.log(movieCode);
+    				location.href = "/Moviebokka/movie/getMovieDetail?movieCode="+movieCode;
+    			});
+    		}
           });
             
         </script>
