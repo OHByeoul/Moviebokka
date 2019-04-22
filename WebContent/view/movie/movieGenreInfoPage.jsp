@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page isELIgnored="false"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <jsp:include page="../partial/header.jsp" />
 <jsp:include page="../partial/navbar.jsp" />
@@ -12,10 +14,10 @@
     </head>
     <body>
             <div>
-                <h3 class="h3"></h3>
+                <h3 class="h3">장르병 영화</h3>
                 </div>
-                <div class="recommand">
-                	sdfsadfasdfasdf
+                <div class="genre_movie">
+                	
                
                 </div>
         
@@ -49,18 +51,57 @@
         
         
         <script>
-            let title;
-            
-            $('.genre').on('click', function(e){
-                let $target = $(e.target);
-                title = $target.text();
-                console.log(title);
-                let link = '/Moviebokka/movie/getMovieGenre?genreName='+title;
-                location.href=link;
-                $('.h3').text(title);
-               // $target.attr("href",link);
-            });
-            
+          $(function(){
+        	  var cnt = 1;
+      		setMovieGenre();
+      		
+      		function setMovieGenre(){
+      			let $clone = $('.temp_movie').clone();
+      			let $target;
+      			let title;
+      			let img;
+      			let rating;
+      			let code;
+      			let getClone;
+      			
+      			<c:forEach var="item" items="${movies}">
+      				title = "${item.m_title}";
+      				img = "${item.m_img}";
+      				rating = ${item.m_user_rating};
+      				code = ${item.m_code};
+      				
+      				console.log(title);
+      				getClone = setTempAttribute(title, img, rating, code);
+      				
+      				$('.genre_movie').append(getClone);
+      			</c:forEach>
+      		}
+      		
+      		function setTempAttribute(title, img, rating, code){
+      			$clone = $('.temp_movie').clone();
+      			$clone.attr("class", "movie");
+      			$clone.attr("id", "movie" + cnt++);
+      			$clone.find('.title').find('a').html(title);
+      			$clone.find('.pic-1').attr("src", img);
+      			$clone.find('.pic-2').attr("src", img);
+      			$clone.find('.user_rating').html(rating);
+      			$clone.find('#movieCode').val(code);
+      			$clone.show();
+      					
+      			$target = $clone.find('.rating').find('.fa.fa-star');
+      			setUserRating(rating, $target);
+      			return $clone;
+      		}
+      		
+      		function setUserRating(rating, target) {
+      			let highStar = 4;
+      			let limit = Math.round(rating/2);
+      			console.log(limit);
+      			for (let i = highStar; i >= limit; i--) {
+      				target.eq(i).attr("class", "fa fa-star disable");
+      			}
+      		} 
+          });
             
         </script>
     </body>

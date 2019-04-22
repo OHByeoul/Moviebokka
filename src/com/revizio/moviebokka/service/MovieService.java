@@ -136,4 +136,8 @@ public class MovieService implements MovieServiceImpl{
 	      }
 	      return movieInfoes;
 	}
+
+	public List<GetMovieInfoForm> getMovieInfoByGenre(String genre) {
+		return movieDAO.getMovieInfoByGenre(genre);
+	}
 }

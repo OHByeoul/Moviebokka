@@ -349,4 +349,29 @@ public class MovieDAO {
 	      }
 	      return movieInfoForms;
 	}
+
+	public List<GetMovieInfoForm> getMovieInfoByGenre(String genre) {
+		String query = "SELECT * FROM movie WHERE m_code IN (SELECT m_code FROM genre WHERE g_name LIKE '%' || ? || '%')";
+		List <GetMovieInfoForm> movies = new ArrayList<>();
+		conn = instance.getConnection();
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setString(1, genre);
+			rs = preparedStatement.executeQuery();
+			while(rs.next()) {
+				GetMovieInfoForm getMovieInfoForm = new GetMovieInfoForm();
+				getMovieInfoForm.setM_code(rs.getInt("m_code"));
+				getMovieInfoForm.setM_title(rs.getString("m_title"));
+				getMovieInfoForm.setM_img(rs.getString("m_img"));
+				getMovieInfoForm.setM_user_rating(rs.getFloat("m_user_rating"));
+				getMovieInfoForm.setM_pub_date(rs.getString("m_pub_date"));
+				movies.add(getMovieInfoForm);
+	         }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		return movies;
+	}
 }

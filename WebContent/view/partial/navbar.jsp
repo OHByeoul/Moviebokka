@@ -42,12 +42,12 @@
 						<ul class="dropdown-menu">
 							<li class="genre"><a id="action">액션</a></li>
 							<li class="genre"><a id="war">전쟁</a></li>
-							<li class="genre"><a id="fantasy" href="#">판타지</a></li>
-							<li class="genre"><a id="horror"href="#">공포</a></li>
-							<li class="genre"><a id="comedy" href="#">코미디</a></li>
-							<li class="genre"><a id="melo" href="#">멜로드라마</a></li>
-							<li class="genre"><a id="romance" href="#">로맨스</a></li>
-							<li class="genre"><a id="anime" href="#">애니메이션</a></li>
+							<li class="genre"><a id="fantasy">판타지</a></li>
+							<li class="genre"><a id="horror">공포</a></li>
+							<li class="genre"><a id="comedy">코미디</a></li>
+							<li class="genre"><a id="melo" >멜로드라마</a></li>
+							<li class="genre"><a id="romance">로맨스</a></li>
+							<li class="genre"><a id="anime" >애니메이션</a></li>
 						</ul></li>
 					<!-- dropdownNavEnd -->
 					<!-- dropdownNavStart -->
@@ -69,4 +69,15 @@
 			</div>
 		</div>
 	</nav>
+	<script>
+	 let genre;
+     
+     $('.genre').on('click', function(e){
+         let $target = $(e.target);
+         genre = $target.text();    
+         
+         let link = '/Moviebokka/movie/getMovieGenre?genreName='+genre;
+         $target.attr("href",link);
+     });
+	</script>
 </div>

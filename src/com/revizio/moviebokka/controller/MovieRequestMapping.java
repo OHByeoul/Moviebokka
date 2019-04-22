@@ -75,8 +75,8 @@ public class MovieRequestMapping implements RequestDispatcher {
             e.printStackTrace();
          }
       } else if(route.equals(Route.GET_MOVIE_MAIN.getRoute())) {
-         List<GetMovieInfoForm> movieInfoFormList = movieService.getMovieDetailInfoList();
-         List<GetMovieInfoForm> movieRecomList = movieService.getMovieRecomList();
+        List<GetMovieInfoForm> movieInfoFormList = movieService.getMovieDetailInfoList();
+        List<GetMovieInfoForm> movieRecomList = movieService.getMovieRecomList();
          
          for(GetMovieInfoForm m : movieInfoFormList) {
             System.out.println(m.getM_code());
@@ -98,7 +98,10 @@ public class MovieRequestMapping implements RequestDispatcher {
                
          request.setAttribute("movieInfoFormList", movieInfoFormList);
       } else if(route.equals(Route.GET_MOVIE_GENRE.getRoute())) {
-    	  
+    	 String genre = request.getParameter("genreName");
+    	 
+    	 List<GetMovieInfoForm> movies = movieService.getMovieInfoByGenre(genre);
+    	 request.setAttribute("movies", movies);
       }
    }
 }

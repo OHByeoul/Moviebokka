@@ -290,9 +290,6 @@ h2 {
 			
 			////
 			
-			//$('#cmt-wrapper').remove();
-			//$('#children').remove();
-			
 			<c:forEach items="${reviewComments}" var="comment" varStatus="status">
 					var depth = "${comment.com_depth}";
 					var pId = "${comment.com_group}";
@@ -424,11 +421,11 @@ h2 {
 			       var uniqueId = getUnique();
 			       var line = '<div class="col-sm-12 node-parent" data-box="' + uniqueId + '" data-parent="none" data-group="'+gCnt+'" data-depth=0 data-seq=0 >';   // 제일 상위의 댓글 depth 0 seq 0  data-box : 내아이디인듯?
 			       line += '  <div class="panel panel-default">';
-			        line += '       <div class="panel-heading">'; // 이미지부분
+			        line += '       <div class="panel-heading">'; 
 			        line += '          <img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" width="25" height="25"> 2019-04-05 14:20';
 			       line += '          <div class="btn-group pull-right"><button class="btn btn-xs btn-default btn-reply" data-node="' + uniqueId + '">댓글</button><button class="btn btn-xs btn-default btn-mod" data-node="' + uniqueId + '">수 정</button><button class="btn btn-xs btn-default btn-del" data-node="' + uniqueId + '">삭 제</button></div>';
 			        line += '       </div>';
-			        line += '       <div class="panel-body node-text">'; //글입력 부분
+			        line += '       <div class="panel-body node-text">'; 
 			        line += '           <div class="node-text-inner">' + $('#cmt-txt').val() + '</div>';
 			        line += '       </div>';  
 			       line += '  </div>'
@@ -454,7 +451,7 @@ h2 {
 			    });
 			    
 			    
-			    $('body').on('click', '.btn-mod', function(e) { //수정 버튼 눌렀을때
+			    $('body').on('click', '.btn-mod', function(e) { 
 			       removeInput();
 			        var target = $(this).closest('.panel').find('.node-text-inner');   
 			        old = target.html();
@@ -513,7 +510,7 @@ h2 {
 			    });
 			    $(document).on('click', function(e) { removeInput(); });
 			    
-			    $('body').on('click', '.btn-reply', function() {  // 대댓글 눌렀을때
+			    $('body').on('click', '.btn-reply', function() { 
 			       removeInput();
 			       var node = $(this).closest('[data-box]').find('.panel-body').first();
 			       var input = '<div class="panel-body panel-body-reply">';
@@ -528,7 +525,7 @@ h2 {
 			    });
 			    
 			    //댓글 수정
-			    $('body').on('click', '.btn-mod-complete', function() { // 수정버튼 누른후에 붓그림 눌렀을때
+			    $('body').on('click', '.btn-mod-complete', function() { 
 			        var el = $(this).closest('.node-modify').find('.node-input');
 			        if(el.val().trim() == '') {
 			           alert("댓글을 입력하세요.");
