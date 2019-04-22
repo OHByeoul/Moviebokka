@@ -7,7 +7,7 @@
 %>
 <jsp:include page="../partial/header.jsp" />
 <jsp:include page="../partial/navbar.jsp" />
-<link rel="stylesheet" href="/Moviebokka/static/css/page.css">
+<link rel="stylesheet" href="/Moviebokka/static/css/mainPage.css">
 
 <title>영화보까</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">

@@ -30,7 +30,7 @@
 </head>
 <body>
 <div class="container container-form">
-    <div class="row">
+    <div class="form-group-row col-sm-12">
         <div class="col-sm-12">
             <form action="" class="form" id="search_form" method="get">
                 <div class="input-group">
@@ -45,7 +45,7 @@
             </form>
         </div>
     </div>
-    <div class="row">
+    <div class="form-group-row col-sm-12">
         <div class="col-sm-12 movie">
             <span class="label label-default label-result">영화 검색 결과</span>
             <button class="btn btn-default btn-sm pull-right" id="movie_sub">더보기</button>
@@ -53,7 +53,7 @@
         <div class="col-sm-12"><hr class="line-result" /></div>
         <div class="col-sm-12 movie-result"><!-- 영화 결과 들어감. --></div>
     </div>
-    <div class="row review">
+    <div class="form-group-row col-sm-12 review">
         <div class="col-sm-12">
             <span class="label label-default label-result">리뷰 검색 결과</span>
             <button class="btn btn-default btn-sm pull-right" id="review_sub">더보기</button>
@@ -77,7 +77,7 @@
 				</table>
 			</div>
 		</div>
-    <div class="row community">
+    <div class="form-group-row col-sm-12 community">
         <div class="col-sm-12">
             <span class="label label-default label-result">커뮤니티 검색 결과</span>
             <button class="btn btn-default btn-sm pull-right" >더보기</button>
