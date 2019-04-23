@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="com.revizio.moviebokka.dto.Member"%>
 <%@page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String imagePath = request.getContextPath() + "/static/images/";
+	Member member = (Member)session.getAttribute("user");
 %>
 <div class="text-center">
 <div class="jumbotron jumbotron_logo_style text-center">
@@ -62,10 +64,19 @@
 					<!-- dropdownNavEnd -->
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/Moviebokka/user/login"><span
-							class="glyphicon glyphicon-log-in"></span>로그인</a></li>
-					<li><a href="/Moviebokka/user/join"><span
-							class="icomoon icon-signup"></span>회원가입</a></li>
+				      	<%
+				      		if(member == null){
+				      	%>
+					    <li><a href="/Moviebokka/user/login2"><span class="glyphicon glyphicon-log-in"></span>로그인</a></li>
+					    <li><a href="/Moviebokka/user/joinAccessTerm"><span class="icomoon icon-signup"></span>회원가입</a></li>
+					    <% } %>
+					    <%
+				      		if(member != null){
+				      	%>
+							<li><a href="/Moviebokka/user/mypage"><span class="icomoon icon-signup"></span>마이페이지</a></li>
+					      	<li><a href="/Moviebokka/user/logout"><span class="icomoon icon-signup"></span>로그아웃</a></li>
+					    <% } %>
+        
 				</ul>
 			</div>
 		</div>

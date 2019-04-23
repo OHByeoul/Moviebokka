@@ -12,6 +12,18 @@ public class Member {
    private Date mem_regdate;
    private String mem_ip;
    
+   public Member() {
+   }
+   
+	public Member(String mem_email, String mem_pass, String mem_nick, int mem_auth, String mem_ip) {
+		super();
+		this.mem_email = mem_email;
+		this.mem_pass = mem_pass;
+		this.mem_nick = mem_nick;
+		this.mem_auth = mem_auth;
+		this.mem_ip = mem_ip;
+	}
+   
    public int getMem_id() {
       return mem_id;
    }

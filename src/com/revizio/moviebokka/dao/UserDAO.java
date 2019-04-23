@@ -11,7 +11,6 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.revizio.moviebokka.dto.Member;
-import com.revizio.moviebokka.dto.Member1;
 
 public class UserDAO {
 	private static UserDAO instance;
@@ -42,159 +41,361 @@ public class UserDAO {
 		}
 		return conn;
 	}
-//temp : member1 -> member 로 바꿔줘야됨 이메일 인증 테스트로 인한 변경
-	public Member isAthenticate(String id, String password) {
-		System.out.println("in dao??");
-		System.out.println(id+" "+password);
-		String query = "SELECT * FROM member WHERE mem_email=? AND mem_pass=?"; // 이것도 변경해야됨
-		Member member = new Member(); //
+	
+	private void closeIdleConnection() {
 		try {
-			conn = instance.getConnection();
+			if (rs != null) {
+				rs.close();
+			}
+			if (preparedStatement != null) {
+				preparedStatement.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public boolean isAuthenticateCheck(String id, String password) {
+		String query = "SELECT * FROM member WHERE mem_email=? AND mem_pass = ?";
+		conn = instance.getConnection();
+		boolean result = false;
+		
+		try {
 			preparedStatement = conn.prepareStatement(query);
 			preparedStatement.setString(1, id);
 			preparedStatement.setString(2, password);
 			rs = preparedStatement.executeQuery();
+			
 			while(rs.next()) {
-				member.setMem_id(rs.getInt("mem_id"));
-				member.setMem_email(rs.getString("mem_email"));
-				member.setMem_pass(rs.getString("mem_pass"));
-				member.setMem_nick(rs.getString("mem_nick")); //이메일 인증 테스트시 주석처리
-			//	result = true;
+				result = true;
 			}
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
+		}
+		
+		return result;
+	}
+
+	//회원 삭제 시 비밀번호 입력받아 비교
+	public boolean deletePasswordCheck(String email, String password) {
+		// TODO Auto-generated method stub
+		String sql = "SELECT mem_pass FROM member WHERE mem_email=?" ;
+		conn = instance.getConnection();
+		boolean result = false;
+		
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, email);
+			rs = preparedStatement.executeQuery();
+			
+			while(rs.next()) {
+				String dbPass = rs.getString(1);
+				
+				if(dbPass.equals(password)) {
+					result = true;
+				}
+				
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			closeIdleConnection();
+		}
+		return result;
+	}
+
+	//비밀번호 같으면 삭제 수행
+	public boolean deleteUser(String email) {
+		// TODO Auto-generated method stub
+		String sql = "DELETE member WHERE mem_email=?";
+		conn = instance.getConnection();
+		boolean result = false;
+		
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, email);
+			
+			if(preparedStatement.executeUpdate() > 0) {
+				result = true;
+			};
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			closeIdleConnection();
+		}
+		return result;
+	}
+
+	public boolean editUser(String email, String password, String nickname) {
+		// TODO Auto-generated method stub
+		String sql = "UPDATE member SET mem_pass=?, mem_nick=? WHERE mem_email=?";
+		conn = instance.getConnection();
+		boolean result = false;
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, password);
+			preparedStatement.setString(2, nickname);
+			preparedStatement.setString(3, email);
+			
+			if(preparedStatement.executeUpdate() > 0) {
+				result = true;
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			closeIdleConnection();
+		}
+		return result;
+	}
+
+
+	
+	public Member loginUserCheck(String email, String password) {
+		// TODO Auto-generated method stub
+		String sql = "SELECT * FROM member WHERE mem_email=? AND mem_pass=?";
+		conn = instance.getConnection();
+		Member member = new Member();
+		
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, email);
+			preparedStatement.setString(2, password);
+			rs = preparedStatement.executeQuery();
+			
+			if(rs.next()) {
+				member.setMem_id(rs.getInt(1));
+				member.setMem_nick(rs.getString(2));
+				member.setMem_email(rs.getString(3));
+				member.setMem_pass(rs.getString(4));
+				member.setMem_regdate(rs.getDate(7));
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			closeIdleConnection();
+		}
+		
+		return member;
+	}
+
+	public Member loadUserInfo(String email) {
+		// TODO Auto-generated method stub
+		String sql = "SELECT * FROM member WHERE mem_email=?";
+		conn = instance.getConnection();
+		Member member = new Member();
+		
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, email);
+			rs = preparedStatement.executeQuery();
+			if(rs.next()) {
+				member.setMem_id(rs.getInt(1));
+				member.setMem_nick(rs.getString(2));
+				member.setMem_email(rs.getString(3));
+				member.setMem_pass(rs.getString(4));
+				member.setMem_auth(rs.getInt(5));
+				member.setMem_pic(rs.getString(6));
+				member.setMem_regdate(rs.getDate(7));
+				member.setMem_ip(rs.getString(8));
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
 			closeIdleConnection();
 		}
 		return member;
 	}
-	
-	public int userJoin(Member1 member) {
-		String query = "INSERT INTO member1 VALUES (mem_seq.nextval,?,?,?,?)";
-		conn = instance.getConnection();
-		int result = 0;
-		try {
-			preparedStatement = conn.prepareStatement(query);
-			preparedStatement.setString(1, member.getMem_email());
-			preparedStatement.setString(2, member.getMem_pass());
-			preparedStatement.setString(3, member.getMem_hash_pass());
-			preparedStatement.setInt(4, member.getMem_auth());
-			result = preparedStatement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeIdleConnection();
-		}
-		return result;
-	}
-	
-	private void closeIdleConnection() {
-	      try {
-	         if (rs != null) {
-	            rs.close();
-	         }
-	         if (preparedStatement != null) {
-	            preparedStatement.close();
-	         }
-	         if (conn != null) {
-	            conn.close();
-	         }
-	      } catch (SQLException e) {
-	         e.printStackTrace();
-	      }
-	   }
 
-	public boolean getIsEmailConfirmed(String id) {
-		String query = "SELECT mem_auth FROM member1 WHERE mem_email = ?";
-		conn = instance.getConnection();
-		try {
-			preparedStatement = conn.prepareStatement(query);
-			preparedStatement.setString(1, id);
-			rs = preparedStatement.executeQuery();
-			while(rs.next()) {
-				return rs.getBoolean(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeIdleConnection();
-		}
-		return false;
-	}
-	
-	public String getUserEmail(String id) {
-		String query = "SELECT mem_email FROM member1 WHERE mem_email = ?";
-		conn = instance.getConnection();
-		String email = "";
-		try {
-			preparedStatement = conn.prepareStatement(query);
-			preparedStatement.setString(1, id);
-			rs = preparedStatement.executeQuery();
-			while(rs.next()) {
-				email =  rs.getString("mem_email");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeIdleConnection();
-		}
-		return email;
-	}
-
-	public String getSelectedUserEmail(String id) {
-		String query = "SELECT mem_email FROM member1 WHERE mem_email = ?";
-		conn = instance.getConnection();
-		String mail = "";
-		try {
-			preparedStatement = conn.prepareStatement(query);
-			preparedStatement.setString(1, id);
-			rs = preparedStatement.executeQuery();
-			while(rs.next()) {
-				mail = rs.getString("mem_email");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeIdleConnection();
-		}
-		return mail;
-	}
-
-	public boolean updateUserEmailAuthenticate(String id) {
-		String query = "UPDATE member1 SET mem_auth = 1 WHERE mem_email = ?";
+	public boolean updateUserPicture(String email, String finalPath) {
+		// TODO Auto-generated method stub
+		String sql = "UPDATE member SET mem_pic=? WHERE mem_email=?";
 		conn = instance.getConnection();
 		boolean result = false;
-		int cnt = 0;
 		try {
-			preparedStatement = conn.prepareStatement(query);
-			preparedStatement.setString(1, id);
-			cnt = preparedStatement.executeUpdate();
-			if(cnt==1) {
-				result = true; 
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, finalPath);
+			preparedStatement.setString(2, email);
+			
+			if(preparedStatement.executeUpdate() > 0) {
+				result = true;
 			}
-		} catch (SQLException e) {
+		}catch (Exception e) {
+			// TODO: handle exception
 			e.printStackTrace();
+		}finally {
+			closeIdleConnection();
 		}
 		return result;
 	}
 
-	public String geUserEmailByNick(String nick) {
-		String query = "SELECT mem_email FROM member WHERE mem_nick = ?";
+	public boolean deletePicture(String email) {
+		// TODO Auto-generated method stub
+		String sql = "UPDATE member SET mem_pic='../static/images/user/default.jpg' WHERE mem_email=?";
 		conn = instance.getConnection();
-		String email = "";
+		boolean result = false;
+		
 		try {
-			preparedStatement = conn.prepareStatement(query);
-			preparedStatement.setString(1, nick);
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, email);
+				
+			if(preparedStatement.executeUpdate() > 0){
+				result = true;
+			}
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			closeIdleConnection();
+		}
+		
+		return result;
+	}
+
+	public boolean userJoin(Member member) {
+		// TODO Auto-generated method stub
+		String sql = "INSERT INTO member VALUES(mem_seq.nextval, ?, ?, ?, ?, '../static/images/user/default.jpg', SYSDATE, ?)";
+		conn = instance.getConnection();
+		boolean result = false;
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, member.getMem_nick());
+			preparedStatement.setString(2, member.getMem_email());
+			preparedStatement.setString(3, member.getMem_pass());
+			preparedStatement.setInt(4, member.getMem_auth());
+			preparedStatement.setString(5, member.getMem_ip());
+			
+			if(preparedStatement.executeUpdate() > 0) {
+				result = true;
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		return result;
+	}
+
+	public String getUserEmail(String email) {
+		// TODO Auto-generated method stub
+		String sql = "SELECT mem_email FROM member WHERE mem_email=?";
+		conn = instance.getConnection();
+		
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, email);
 			rs = preparedStatement.executeQuery();
+			
 			while(rs.next()) {
-				email = rs.getString("mem_email");
+				return rs.getString("mem_email");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			closeIdleConnection();
 		}
-		return email;
+		return null;
 	}
-}
 
+	public boolean updateUserEmailAuthenticate(String email) {
+		// TODO Auto-generated method stub
+		String sql = "UPDATE member SET mem_auth = 1 WHERE mem_email=?";
+		conn = instance.getConnection();
+		boolean result = false;
+		
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, email);
+			
+			if(preparedStatement.executeUpdate() > 0) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		
+		return result;
+	}
+
+	public boolean searchExistingEmail(String email) {
+		// TODO Auto-generated method stub
+		String sql = "SELECT mem_email FROM member WHERE mem_email=?";
+		boolean result = false;	//있으면 true, 없 false
+		conn = instance.getConnection();
+		
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, email);
+			rs = preparedStatement.executeQuery();
+			
+			if(rs.next()) {
+				result = true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		
+
+		return result;
+	}
+
+	public boolean searchExistingNickname(String nickname) {
+		// TODO Auto-generated method stub
+		String sql = "SELECT mem_nick FROM member WHERE mem_nick=?";
+		boolean result = false;	//있으면 true, 없 false
+		conn = instance.getConnection();
+		
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, nickname);
+			rs = preparedStatement.executeQuery();
+			
+			if(rs.next()) {
+				result = true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+
+		return result;
+	}
+
+	public void updateTempPassowrd(String email, String hashPassword) {
+		// TODO Auto-generated method stub
+		String sql = "UPDATE member SET mem_pass=? WHERE mem_email=?";
+		conn = instance.getConnection();
+		
+		try {
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, hashPassword);
+			preparedStatement.setString(2, email);
+			preparedStatement.executeUpdate();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+	}
+
+	
+
+	
+
+}

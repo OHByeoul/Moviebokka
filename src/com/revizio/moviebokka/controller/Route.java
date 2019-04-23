@@ -2,13 +2,27 @@ package com.revizio.moviebokka.controller;
 
 public enum Route {
 	//User
-	JOIN("join","tempUserJoinForm.jsp"),
-	JOIN_ACTION("joinAction","mainPage.jsp"),
-	JOIN_AUTHENTICATE("emailAuthenticate","mainPage.jsp"),
-	LOGIN("login","temploginForm.jsp"),
-	CHECK_AUTHENTICATE("isAuthenticate","mainPage.jsp"),
-	GET_MYPAGE("mypage","mypagePage.jsp"),
-	EDIT_MYPAGE("",""),
+		JOIN("join","/user/"+"userJoinForm.jsp"),		//회원가입
+		JOIN_ACESS_TERM("joinAccessTerm", "/user/"+"joinAccessTerm.jsp"),	//이용약관
+		JOIN_ACTION("joinAction", "/user/"+"userJoinPage.jsp"),	//회원가입 확인
+		JOIN_AUTHENTICATE("emailAuthenticate","/user/"+"mainPage.jsp"),	//회원가입 이메일 인증
+		CHECK_EMAIL("emailCheck","/user/"+"emailCheckPage.jsp"),		//회원가입 이메일 중복 체크
+		CHECK_NICKNAME("nicknameCheck", "/user/"+"nicknameCheckPage.jsp"),	//회원가입, 회원수정 닉네임 중복 체크
+		LOGIN1("login2", "/user/"+"loginPage.jsp"),				//********안씀********
+		LOGIN_CHECK("loginCheck", "/user/"+"userLoginCheckPage.jsp"),	//입력받은 아이디 비밀번호 db랑 비교
+		LOGIN("login","/user/"+"loginPage.jsp"),			//로그인
+		GET_MYPAGE("mypage","/user/"+"mypagePage.jsp"),		//마이페이지
+		EDIT_USER("edit","/user/"+"userEditForm.jsp"),		//회원정보 수정
+		EDIT_USER_ACTION("editAction", "/user/"+"userEditPage.jsp"),	//수정 실행
+		CHECK_AUTHENTICATE("isAuthenticate","/user/"+"tempCheckPage.jsp"), //********안씀********
+		USER_DELETE_FORM("deleteForm", "/user/"+"userDelete.jsp"),	//회원 탈퇴(비밀번호 입력받는 창)
+		USER_DELETE_ACTION("deleteAction", "/user/"+"userDeletePage.jsp"),	//회원탈퇴 실행
+		USER_PICTURE_INSERT("insertUserPicture", "/user/"+"userPictureInsertForm.jsp"),	//사진 삽입
+		SAVE_PICTURE("savePicture", "/user/"+"userPictureInsertCheckPage.jsp"),	//사진 선택해서 경로 db에 저장
+		DELETE_PICTURE("deletePicture", "/user/"+"userPictureDeletePage.jsp"), //회원 수정페이지에서 사진 삭제 버튼 누를 시 사진 삭제
+		FIND_PASSWORD("findPassowrd", "/user/"+"findPassword.jsp"),	
+		FIND_PASSWORD_CHECK("findPassowrdCheck", "/user/"+"findPassowrdCheckPage.jsp"),
+		LOGOUT("logout", "/user/"+"logoutPage.jsp"),	//로그아웃
 	
 	//Movie
 	SEARCH_MOVIENAME("searchMovieName","/movie/"+"searchMoviePage.jsp"),
@@ -36,7 +50,6 @@ public enum Route {
 	GET_REVIEW_INFO("getSelectedReview","/review/"+"reviewDetailPage.jsp"),
 	UPDATE_REVIEW_FORM("updateReviewForm", "/review/"+"reviewUpdateForm.jsp"),
 	UPDATE_REVIEW_PAGE("updateReview","/review/"+"reviewDetailPage.jsp"),
-	//DELETE_REVIEW_PAGE("deleteReview", "/review/"+"reviewDetailPage.jsp"), // /moive/ /movieDetailInfoPage.jsp
 	DELETE_REVIEW_PAGE("deleteReview", "/movie/"+"movieDetailInfoPage.jsp"),
 	RECOMMAND_REVIEW("recommandReview","ajax"),
 	UNRECOMMAND_REVIEW("unrecommandReview","ajax"),
@@ -51,6 +64,7 @@ public enum Route {
 	//Board
 	CREATE_BOARD("createBoard","boardCreateForm.jsp"),
 	GET_FREEBOARD_LIST("getFreeboardList","freeboardListPage.jsp"),
+	VIEW_MY_CONTENT("myContentList",  "/user/"+"myContentListPage.jsp"),	//내가 쓴 글 보기
 	//Paging
 	PAGING("pagingBoard","freeboardListPage.jsp"),
 	MOVE_NEXT("pagingNext","freeboardListPage.jsp"),
