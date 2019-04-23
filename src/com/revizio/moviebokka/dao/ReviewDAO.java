@@ -12,13 +12,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.revizio.moviebokka.controller.ReviewRequestMapping;
-import com.revizio.moviebokka.dto.GetMovieInfoForm;
 import com.revizio.moviebokka.dto.Review;
 import com.revizio.moviebokka.dto.UserRecommand;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
-import sun.dc.pr.PRError;
 
 public class ReviewDAO {
 	private static ReviewDAO instance;
@@ -130,7 +125,6 @@ public class ReviewDAO {
 	}
 
 	public boolean deleteReview(int revId, String deleteMsg) {
-		//String query = "DELETE FROM review WHERE rev_id=?";
 		String query = "UPDATE review SET rev_title = ?, rev_content = ?, rev_del = ? WHERE rev_id=?";
 		conn = instance.getConnection();
 		boolean result = false;
@@ -150,18 +144,6 @@ public class ReviewDAO {
 		} finally {
 			closeIdleConnection();
 		}
-//		try {
-//			preparedStatement = conn.prepareStatement(query);
-//			preparedStatement.setInt(1, revId);
-//			cnt = preparedStatement.executeUpdate();
-//			if (cnt > 0) {
-//				result = true;
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			closeIdleConnection();
-//		}
 		return result;
 	}
 

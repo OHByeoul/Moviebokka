@@ -26,6 +26,11 @@
 .review {
     margin-top: 20px !important;
 }
+.title {
+	text-overflow: ellipsis;
+ 	height: 10px;
+ 	width: 150px;
+}
 </style>
 </head>
 <body>
