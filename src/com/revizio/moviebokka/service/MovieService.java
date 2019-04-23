@@ -63,9 +63,6 @@ public class MovieService implements MovieServiceImpl{
    private String getMovieStory(int movieCode) {
       crawling.createDocument(Crawling.URL+Crawling.URL_POST+movieCode);
       Elements elements = crawling.createElements(Crawling.TARGET);
-      for(Element e : elements) {
-         System.out.println(e);
-      }
       String text = crawling.htmlTotext(elements.toString());
       return text;      
    }

@@ -151,7 +151,7 @@ public class UserRequestMapping implements RequestDispatcher{
 				}
 				
 				request.setAttribute("result", result);
-			}
+			} 
 			
 	}
 

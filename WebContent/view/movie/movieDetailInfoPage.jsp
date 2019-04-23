@@ -200,6 +200,13 @@ footer {
 							class="btn review_btn_color">
 							<div>리뷰작성</div>
 						</button>
+						<button type="button" id="more_review"
+							class="btn review_btn_color">
+							<div>더보기</div>
+						</button>
+					</div>
+					<div>
+						
 					</div>
 				</h3>
 
@@ -246,8 +253,13 @@ footer {
 			}
 			
 			$('#create_review').on('click', function(){
+				let session = "${sessionScope.user}";
 				let movieCode = ${movieInfoForm.m_code};
-				location.href = "/Moviebokka/review/reviewForm?movieCode="+movieCode;
+				if(session !== ''){
+					location.href = "/Moviebokka/review/reviewForm?movieCode="+movieCode;
+				} else {
+					alert('로그인 후 리뷰를 작성해주세요!');
+				}
 			});
 			
 			

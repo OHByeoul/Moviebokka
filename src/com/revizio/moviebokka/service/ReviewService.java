@@ -7,17 +7,15 @@ import java.util.List;
 import com.revizio.moviebokka.constant.Constants;
 import com.revizio.moviebokka.dao.ReviewDAO;
 import com.revizio.moviebokka.dao.UserDAO;
-import com.revizio.moviebokka.dto.Member;
 import com.revizio.moviebokka.dto.Review;
 import com.revizio.moviebokka.dto.UserRecommand;
 
 public class ReviewService {
 	private ReviewDAO reviewDAO;
-	private UserDAO userDAO;
+	
 	
 	public ReviewService() {
 		reviewDAO = ReviewDAO.getInstance();
-		userDAO = UserDAO.getInstance();
 	}
 
 	public Review createReview(Review review) {
@@ -26,11 +24,7 @@ public class ReviewService {
 		boolean result = reviewDAO.createReview(review);
 		int revId = reviewDAO.getReviewId();
 		
-		System.out.println("createreview service out");
-		System.out.println("result "+result);
-		System.out.println("revId "+revId);
 		if(result && revId != 0) {
-			System.out.println("inninininin");
 			getReview = reviewDAO.getReviewDetailInfo(revId);
 			System.out.println(getReview.getRev_content());
 			
@@ -67,10 +61,7 @@ public class ReviewService {
 		
 		java.util.Date date = new java.util.Date();
 		String formatedDate = format.format(date);
-        System.out.println("date "+date);
-        System.out.println("formatedDate "+formatedDate);
 		Date nowDate = Date.valueOf(formatedDate);
-		System.out.println(nowDate);
 		return nowDate;
 	}
 
@@ -116,12 +107,6 @@ public class ReviewService {
 		if(isUnreccomand) {
 			unrecom = 1;
 		}
-//		if(!(isReccomand && isUnreccomand)) {
-//			if(isExist(id,memEmail)) {
-//				System.out.println("delete recom");
-//				return reviewDAO.deleteUserRecommand(id, memEmail);
-//			}
-//		}
 		if(!isExist(id,memEmail)) {
 			return reviewDAO.createUserRecommand(id, memEmail,recom,unrecom);
 		}
