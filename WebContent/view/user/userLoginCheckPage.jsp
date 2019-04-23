@@ -15,7 +15,7 @@
 	  <c:when test="${result eq true}">
 	  	<script type="text/javascript">
 	  		alert("${nickname}님 환영합니다.");
-			location.href="/Moviebokka"; 
+			location.href="/Moviebokka/movie/main"; 
 		</script>
 
 	  </c:when>
