@@ -244,29 +244,54 @@ public class MovieDAO {
       }
    }
 
+//   public List<GetMovieInfoForm> getMovieDetailInfoList() {
+//      List<GetMovieInfoForm> movieInfoForms = new ArrayList<>();
+//      GetMovieInfoForm getMovieInfoForm = new GetMovieInfoForm();
+//      String query = "SELECT m_code FROM movie WHERE ROWNUM >= 1 AND ROWNUM <= 6 ORDER BY m_user_rating DESC";
+//      conn = instance.getConnection();
+//      List<Integer> codes = new ArrayList<>();
+//      try {
+//         preparedStatement = conn.prepareStatement(query);
+//         rs = preparedStatement.executeQuery();
+//         while(rs.next()) {
+//            int movieCode = rs.getInt("m_code");
+//            codes.add(movieCode);
+//         }
+//         for(Integer code : codes) {
+//            movieInfoForms.add(getMovieDetailInfo(code));
+//         }
+//      } catch (SQLException e) {
+//         e.printStackTrace();
+//      } finally {
+//         closeIdleConnection();
+//      }
+//      return movieInfoForms;
+//   }
+   
    public List<GetMovieInfoForm> getMovieDetailInfoList() {
-      List<GetMovieInfoForm> movieInfoForms = new ArrayList<>();
-      GetMovieInfoForm getMovieInfoForm = new GetMovieInfoForm();
-      String query = "SELECT m_code FROM movie WHERE ROWNUM >= 1 AND ROWNUM <= 6 ORDER BY m_user_rating DESC";
-      conn = instance.getConnection();
-      List<Integer> codes = new ArrayList<>();
-      try {
-         preparedStatement = conn.prepareStatement(query);
-         rs = preparedStatement.executeQuery();
-         while(rs.next()) {
-            int movieCode = rs.getInt("m_code");
-            codes.add(movieCode);
-         }
-         for(Integer code : codes) {
-            movieInfoForms.add(getMovieDetailInfo(code));
-         }
-      } catch (SQLException e) {
-         e.printStackTrace();
-      } finally {
-         closeIdleConnection();
-      }
-      return movieInfoForms;
-   }
+	      List<GetMovieInfoForm> movieInfoForms = new ArrayList<>();
+	      String query = "SELECT * FROM (SELECT (RANK() OVER(ORDER BY m_user_rating DESC)),m.* FROM movie m) WHERE ROWNUM BETWEEN 1 AND 6";
+	      conn = instance.getConnection();
+	      try {
+	         preparedStatement = conn.prepareStatement(query);
+	         rs = preparedStatement.executeQuery();
+	         while(rs.next()) {
+	         	GetMovieInfoForm getMovieInfoForm = new GetMovieInfoForm();
+	 			getMovieInfoForm.setM_code(rs.getInt("m_code"));
+	 			getMovieInfoForm.setM_title(rs.getString("m_title"));
+	 			getMovieInfoForm.setM_img(rs.getString("m_img"));
+	 			getMovieInfoForm.setM_user_rating(rs.getFloat("m_user_rating"));
+	 			getMovieInfoForm.setM_pub_date(rs.getString("m_pub_date"));
+	 			movieInfoForms.add(getMovieInfoForm);
+	         }
+	         
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         closeIdleConnection();
+	      }
+	      return movieInfoForms;
+	   }
 
 
 
@@ -327,28 +352,52 @@ public class MovieDAO {
 		return result;
 	}
 
+//	public List<GetMovieInfoForm> getMovieRecomList() {
+//		 List<GetMovieInfoForm> movieInfoForms = new ArrayList<>();
+//	      String query = "SELECT m_code FROM movie WHERE ROWNUM >= 1 AND ROWNUM <= 6 ORDER BY m_cnt DESC";
+//	      conn = instance.getConnection();
+//	      List<Integer> codes = new ArrayList<>();
+//	      try {
+//	         preparedStatement = conn.prepareStatement(query);
+//	         rs = preparedStatement.executeQuery();
+//	         while(rs.next()) {
+//	            int movieCode = rs.getInt("m_code");
+//	            codes.add(movieCode);
+//	         }
+//	         for(Integer code : codes) {
+//	            movieInfoForms.add(getMovieDetailInfo(code));
+//	         }
+//	      } catch (SQLException e) {
+//	         e.printStackTrace();
+//	      } finally {
+//	         closeIdleConnection();
+//	      }
+//	      return movieInfoForms;
+//	}
 	public List<GetMovieInfoForm> getMovieRecomList() {
-		 List<GetMovieInfoForm> movieInfoForms = new ArrayList<>();
-	      String query = "SELECT m_code FROM movie WHERE ROWNUM >= 1 AND ROWNUM <= 6 ORDER BY m_cnt DESC";
-	      conn = instance.getConnection();
-	      List<Integer> codes = new ArrayList<>();
-	      try {
-	         preparedStatement = conn.prepareStatement(query);
-	         rs = preparedStatement.executeQuery();
-	         while(rs.next()) {
-	            int movieCode = rs.getInt("m_code");
-	            codes.add(movieCode);
-	         }
-	         for(Integer code : codes) {
-	            movieInfoForms.add(getMovieDetailInfo(code));
-	         }
-	      } catch (SQLException e) {
-	         e.printStackTrace();
-	      } finally {
-	         closeIdleConnection();
-	      }
-	      return movieInfoForms;
-	}
+	 List<GetMovieInfoForm> movieInfoForms = new ArrayList<>();
+     String query = "SELECT * FROM (SELECT (RANK() OVER(ORDER BY m_cnt DESC)),m.* FROM movie m) WHERE ROWNUM BETWEEN 1 AND 6";
+     conn = instance.getConnection();
+     try {
+        preparedStatement = conn.prepareStatement(query);
+        rs = preparedStatement.executeQuery();
+        while(rs.next()) {
+        	GetMovieInfoForm getMovieInfoForm = new GetMovieInfoForm();
+			getMovieInfoForm.setM_code(rs.getInt("m_code"));
+			getMovieInfoForm.setM_title(rs.getString("m_title"));
+			getMovieInfoForm.setM_img(rs.getString("m_img"));
+			getMovieInfoForm.setM_user_rating(rs.getFloat("m_user_rating"));
+			getMovieInfoForm.setM_pub_date(rs.getString("m_pub_date"));
+			movieInfoForms.add(getMovieInfoForm);
+        }
+        
+     } catch (SQLException e) {
+        e.printStackTrace();
+     } finally {
+        closeIdleConnection();
+     }
+     return movieInfoForms;
+}
 
 	public List<GetMovieInfoForm> getMovieInfoByGenre(String genre) {
 		String query = "SELECT * FROM movie WHERE m_code IN (SELECT m_code FROM genre WHERE g_name LIKE '%' || ? || '%')";
