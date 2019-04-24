@@ -11,6 +11,16 @@
 <jsp:include page="../partial/header.jsp"/>
 <jsp:include page="../partial/navbar.jsp"/>
 <title>내가 쓴 글 보기</title>
+<style>
+.body {
+	background-color: #333333;
+	margin: none;
+	padding: none;
+}
+.jumbotron {
+	background-color: #141414;
+}
+</style>
 </head>
 <body class=body>
 	
@@ -75,15 +85,15 @@
 			                <th>작성일</th>
 			            </tr>
 		            	<c:if test="${reviewTotalCount > 0 }">
-			                <c:forEach var="board" items="${reviewList}">
+			                <c:forEach var="item" items="${reviews}">
 				                <tr>
-				                    <td class=myListNum>${board.myListNum }</td>
+				                    <td class=myListNum>${item.rev_id }</td>
 				                    <td class=myListTitle>
-										<a href='/Moviebokka/board/boardView?keyNum=${board.brd_id }&title=${board.brd_title }&pageNum=${brdCurrentPage}'>${board.brd_title }</a>
+										<a href='/Moviebokka/review/getSelectedReview?revId=${item.rev_id}&title=${item.rev_title}'>${item.rev_title }</a>
 				                    </td>
-				                    <td class=myListRegdate>${board.brd_regdate}</td>
+				                    <td class=myListRegdate>${item.rev_regdate}</td>
 				                </tr>
-				                <c:set var="reviewStartNum" value="${reviewStartNum - 1 }" />
+				                
 			                </c:forEach>
 		            	</c:if>
 			            <c:if test="${reviewTotalCount == 0 }">

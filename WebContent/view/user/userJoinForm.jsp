@@ -10,7 +10,16 @@
 <jsp:include page="../partial/header.jsp"/>
 <jsp:include page="../partial/navbar.jsp"/>
 <title>회원가입</title>
-
+<style>
+.body {
+	background-color: #333333;
+	margin: none;
+	padding: none;
+}
+.jumbotron {
+	background-color: #141414;
+}
+</style>
 </head>
 <body class=body>
    <div align="center">
@@ -18,20 +27,20 @@
       <form action="/Moviebokka/user/joinAction" method="post" id=joinForm>
          <fieldset class=join>
             <div>
-               <input type="email" name="email" class="form" id="email" required="required" placeholder="이메일">
+               <input type="email" name="email" class="junForm" id="email" required="required" placeholder="이메일">
                <input type="button" class=dupleCheckBtn value=중복확인  onclick="checkEmail()">
             </div>
 
             <div>
-               <input type="text" name="nickname" class="form" id="nickname" required="required" placeholder="닉네임">
+               <input type="text" name="nickname" class="junForm" id="nickname" required="required" placeholder="닉네임">
                <input type="button" class=dupleCheckBtn value=중복확인 onclick="checkNickname()">
             </div>
       
             <div>
-               <input type="password" name="password" class="form" id="password" required="required" oninput="checkPassword()" placeholder="비밀번호">
+               <input type="password" name="password" class="junForm" id="password" required="required" oninput="checkPassword()" placeholder="비밀번호">
             </div>
             <div>
-               <input type="password" name="passwordCheck" class="form" id="passwordCheck" required="required" oninput="checkPassword()" placeholder="비밀번호 확인">
+               <input type="password" name="passwordCheck" class="junForm" id="passwordCheck" required="required" oninput="checkPassword()" placeholder="비밀번호 확인">
             </div>
             <div class=joinSubmit>
                <input type="submit" class=agreeBtn value=회원가입>

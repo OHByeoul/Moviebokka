@@ -10,7 +10,16 @@
 <title>회원탈퇴</title>
 <!-- <link rel="stylesheet" href="/Moviebokka/static/css/myPage.css"> -->
 <link rel="stylesheet" href="/Moviebokka/static/css/mainPage.css">
-
+<style>
+.body {
+	background-color: #333333;
+	margin: none;
+	padding: none;
+}
+.jumbotron {
+	background-color: #141414;
+}
+</style>
 </head>
 <body class=body>
 	<div align="center">
@@ -19,7 +28,7 @@
 		<img alt="" src="../static/images/sad.png">
 		<form action="/Moviebokka/user/deleteAction" class="delete">
 			<input type="hidden" name=email value="${email }">
-			<input type=password name=pass required="required" placeholder="비밀번호 입력" class="form">
+			<input type=password name=pass required="required" placeholder="비밀번호 입력" class="junForm">
 			<span><input type="submit" value="확인" class="deleteBtn" onclick="ocation.href='/Moviebokka/user/mypage'"></span>
 		</form>
 		

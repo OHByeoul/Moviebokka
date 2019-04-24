@@ -7,6 +7,7 @@ import java.util.List;
 import com.revizio.moviebokka.constant.Constants;
 import com.revizio.moviebokka.dao.ReviewDAO;
 import com.revizio.moviebokka.dao.UserDAO;
+import com.revizio.moviebokka.dto.Board;
 import com.revizio.moviebokka.dto.Review;
 import com.revizio.moviebokka.dto.UserRecommand;
 import com.sun.org.apache.bcel.internal.generic.INEG;
@@ -133,5 +134,11 @@ public class ReviewService {
 		int start = Integer.parseInt(startNum);
 		int end = Integer.parseInt(endNum);
 		return reviewDAO.getReviewListMore(movieCode,start,end);
+	}
+
+	public List<Review> getMyReviewList(int mem_id, int startNum,int startRow, int endRow) {
+		 List<Review> list = reviewDAO.myReviewList(mem_id, startNum, startRow, endRow);
+	      System.out.println();
+	      return list;
 	}
 }

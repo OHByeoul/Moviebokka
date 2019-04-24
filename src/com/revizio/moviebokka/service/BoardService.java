@@ -64,13 +64,32 @@ public class BoardService {
 		return json;
 	}
 	
-//	public List getAllBoards() {
-//	List boards = boardDAO.getAllBoard();
-//	return boards;
-//}
+	  /////////////////////////////////////
+	   public int getMyBoardCount(int mem_id) {
+	      // TODO Auto-generated method stub
+	      return boardDAO.myBoardCount(mem_id);
+	   }
+
+
+
+	   public List<Board> getMyBoardList(int mem_id, int startNum, int startRow, int endRow) {
+	      List<Board> list = boardDAO.myBoardList(mem_id, startNum, startRow, endRow);
+	      return list;
+	   }
+
+
+
+	   public int getMyReviewCount(int mem_id) {
+	      return boardDAO.myReviewCount(mem_id);
+	   }
+
+
+
+	   public List<Board> getMyReviewList(int mem_id, int startNum, int startRow, int endRow) {
+	      List<Board> list = boardDAO.myReviewList(mem_id, startNum, startRow, endRow);
+	      System.out.println();
+	      return list;
+	   }
 	
-//	public Board getDetailBoard(String id) {
-//		return boardDAO.getDetailBoardById(id);
-//	}
 
 }

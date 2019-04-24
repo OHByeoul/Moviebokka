@@ -32,7 +32,7 @@ public class MailManager{
 				message.setRecipients(Message.RecipientType.TO,
 					InternetAddress.parse(toEmail));
 				message.setSubject("무비보까 회원 인증 메일입니다.");
-				String content = "<a href='http://localhost:8181/Moviebokka/user/emailAuthenticate?email="+toEmail+"'>무비보까 회원 인증</a>";
+				String content = "<a href='http://localhost:8090/Moviebokka/user/emailAuthenticate?email="+toEmail+"'>무비보까 회원 인증</a>";
 				message.setContent(content, "text/html; charset=UTF-8");				
 
 				Transport.send(message);

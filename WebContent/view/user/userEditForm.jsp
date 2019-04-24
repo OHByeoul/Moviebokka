@@ -10,6 +10,16 @@
 <jsp:include page="../partial/header.jsp"/>
 <jsp:include page="../partial/navbar.jsp"/>
 <title>회원정보 수정</title>
+<style>
+.body {
+	background-color: #333333;
+	margin: none;
+	padding: none;
+}
+.jumbotron {
+	background-color: #141414;
+}
+</style>
 </head>
 <body class=body>
 	<div align="center">
@@ -25,14 +35,14 @@
 		<form action="/Moviebokka/user/editAction" method="post">
 			<div class ="editTable">
 				<div>
-					<input type=text name=nickname value="${nickname }" class="form" id="picInsert" placeholder="변경할 닉네임">
+					<input type=text name=nickname value="${nickname }" class="junForm" id="picInsert" placeholder="변경할 닉네임">
 					<input type="button" value="중복확인" class="dupleCheckBtn" id="picInsert" onclick="checkNickname()">
 				</div>
 				<div>
-					<input type=password name=password required="required" class="form" id="password" placeholder="변경할 비밀번호" oninput="checkPassword()">
+					<input type=password name=password required="required" class="junForm" id="password" placeholder="변경할 비밀번호" oninput="checkPassword()">
 				</div>
 				<div>
-					<input type=password name=password required="required" class="form" id="passwordCheck" placeholder="변경할 비밀번호 확인" oninput="checkPassword()">
+					<input type=password name=password required="required" class="junForm" id="passwordCheck" placeholder="변경할 비밀번호 확인" oninput="checkPassword()">
 				</div>
 				<div class="submitForm">
 					<input type="submit" value="수정"  class="agreeBtn">

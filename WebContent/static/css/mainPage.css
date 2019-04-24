@@ -301,3 +301,336 @@ h3.h3 {
    font-size: 0.3em;
    color: white;
 }
+
+/************************* index *************************/
+
+#index{
+   margin-top: 30px;
+}
+.indexTable{
+      background-color: white;
+      display: inline-block;
+      border: 5px solid;
+      border-color: #000;
+      border-radius: 55px;
+      width: 230px;
+      height: 110px;
+      
+      margin: 5px;
+      padding-left: 20px;
+      padding-bottom: 7px;
+      
+      font-size: 33px;
+      font-family: "스웨거 TTF"
+   }
+   .indexTable:Hover{
+      background-color: cyan;
+   }
+.indexImage{
+   margin: 50px;
+}
+
+
+/************************* joinAccessTerm *************************/
+
+.accessTermBox{
+      background-color: white;
+      width: 500px;
+      height: 500px;
+      overflow-y: scroll;
+      overflow-x: hidden; 
+      border: 1px;
+      border-color: black;
+      border-style: solid;
+      text-align: left;
+      
+   }
+   .accessTermBox::-webkit-scrollbar{
+       display: none; 
+   }
+   
+   .accessTextTitle{
+      font-weight: bold;
+   }
+   
+   .agreeBtn{
+      margin: 3px;
+      width: 135px;
+      height: 43px;
+
+      background-color: gray;
+      border: 1px solid white;
+      color: white;
+      font-size: 17px;
+   }
+   
+   /* 여기부터 이용약관 동의버튼 */
+   @import url(https://fonts.googleapis.com/css?family=Noto+Sans);
+
+   *, *::before, *::after {
+      box-sizing: border-box;
+   }
+   
+   .checkbox {
+      position: absolute;
+      left: -9999px;
+   }
+   
+   .checkLabel {
+      width: 300px;
+      display: block;
+      margin: 20px;
+      padding: 15px 30px 15px 62px;
+      border: 3px solid white;
+      border-radius: 100px;
+      color: #fff;
+      background-color: #353535;
+      box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color .2s, box-shadow .2s;
+   }
+   
+   .checkLabel::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 10px;
+      bottom: 10px;
+      left: 10px;
+      width: 32px;
+      border: 3px solid white;
+      border-radius: 100px;
+      transition: background-color .2s;
+   }
+   
+   .checkLabel:first-of-type {
+      transform: translateX(-0px);
+   }
+   
+   .checkLabel:last-of-type {
+      transform: translateX(0px);
+   }
+   
+   .checkLabel:hover, .checkbox:focus + .checkLabel {
+      box-shadow: 0 0 20px rgba(0, 0, 0, .6);
+   }
+   
+   .checkbox:checked + .checkLabel {
+      background-color: gray;
+      color: white;
+    
+   }
+   
+   .checkbox:checked + .checkLabel::before {
+      background-color: #77021d;
+   }
+/************************* userJoin *************************/
+   .join{
+      margin-left: 100px;
+      width: 420px;
+      margin-bottom: 50px;
+      text-align: left;
+   }
+
+
+   .joinSubmit{
+      margin-top: 20px;
+      margin-left: -80px;
+      text-align: center;
+   }
+   
+   .dupleCheckBtn{
+      margin-left: 10px;
+      height: 40px;
+      width: 75px;
+      border: 1px solid white;
+      background-color: gray;
+      color: white;
+   }
+
+
+/* ****************** 로그인 ********************** */
+
+   .findPassword{
+      font-size: 15px;
+      color: white;
+      margin-bottom: 20px;
+      text-align: right;
+   }
+   .findPassword:hover{
+      color: white;
+
+   }
+   .loginBtn{
+      width: 100%;
+      height: 45px;
+      margin-top: 8px;
+      background-color: gray;
+      border: 1px solid white;
+      color: white;
+      font-size: 17px;
+      
+   }
+   .loginForm{
+      text-align: center;
+      width: 320px;
+      margin: 20px;
+      
+   }
+   
+/* ****************** 마이페이지 ********************** */
+   .myPage{
+      margin: 20px;
+   }
+   
+   /* 마이페이지 프로필 사진 */
+   #pic{
+   text-align:center;
+   width: 200px;
+   height: 200px;
+   max-height: 200px;
+   max-width: 200px;
+   margin-bottom: 10px
+   }
+   
+   /* 마이페이지  */
+   .myPageProfile{
+      background-color: white;
+      align: center;
+      border: 2px;
+      border-style: solid;
+      border-color: gray;
+      /* border-radius: 20px; */
+      width: 425px;
+      height: 405px;
+      padding: 10px;
+      font-family: "스웨거 TTF";
+      margin-bottom: 20px;
+      font-size: 25px;
+      text-align: center;
+   }
+   .myInfo{
+      margin-top: 20px;
+      padding-left: 30px;
+      text-align: left;
+   }
+   .editBtnArea{
+      text-align: center;
+      margin-bottom: 30px;
+   }
+/* ********************* 회원정보 수정 ********************** */
+   /* 사진 테이블 크기 */
+   .profileBox{
+   align: center;
+   max-height: 300px;
+   max-width: 300px;
+   margin-bottom: 15px;
+   }
+   
+   /* 사진  */
+   .profile{
+      height: 300px;
+      width: 300px;
+
+   }
+   .editTable{
+      margin-top: 60px;
+      width: 410px;
+      margin-bottom: 20px;
+      text-align: left;
+      margin-left: 88px;
+   }
+
+   .submitForm{
+      margin-top: 15px;
+      margin-left: 15px;
+   }
+   
+   /* ********************* 회원가입 ********************** */
+   #joinTitle{
+      font-family: "스웨거 TTF";
+      font-size: 70px;
+      color: white;
+   }
+   #joinText{
+      font-family: "스웨거 TTF";
+      font-size: 32px;
+      color: white;
+   }
+   .joinBtn{
+     margin: 3px;
+      width: 185px;
+      height: 40px;
+      background-color: gray;
+      border: 1px solid white;
+      color: white;
+      font-size: 17px;
+   }
+   /* ********************* 탈퇴 ********************** */
+   .delete{
+      margin-bottom: 20px; 
+   }
+   .deleteBtn{
+      margin: 3px;
+         width: 55px;
+         height: 39px;
+         background-color: gray;
+         border: 1px solid white;
+         color: white;
+         font-size: 17px;
+   }
+   
+   /************************* 내가 쓴 글 보기 *************************/
+   .table{
+      background-color: white;
+   }
+   .table th{
+      text-align: center;
+   }
+
+   .myListNum{
+      width: 10%;
+      text-align: center;
+   }
+   .myListTitle{
+      width: 70%;
+   }
+   .myListRegdate{
+      width: 20%;
+      text-align: center;
+   }
+   .table a:link{
+      color: black;
+      text-decoration: none;
+   }
+   .table a:visited{
+      color: gray;
+      text-decoration: underline;
+   }
+/************************* etc *************************/
+
+.subTitle{
+   color: white;
+   font-family: "스웨거 TTF";
+   margin-bottom: 20px;
+   font-size: 50px;
+}
+
+.junForm{
+   width: 320px; 
+   height: 40px;
+   padding: 12px 20px;
+   margin: 8px 0; 
+   display: inline-block; 
+   border: 3px none; 
+   border-radius: 4px; 
+   box-sizing: border-box; 
+}
+
+/* 각종 폼 */
+
+input::placeholder{
+   color: black;
+}   

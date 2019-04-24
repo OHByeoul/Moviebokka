@@ -5,7 +5,7 @@ public enum Route {
 		JOIN("join","/user/"+"userJoinForm.jsp"),		//회원가입
 		JOIN_ACESS_TERM("joinAccessTerm", "/user/"+"joinAccessTerm.jsp"),	//이용약관
 		JOIN_ACTION("joinAction", "/user/"+"userJoinPage.jsp"),	//회원가입 확인
-		JOIN_AUTHENTICATE("emailAuthenticate","/user/"+"mainPage.jsp"),	//회원가입 이메일 인증
+		JOIN_AUTHENTICATE("emailAuthenticate","mainPage.jsp"),	//회원가입 이메일 인증
 		CHECK_EMAIL("emailCheck","/user/"+"emailCheckPage.jsp"),		//회원가입 이메일 중복 체크
 		CHECK_NICKNAME("nicknameCheck", "/user/"+"nicknameCheckPage.jsp"),	//회원가입, 회원수정 닉네임 중복 체크
 		LOGIN1("login2", "/user/"+"loginPage.jsp"),				//********안씀********
@@ -66,6 +66,7 @@ public enum Route {
 	CREATE_BOARD("createBoard","boardCreateForm.jsp"),
 	GET_FREEBOARD_LIST("getFreeboardList","freeboardListPage.jsp"),
 	VIEW_MY_CONTENT("myContentList",  "/user/"+"myContentListPage.jsp"),	//내가 쓴 글 보기
+	BOARD_VIEW("boardView", "board/view.jsp"),
 	//Paging
 	PAGING("pagingBoard","freeboardListPage.jsp"),
 	MOVE_NEXT("pagingNext","freeboardListPage.jsp"),

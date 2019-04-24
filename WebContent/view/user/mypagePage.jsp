@@ -10,6 +10,16 @@
 <jsp:include page="../partial/header.jsp"/>
 <jsp:include page="../partial/navbar.jsp"/>
 <title>마이페이지</title>
+<style>
+.body {
+	background-color: #333333;
+	margin: none;
+	padding: none;
+}
+.jumbotron {
+	background-color: #141414;
+}
+</style>
 </head>
 <body class=body>
 	<div align="center" class=myPage>

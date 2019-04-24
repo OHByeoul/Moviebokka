@@ -190,4 +190,109 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 	}
+	 public int myBoardCount(int mem_id) {
+	      String sql = "Select Count(*) FROM board WHERE mem_id = ?";
+	      conn = instance.getConnection();
+	      int count = 0;
+	      try {
+	         preparedStatement = conn.prepareStatement(sql);
+	         preparedStatement.setInt(1, mem_id);
+	         rs = preparedStatement.executeQuery();
+	         
+	         if(rs.next()) {
+	            count = rs.getInt(1);
+	         }
+
+	      }catch (Exception e) {
+	         e.printStackTrace();
+	      }finally {
+	         closeIdleConnection();
+	      }
+	      return count;
+	   }
+
+	   public List<Board> myBoardList(int mem_id, int startNum, int startRow, int endRow) {
+	      String sql = "SELECT * FROM (SELECT rownum rn, a.* FROM (SELECT brd_id, brd_title, brd_regdate FROM board WHERE mem_id=? ORDER BY brd_regdate desc) a) WHERE rn BETWEEN ? AND ?";
+	      conn = instance.getConnection();
+	      List<Board> list = new ArrayList<Board>();
+	      
+
+	      try {
+	         preparedStatement = conn.prepareStatement(sql);
+	         preparedStatement.setInt(1, mem_id);
+	         preparedStatement.setInt(2, startRow);
+	         preparedStatement.setInt(3, endRow);
+	         rs = preparedStatement.executeQuery();
+	         
+	         while(rs.next()) {
+	            
+	            Board board = new Board();
+	            board.setMyListNum(startNum);
+	            board.setBrd_id(rs.getInt(2));
+	            board.setBrd_title(rs.getString(3));
+	            board.setBrd_regdate(rs.getDate(4));
+	            list.add(board);
+	            startNum--;
+	         }
+	      }catch (Exception e) {
+	         // TODO: handle exception
+	         e.printStackTrace();
+	      }finally {
+	         closeIdleConnection();
+	      }
+	      return list;
+	   }
+	   
+	   public int myReviewCount(int mem_id) {
+	      String sql = "Select Count(*) FROM review WHERE mem_id = ?";
+	      conn = instance.getConnection();
+	      int count = 0;
+	      try {
+	         preparedStatement = conn.prepareStatement(sql);
+	         preparedStatement.setInt(1, mem_id);
+	         rs = preparedStatement.executeQuery();
+	         
+	         if(rs.next()) {
+	            count = rs.getInt(1);
+	         }
+
+	      }catch (Exception e) {
+	         e.printStackTrace();
+	      }finally {
+	         closeIdleConnection();
+	      }
+	      return count;
+	   }
+
+	   public List<Board> myReviewList(int mem_id, int startNum, int startRow, int endRow) {
+	      String sql = "SELECT * FROM (SELECT rownum rn, a.* FROM (SELECT rev_id, rev_title, rev_regdate FROM review WHERE mem_id = ? ORDER BY rev_regdate desc) a) WHERE rn  BETWEEN ? AND ?";
+	      conn = instance.getConnection();
+	      List<Board> list = new ArrayList<Board>();
+	      
+	      try {
+	         preparedStatement = conn.prepareStatement(sql);
+	         preparedStatement.setInt(1, mem_id);
+	         preparedStatement.setInt(2, startRow);
+	         preparedStatement.setInt(3, endRow);
+	         rs = preparedStatement.executeQuery();
+	         
+	         while(rs.next()) {
+	            
+	            Board board = new Board();
+	            board.setMyListNum(startNum);
+	            board.setBrd_id(rs.getInt(2));
+	            board.setBrd_title(rs.getString(3));
+	            board.setBrd_regdate(rs.getDate(4));
+	            list.add(board);
+	            startNum--;
+	         }
+	      }catch (Exception e) {
+	         // TODO: handle exception
+	         e.printStackTrace();
+	      }finally {
+	         closeIdleConnection();
+	      }
+	      return list;
+	   }
+
 }

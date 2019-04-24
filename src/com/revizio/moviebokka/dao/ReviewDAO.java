@@ -12,6 +12,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.revizio.moviebokka.dto.Board;
 import com.revizio.moviebokka.dto.Review;
 import com.revizio.moviebokka.dto.UserRecommand;
 
@@ -485,6 +486,35 @@ public class ReviewDAO {
 			closeIdleConnection();
 		}
 		return reviews;
+	}
+
+	public List<Review> myReviewList(int mem_id, int startNum, int startRow, int endRow) {
+		 String sql = "SELECT * FROM (SELECT rownum rn, a.* FROM (SELECT rev_id, rev_title, rev_regdate FROM review WHERE mem_id = ? ORDER BY rev_regdate desc) a) WHERE rn  BETWEEN ? AND ?";
+	      conn = instance.getConnection();
+	      List<Review> list = new ArrayList<Review>();
+	      
+	      try {
+	         preparedStatement = conn.prepareStatement(sql);
+	         preparedStatement.setInt(1, mem_id);
+	         preparedStatement.setInt(2, startRow);
+	         preparedStatement.setInt(3, endRow);
+	         rs = preparedStatement.executeQuery();
+	         
+	         while(rs.next()) {
+	            
+	        	 Review review = new Review();
+	        	 review.setRev_id(rs.getInt("rev_id"));
+	        	 review.setRev_title(rs.getString("rev_title"));
+	        	 review.setRev_regdate(rs.getDate("rev_regdate"));
+	            list.add(review);
+	         }
+	      }catch (Exception e) {
+	         // TODO: handle exception
+	         e.printStackTrace();
+	      }finally {
+	         closeIdleConnection();
+	      }
+	      return list;
 	}
 
 }

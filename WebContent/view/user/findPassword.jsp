@@ -14,7 +14,7 @@
 	<div align="center">
 		<h1>비밀번호 찾기</h1>
 		<form action="/Moviebokka/user/findPassowrdCheck" method="post">
-			<input type="email" name=email class="form" placeholder="비밀번호를 찾고자 하는 이메일을 입력 하세요.">
+			<input type="email" name=email class="junForm" placeholder="비밀번호를 찾고자 하는 이메일을 입력 하세요.">
 			<input type="submit" class=btn value="다음">
 		</form>
 	</div>

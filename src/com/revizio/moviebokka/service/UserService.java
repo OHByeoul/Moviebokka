@@ -2,18 +2,15 @@ package com.revizio.moviebokka.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-//import com.oreilly.servlet.MultipartRequest;
-//import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.revizio.moviebokka.dao.UserDAO;
-import com.revizio.moviebokka.dto.Board;
 import com.revizio.moviebokka.dto.Member;
 import com.revizio.moviebokka.util.EncryptManager;
 import com.revizio.moviebokka.util.MailManager;
@@ -128,48 +125,45 @@ public class UserService {
 	}
 	//사진 저장
 	public boolean savePicture(HttpServletRequest request, String email) throws IOException {
-		// TODO Auto-generated method stub
-//		boolean result = false;
-//		int maxSize = 10 * 1024 * 1024;
-//		String path = "C://JSP/jspSrc/Moviebokka/WebContent/static/images/user";
-//		
-//		MultipartRequest multi = new MultipartRequest(request, path, maxSize, "utf-8", new DefaultFileRenamePolicy());
-//		Enumeration en = multi.getFileNames();
-//		
-//		//input 태그의 속성이 file인 태그의 name 속성값: 파라미터 이름
-//		String filename1 = (String)en.nextElement();
-//		//서버에 저장된 파일 이름
-//		String filename = multi.getFilesystemName(filename1);
-//		
-//		//확장자 추출
-//		String filePath = path + "/" + filename;
-//		int pos = filePath.lastIndexOf(".");
-//		String fileExt = filePath.substring(pos+1);
-//		
-//		//파일 이름 변경
-//		File uploadPicture = new File(path + "/" + filename);
-//		File userPicture = new File(path + "/" + email + "." + fileExt);
-//
-//		//기존 프로필 있을경우 삭제
-//		if(userPicture.exists()) {
-//			userPicture.delete();
-//		}
-//		//저장된 파일 이름 변경 실행
-//		uploadPicture.renameTo(userPicture);
-//		
-//		String finalPath = "../static/images/user/" + email + "." +fileExt;
-//		if(userDAO.updateUserPicture(email, finalPath)) {
-//			result = true;
-//		}
-//		return result;
-		return false;
+		boolean result = false;
+		int maxSize = 10 * 1024 * 1024;
+		String path = "C:/Users/Byeoul/eclipse-workspace/Moviebokka/WebContent/static/images/user";
+		MultipartRequest multi = new MultipartRequest(request, path, maxSize, "utf-8", new DefaultFileRenamePolicy());
+		Enumeration en = multi.getFileNames();
+		
+		//input 태그의 속성이 file인 태그의 name 속성값: 파라미터 이름
+		String filename1 = (String)en.nextElement();
+		//서버에 저장된 파일 이름
+		String filename = multi.getFilesystemName(filename1);
+		
+		//확장자 추출
+		String filePath = path + "/" + filename;
+		int pos = filePath.lastIndexOf(".");
+		String fileExt = filePath.substring(pos+1);
+		
+		//파일 이름 변경
+		File uploadPicture = new File(path + "/" + filename);
+		File userPicture = new File(path + "/" + email + "." + fileExt);
+
+		//기존 프로필 있을경우 삭제
+		if(userPicture.exists()) {
+			userPicture.delete();
+		}
+		//저장된 파일 이름 변경 실행
+		uploadPicture.renameTo(userPicture);
+		
+		String finalPath = "../static/images/user/" + email + "." +fileExt;
+		if(userDAO.updateUserPicture(email, finalPath)) {
+			result = true;
+		}
+		return result;
 	}
 	
 	//사진 삭제
 	public boolean deletePicture(HttpServletRequest request, String email, String picture) throws IOException {
 		// TODO Auto-generated method stub
 		boolean result = false; 
-		String path = "C://JSP/jspSrc/Moviebokka/WebContent/static/images/user";
+		String path = "/Moviebokka/static/images/user/";
 		
 		if(userDAO.deletePicture(email)) {
 			//확장자 추출

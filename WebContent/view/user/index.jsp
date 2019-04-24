@@ -16,14 +16,14 @@
 	<div align="center" id=index>
 		<table class="indexTable" onclick="location.href='/Moviebokka/user/mainPage'" >
 			<tr>
-				<td><img alt="" src="../static/images/movie.png" width="100px" height="100px">
+				<td><img alt="" src="../../static/images/movie.png" width="100px" height="100px">
 				<td>입장하기
 
 			</tr>
 		</table>
 		<table class="indexTable" onclick="location.href='/Moviebokka/user/login2'">
 			<tr>
-				<td><img alt="" src="../static/images/login.png" width="100px" height="100px">
+				<td><img alt="" src="../../static/images/login.png" width="100px" height="100px">
 				<td>로그인
 			</tr>
 		</table>
@@ -31,7 +31,7 @@
 	</div>
 
 	<div align="center" class=indexImage>
-		<img alt="" src="../static/images/minions.gif" width="500px" height="500px">
+		<img alt="" src="../../static/images/minions.gif" width="500px" height="500px">
 	</div>
 		
 		

@@ -8,6 +8,16 @@
 <title>회원가입</title>
 <!-- <link rel="stylesheet" href="/Moviebokka/static/css/myPage.css"> -->
 <link rel="stylesheet" href="/Moviebokka/static/css/mainPage.css">
+<style>
+.body {
+	background-color: #333333;
+	margin: none;
+	padding: none;
+}
+.jumbotron {
+	background-color: #141414;
+}
+</style>
 </head>
 <body class=body>
 	<c:set var="result" value="${result}"></c:set>
