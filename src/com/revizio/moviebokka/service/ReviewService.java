@@ -9,6 +9,7 @@ import com.revizio.moviebokka.dao.ReviewDAO;
 import com.revizio.moviebokka.dao.UserDAO;
 import com.revizio.moviebokka.dto.Review;
 import com.revizio.moviebokka.dto.UserRecommand;
+import com.sun.org.apache.bcel.internal.generic.INEG;
 
 public class ReviewService {
 	private ReviewDAO reviewDAO;
@@ -126,5 +127,11 @@ public class ReviewService {
 	public Review getRecentCreatedReview() {
 		return reviewDAO.getRecentCreatedReview();
 
+	}
+
+	public List<Review> getReviewListMore(String movieCode, String startNum, String endNum) {
+		int start = Integer.parseInt(startNum);
+		int end = Integer.parseInt(endNum);
+		return reviewDAO.getReviewListMore(movieCode,start,end);
 	}
 }

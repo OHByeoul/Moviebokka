@@ -1,5 +1,6 @@
 package com.revizio.moviebokka.controller;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import com.revizio.moviebokka.service.CommentService;
 import com.revizio.moviebokka.service.MovieService;
 import com.revizio.moviebokka.service.ReviewService;
 import com.revizio.moviebokka.service.UserService;
+import com.revizio.moviebokka.util.JsonMaker;
 
 public class ReviewRequestMapping implements RequestDispatcher {
    private ReviewService reviewService;
@@ -59,7 +61,6 @@ public class ReviewRequestMapping implements RequestDispatcher {
 			if(needToParseParam1 != null && needToParseParam2 != null) {
 			Review review = new Review(title,content,memId,nick,movieCode,ip);
 			
-			System.out.println("requestmmapping reivew");
 			Review getDetailReview = reviewService.createReview(review);
 			request.setAttribute("reviewDetail", getDetailReview);
 					
@@ -90,8 +91,8 @@ public class ReviewRequestMapping implements RequestDispatcher {
     	  request.setAttribute("recommand", userRecommand);
       } else if(route.equals(Route.RECOMMAND_REVIEW.getRoute())) {
     	  String revId = request.getParameter("revId");
-    	  String status = request.getParameter("status"); 
-    	  System.out.println(status);
+    	  String status = request.getParameter("status");
+    	  
     	  reviewService.updateRecommand(revId,status);
       } else if(route.equals(Route.UNRECOMMAND_REVIEW.getRoute())) {
     	  String revId = request.getParameter("revId");
@@ -141,6 +142,24 @@ public class ReviewRequestMapping implements RequestDispatcher {
     	  
     	  request.setAttribute("movieInfoForm", getMovieInfoForm);
     	  request.setAttribute("reviews", reviews);
-      } 
+      } else if(route.equals(Route.GET_REVIEWlIST_MORE.getRoute())) {
+    	  String movieCode = request.getParameter("movieCode");
+    	  String startNum = request.getParameter("startNum");
+		  String endNum = request.getParameter("endNum");
+    	  
+    	  List<Review> reviews = reviewService.getReviewListMore(movieCode,startNum,endNum);
+    	  request.setAttribute("start", startNum);
+	      request.setAttribute("end", endNum);
+	      JsonMaker jsonMaker = new JsonMaker();
+	         String toJson = jsonMaker.convertObjectToJson(reviews);
+	         
+	         response.setContentType("application/json");
+	         response.setCharacterEncoding("UTF-8");
+	         try {
+	            response.getWriter().write(toJson);
+	         } catch (IOException e) {
+	            e.printStackTrace();
+	         }
+      }
    }
 }

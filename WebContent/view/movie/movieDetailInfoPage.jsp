@@ -262,6 +262,40 @@ footer {
 				}
 			});
 			
+			let start = "${start}"=== ""? 1 : "${start}";
+			let end = "${end}"=== ""? 5 : "${end}";
+			let movieCode = ${movieInfoForm.m_code};
+			
+			$('#more_review').on('click', function(){
+				let s = parseInt(start)+5;
+				let e = parseInt(end)+5;
+				start = String(s);
+				end = String(e);
+				
+				 $.getJSON('/Moviebokka/review/getReviewMore',{movieCode : movieCode, startNum : start, endNum:end},function(result){
+		        		if(result.length === 0){
+		        			let empty = "<div>검색된 결과가 없습니다.</div>";
+		        			$('.review_table').append(empty);
+		        		}
+		        	$.each(result, function(i){
+		        		console.log(result);
+		        		getMoreReview(result[i].rev_id,result[i].rev_title,result[i].rev_regdate,result[i].mem_nick);
+		        	});
+		        });
+			});
+			
+			 function getMoreReview(rev_id,rev_title,rev_regdate,mem_nick){
+				let temp="";
+					temp+='<tr>';
+					temp+='<td>'+rev_id+'</td>';
+					temp+='<td><a href="/Moviebokka/review/getSelectedReview?revId='+rev_id+'">'+rev_title+'</a></td>';
+					temp+='<td>'+mem_nick+'</td>';
+					temp+='<td>'+rev_regdate+'</td>';
+					temp+="</tr>";
+					$('#tbody').append(temp);
+			
+			 }
+			
 			
 			function setUserRating(rating, target) {
 				let highStar = 4;

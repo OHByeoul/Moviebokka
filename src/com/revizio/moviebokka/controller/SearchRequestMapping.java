@@ -33,11 +33,6 @@ public class SearchRequestMapping implements RequestDispatcher {
 		   List<GetMovieInfoForm> movieInfoFormList = movieService.getSearchedMovieList(search,startNum,endNum);
 	       List<Review> reviewLists = reviewService.getSearchedReviewList(search,startNum, endNum);
 	       
-	       for(GetMovieInfoForm g : movieInfoFormList) {
-	    	   System.out.println(g.getM_code());
-	    	   System.out.println(g.getM_title());
-	       }
-	       
     	  request.setAttribute("search", search);
     	  request.setAttribute("movieInfoFormList", movieInfoFormList);
     	  request.setAttribute("reviewLists", reviewLists);
@@ -49,15 +44,9 @@ public class SearchRequestMapping implements RequestDispatcher {
 		   
 		   List<GetMovieInfoForm> movieInfoFormList = new ArrayList<>();
 	         movieInfoFormList = movieService.getSearchedMovieList(search,startNum,endNum);
-	         for(GetMovieInfoForm m : movieInfoFormList) {
-	            System.out.println(m.getM_code());
-	            System.out.println(m.getM_title());
-	         }
-	         System.out.println("done");
 	         
 	         JsonMaker jsonMaker = new JsonMaker();
 	         String toJson = jsonMaker.convertObjectToJson(movieInfoFormList);
-	         System.out.println(toJson);
 	         request.setAttribute("movieInfoFormList", movieInfoFormList);
 	         response.setContentType("application/json");
 	         response.setCharacterEncoding("UTF-8");
@@ -75,7 +64,7 @@ public class SearchRequestMapping implements RequestDispatcher {
 	    	  
 	    	  JsonMaker jsonMaker = new JsonMaker();
 	    	  String toJson = jsonMaker.convertObjectToJson(reviewLists);
-	    	  System.out.println(toJson);
+	    	  
 	    	  request.setAttribute("reviewLists", reviewLists);
 	    	  response.setContentType("application/json");
 	    	  response.setCharacterEncoding("UTF-8");

@@ -187,7 +187,7 @@ public class ReviewDAO {
 	}
 
 	public List<Review> getReviewList(int movieCode) {
-		String query = "SELECT * FROM review WHERE m_code=?";
+		String query = "SELECT * FROM review WHERE m_code=? AND ROWNUM<=5 AND ROWNUM >=1";
 		List reviews = new ArrayList<>();
 		conn = instance.getConnection();
 		try {
@@ -457,6 +457,34 @@ public class ReviewDAO {
 			closeIdleConnection();
 		}
 		return review;
+	}
+
+	public List<Review> getReviewListMore(String movieCode, int start, int end) {
+		List<Review> reviews = new ArrayList<>();
+		String query = "SELECT R1.* FROM (SELECT ROWNUM as rnum, r.* FROM review r WHERE m_code = ? AND ROWNUM <=?) R1 WHERE rnum >=?";
+		conn = instance.getConnection();
+
+		try {
+			preparedStatement = conn.prepareStatement(query);
+			preparedStatement.setString(1, movieCode);
+			preparedStatement.setInt(2, end);
+			preparedStatement.setInt(3, start);
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				Review review = new Review();
+				review.setRev_id(rs.getInt("rev_id"));
+				review.setRev_title(rs.getString("rev_title"));
+				review.setRev_regdate(rs.getDate("rev_regdate"));
+				review.setMem_nick(rs.getString("mem_nick"));
+				reviews.add(review);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeIdleConnection();
+		}
+		return reviews;
 	}
 
 }
