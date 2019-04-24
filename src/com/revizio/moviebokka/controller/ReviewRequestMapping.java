@@ -67,7 +67,10 @@ public class ReviewRequestMapping implements RequestDispatcher {
 			} 
 			else {
 				Review getRecentReview = reviewService.getRecentCreatedReview();
+				String revId = String.valueOf(getRecentReview.getRev_id());
+				List<ReviewComment> reviewComments = commentService.getReviewCommentById(revId);
 				request.setAttribute("reviewDetail", getRecentReview);
+				request.setAttribute("reviewComments", reviewComments);
 			}
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -123,6 +126,7 @@ public class ReviewRequestMapping implements RequestDispatcher {
 			String content = request.getParameter("content");
 			Review selectedReview = reviewService.updateSelectedReview(revId,title,content);
 			
+
 			Member member =  (Member) session.getAttribute("user");
 			session.setAttribute("session", member);
 			request.setAttribute("reviewDetail", selectedReview);
