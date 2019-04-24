@@ -71,6 +71,11 @@ h2 {
 .node-child, .order {
 	padding-right: 0 !important;
 }
+
+#comRegdate {
+
+	padding-left : 800px;
+}
 </style>
 <body>
 	<div class="container">
