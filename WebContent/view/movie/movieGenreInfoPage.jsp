@@ -14,7 +14,7 @@
     </head>
     <body>
             <div>
-                <h3 class="h3">장르병 영화</h3>
+                <h3 class="h3">장르별 영화 : ${genreName}</h3>
                 </div>
                 <div class="genre_movie">
                 	
@@ -52,7 +52,7 @@
         
         <script>
           $(function(){
-        	  var cnt = 1;
+        	var cnt = 1;
       		setMovieGenre();
       		
       		function setMovieGenre(){
