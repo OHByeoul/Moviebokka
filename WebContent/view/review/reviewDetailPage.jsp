@@ -76,7 +76,7 @@ h2 {
 	<div class="container">
 		<h2>리뷰 내용</h2>
 		<div class="list">
-			<button type="button" id="list" class="btn btn-default">목록으로</button>
+			<button type="button" id="list" class="btn btn-default">리뷰목록으로</button>
 			<button type="button" id="update" class="btn btn-default" style="display:none">글수정</button>
 			<button type="button" id="delete" class="btn btn-default" style="display:none">글삭제</button>
 		</div>
@@ -197,7 +197,6 @@ h2 {
 			});
 			
 			$('#list').on('click', function(){
-				
 				location.href = "/Moviebokka/movie/getMovieDetail?movieCode="+movieCode;
 			});			
 			
@@ -463,7 +462,6 @@ h2 {
 			        let dataNode = $(this).attr("data-node");
 			        console.log(dataNode);
 			        let dataBox = $(this).closest('.panel').find('.btn-mod-complete').attr("data-box",dataNode);
-			       // console.log($(this).closest('.panel').find('.btn-mod-complete').attr("data-box",dataNode));
 			        $('body').find('.node-input').focus();
 			        
 			        
