@@ -77,11 +77,6 @@ public class MovieRequestMapping implements RequestDispatcher {
       } else if(route.equals(Route.GET_MOVIE_MAIN.getRoute())) {
         List<GetMovieInfoForm> movieInfoFormList = movieService.getMovieDetailInfoList();
         List<GetMovieInfoForm> movieRecomList = movieService.getMovieRecomList();
-         
-         for(GetMovieInfoForm m : movieInfoFormList) {
-            System.out.println(m.getM_code());
-            System.out.println(m.getM_title());
-         }
                
          request.setAttribute("movieInfoFormList", movieInfoFormList);
          request.setAttribute("movieRecomList", movieRecomList);

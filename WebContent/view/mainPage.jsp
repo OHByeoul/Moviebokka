@@ -90,12 +90,12 @@
 	<div class="container">
 
 		<div>
-			<h3 class="h3">영화 TOP 10</h3>
+			<h3 class="h3">영화 TOP 6</h3>
 		</div>
 		<div class="top10"></div>
 		<!-- 영화 별점으로 해서 값을 넘겨줌 -->
 		<div>
-			<h3 class="h3">추천 영화</h3>
+			<h3 class="h3">많이 본 영화</h3>
 		</div>
 		<div class="recommand"></div>
 
