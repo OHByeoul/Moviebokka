@@ -96,6 +96,7 @@ public class MovieRequestMapping implements RequestDispatcher {
     	 String genre = request.getParameter("genreName");
     	 
     	 List<GetMovieInfoForm> movies = movieService.getMovieInfoByGenre(genre);
+    	 request.setAttribute("genreName", genre);
     	 request.setAttribute("movies", movies);
       }
    }

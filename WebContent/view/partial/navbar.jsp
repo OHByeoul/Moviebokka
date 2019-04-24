@@ -33,8 +33,6 @@
 							<li><a href="/Moviebokka/movie/companyIntro">회사소개 및
 									찾아오시는 길</a></li>
 							<li><a href="/Moviebokka/movie/companyOrg">조직구성</a></li>
-							<li><a href="#">이용약관</a></li>
-							<li><a href="#">정보보호정책</a></li>
 						</ul></li>
 					<!-- dropdownNavEnd -->
 					<li><a href="/Moviebokka/movie/searchMovieName">영화검색</a></li>
