@@ -14,7 +14,7 @@
 </head>
 <body class=body>
 	<div align="center" id=index>
-		<table class="indexTable" onclick="location.href='/Moviebokka/user/mainPage'" >
+		<table class="indexTable" onclick="location.href='/Moviebokka/movie/main'" >
 			<tr>
 				<td><img alt="" src="../../static/images/movie.png" width="100px" height="100px">
 				<td>입장하기
