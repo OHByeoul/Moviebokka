@@ -1,6 +1,8 @@
 package com.revizio.moviebokka.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,16 +31,26 @@ public class BoardController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String contextPath = request.getContextPath();
-		String getUri = request.getRequestURI().substring(contextPath.length());
+		String contextPath = request.getContextPath(); // Moviebokka
+		String getUri = request.getRequestURI().substring(contextPath.length()); // /board/createBoard   uri : Moviebokka/..
 		String [] route = getUri.split("/"); 
 		
 		String getView = "";
 		if(route.length<Constants.THIRD) {
-			boardRequestMapping.dispatcherRoute(route[Constants.FIRST],request,response);
+			try {
+				boardRequestMapping.dispatcherRoute(route[Constants.FIRST],request,response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			getView = Route.getViewResolver(route[Constants.FIRST]);
 		} else {
-			boardRequestMapping.dispatcherRoute(route[Constants.SECOND],request,response);
+			try {
+				boardRequestMapping.dispatcherRoute(route[Constants.SECOND],request,response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			getView = Route.getViewResolver(route[Constants.SECOND]);
 		}
 

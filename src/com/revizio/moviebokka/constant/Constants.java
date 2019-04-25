@@ -4,6 +4,7 @@ public class Constants {
 	public static final String DIRECTOR = "director";
 	public static final String ACTOR = "actor";
 	public static final String GENRE = "genre";
+	public static final String BOARD = "board";
 	
 	public static final int ZERO = 0;
 	public static final int FIRST = 1;
@@ -29,4 +30,7 @@ public class Constants {
 	public static int INIT_END_INDEX = 5;
 	public static int PAGE_INDEX_SIZE = 5;
 	public static int PAGING_SIZE = 5;
+	
+	public static final int PAGESIZE = 10;
+	public static final int BLOCKSIZE = 10;
 }

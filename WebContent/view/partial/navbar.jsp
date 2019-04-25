@@ -55,9 +55,9 @@
 					<li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown" href="#">커뮤니티 <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="#">자유게시판</a></li>
-							<li><a href="#">공지사항</a></li>
-							<li><a href="#">FAQ</a></li>
+							<li><a href="/Moviebokka/board/boardList?type=1">자유게시판</a></li>
+							<li><a href="/Moviebokka/board/boardList?type=2">공지사항</a></li>
+							<li><a href="/Moviebokka/board/boardList?type=3">FAQ</a></li>
 						</ul></li>
 					<!-- dropdownNavEnd -->
 				</ul>

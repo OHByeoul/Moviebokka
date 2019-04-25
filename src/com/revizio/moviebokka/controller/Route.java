@@ -63,10 +63,15 @@ public enum Route {
 	
 	
 	//Board
-	CREATE_BOARD("createBoard","boardCreateForm.jsp"),
-	GET_FREEBOARD_LIST("getFreeboardList","freeboardListPage.jsp"),
-	VIEW_MY_CONTENT("myContentList",  "/user/"+"myContentListPage.jsp"),	//내가 쓴 글 보기
-	BOARD_VIEW("boardView", "board/view.jsp"),
+		BOARD_LIST("boardList","board/list.jsp"),
+		BOARD_VIEW("boardView", "board/view.jsp"),
+		BOARD_INSERT("boardInsert","board/insert.jsp"),
+		BOARD_INSERTPRO("boardInsertPro","board/insertPro.jsp"),
+		BOARD_COMMENTPRO("boardCommentPro","board/contentPro.jsp"),
+		BOARD_UPDATE("boardUpdate","board/update.jsp"),
+		BOARD_UPDATEPRO("boardUpdatePro","board/updatePro.jsp"),
+		BOARD_DELETE("boardDelete", "board/deletePro.jsp"),
+		VIEW_MY_CONTENT("myContentList", "/user/"+"myContentListPage.jsp"), 
 	//Paging
 	PAGING("pagingBoard","freeboardListPage.jsp"),
 	MOVE_NEXT("pagingNext","freeboardListPage.jsp"),

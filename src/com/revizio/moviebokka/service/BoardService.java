@@ -1,92 +1,115 @@
 package com.revizio.moviebokka.service;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-import com.revizio.moviebokka.constant.Constants;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.revizio.moviebokka.dao.BoardDAO;
 import com.revizio.moviebokka.dto.Board;
-import com.revizio.moviebokka.dto.Paging;
-import com.revizio.moviebokka.util.JsonMaker;
 
 public class BoardService {
-	private BoardDAO boardDAO;
-	private Paging boardPaging;
+	private BoardDAO bd;
 	
 	public BoardService() {
-		boardDAO = BoardDAO.getInstance();
-		initPaging();
-	}
-
-
-	public List<Board> getBoards(String startNum, String endNum) {
-		return boardDAO.getBoard(startNum,endNum);
-	}
-
-	public List getPagingPage(String currentIndex) {
-		int index = Integer.parseInt(currentIndex);
-		int startNum = boardPaging.getPagingSize()*(index-1==0?0:(index-1))+1;
-		int endNum = startNum+boardPaging.getPagingSize()-1;
-		System.out.println(index+" "+startNum+" "+endNum);
-		return boardDAO.getPaingPage(startNum, endNum);		
-	}
-
-	public void initPaging() {
-		System.out.println("initsetting");
-		boardPaging = new Paging(Constants.PAGING_SIZE, Constants.PAGE_INDEX_SIZE, 
-				Constants.INIT_CURRENT_PAGE,Constants.INIT_START_INDEX,Constants.INIT_END_INDEX);	
-	}
-
-	public void setMovePrev(String currentIndex) {
-		int index = Integer.parseInt(currentIndex);
-		boardPaging.setCurrentPage(boardPaging.getCurrentPage()-1);
-		int startIndex = (boardPaging.getCurrentPage()-1)*boardPaging.getPageIndexSize()+1;
-		int endIndex = boardPaging.getCurrentPage()*boardPaging.getPageIndexSize();
-		System.out.println("movePrev "+startIndex+" "+endIndex);
-		boardPaging.setStartIndex(startIndex);
-		boardPaging.setEndIndex(endIndex);
+		this.bd = BoardDAO.getInstance();
 	}
 	
-	public void setMoveNext(String currentIndex) {
-		int index = Integer.parseInt(currentIndex);
-		boardPaging.setCurrentPage(boardPaging.getCurrentPage()+1);
-		int startIndex = (boardPaging.getCurrentPage()-1)*boardPaging.getPageIndexSize()+1;
-		int endIndex = boardPaging.getCurrentPage()*boardPaging.getPageIndexSize();
-		System.out.println("moveNext "+startIndex+" "+endIndex);
-		boardPaging.setStartIndex(startIndex);
-		boardPaging.setEndIndex(endIndex);
+	public int getTotal(int type, String search, String keyword) throws SQLException {
+		int totCnt = 0;
+		try {
+			totCnt = bd.getTotalCnt(type, search, keyword);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		
+		return totCnt;
 	}
 	
-	public String setPaging() {
-		int totalCnt = boardDAO.getTotalDataCnt();
-		boardPaging.setTotalRowData(totalCnt);
-		JsonMaker jsonMaker = new JsonMaker();
-		String json = jsonMaker.convertObjectToJson(boardPaging);
-		return json;
+	public List<Board> getList(int startRow, int endRow, int type, String search, String keyword) throws SQLException {
+		List<Board> list = new ArrayList<Board>();
+		try {
+			list = bd.list(startRow, endRow, type, search, keyword);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return list;
 	}
+	
+	
+	public int insert(Board board) throws SQLException {
+		int result = 0;
+		try {
+			result = bd.insert(board);
+		} catch (Exception e) {}
+		
+		return result;
+	}
+	
+	public Board select(int brd_id) throws SQLException {
+		Board board = null;
+		try { 
+			board = bd.select(brd_id);
+		} catch (Exception e) {}
+		
+		return board;
+	}
+	
+	public void updateCount(int brd_id) throws SQLException {  // 이거 고쳐야함 조회수 안올라감
+		try {
+			bd.updateCount(brd_id); 
+		} catch (Exception e) {}
+		
+		return;
+	}
+	
+	public int delete(int brd_id, int mem_id) throws SQLException {
+		int result = 0;
+		try {
+			result = bd.delete(brd_id, mem_id);
+		} catch (Exception e) {}
+		return result;
+	}
+	public int update(Board board, int mem_id) throws SQLException {
+		int result = 0;
+		try {
+			result = bd.update(board, mem_id);
+		} catch (Exception e) {}
+		return result;
+	}
+
+
+
+
+	
 	
 	  /////////////////////////////////////
 	   public int getMyBoardCount(int mem_id) {
 	      // TODO Auto-generated method stub
-	      return boardDAO.myBoardCount(mem_id);
+	      return bd.myBoardCount(mem_id);
 	   }
 
 
 
 	   public List<Board> getMyBoardList(int mem_id, int startNum, int startRow, int endRow) {
-	      List<Board> list = boardDAO.myBoardList(mem_id, startNum, startRow, endRow);
+	      List<Board> list = bd.myBoardList(mem_id, startNum, startRow, endRow);
 	      return list;
 	   }
 
 
 
 	   public int getMyReviewCount(int mem_id) {
-	      return boardDAO.myReviewCount(mem_id);
+	      return bd.myReviewCount(mem_id);
 	   }
 
 
 
 	   public List<Board> getMyReviewList(int mem_id, int startNum, int startRow, int endRow) {
-	      List<Board> list = boardDAO.myReviewList(mem_id, startNum, startRow, endRow);
+	      List<Board> list = bd.myReviewList(mem_id, startNum, startRow, endRow);
 	      System.out.println();
 	      return list;
 	   }
