@@ -9,21 +9,27 @@
 <!-- <link rel="stylesheet" href="/Moviebokka/static/css/myPage.css?after"> -->
 <link rel="stylesheet" href="/Moviebokka/static/css/mainPage.css">
 <jsp:include page="../partial/header.jsp"/>
-
+<style>
+body {
+	background-color: #333333;
+	margin: none;
+	padding: none;
+}
+</style>
 
 </head>
 <body class=body>
 	<div align="center" id=index>
 		<table class="indexTable" onclick="location.href='/Moviebokka/movie/main'" >
 			<tr>
-				<td><img alt="" src="../../static/images/movie.png" width="100px" height="100px">
+				<td><img alt="" src="/Moviebokka/static/images/movie.png" width="100px" height="100px">
 				<td>입장하기
 
 			</tr>
 		</table>
 		<table class="indexTable" onclick="location.href='/Moviebokka/user/login2'">
 			<tr>
-				<td><img alt="" src="../../static/images/login.png" width="100px" height="100px">
+				<td><img alt="" src="/Moviebokka/static/images/login.png" width="100px" height="100px">
 				<td>로그인
 			</tr>
 		</table>
@@ -31,7 +37,7 @@
 	</div>
 
 	<div align="center" class=indexImage>
-		<img alt="" src="../../static/images/minions.gif" width="500px" height="500px">
+		<img alt="" src="/Moviebokka/static/images/minions.gif" width="500px" height="500px">
 	</div>
 		
 		
