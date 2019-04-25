@@ -36,7 +36,6 @@
 								<img src="<%=imagePath%>birth2.jpg" alt="" height="340px" width="200px">
 								<img src="<%=imagePath%>birth3.jpg" alt="" height="340px" width="200px">
 								<img src="<%=imagePath%>birth4.jpg" alt="" height="340px" width="200px">
-								<img src="<%=imagePath%>birth5.jpg" alt="" height="340px" width="200px">
 							</a>
 							</div>
 						</div>
