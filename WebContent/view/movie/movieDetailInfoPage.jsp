@@ -137,7 +137,7 @@ footer {
 		<div class="container padding_top">
 			<!-- movieImageStart -->
 			<div class="col-sm-6">
-				<img src="${movieInfoForm.m_img}" alt="이미지 없음"
+				<img src="${movieInfoForm.m_img}" onerror="this.src='/Moviebokka/static/images/not-available.jpg'" alt="이미지 없음"
 					class="img-responsive vcenter" height="450" width="300">
 					<ul class="rating">
 						<li class="fa fa-star"></li>
