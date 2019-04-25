@@ -135,8 +135,8 @@
     <div class="col-md-2 col-sm-6"> 
         <div class="movie-grid">
             <div class="movie-image">
-                <a href="#"> <img class="pic-1" src="" alt="이미지 없음"> <img
-                    class="pic-2" src="" alt="이미지 없음">
+                <a href="#"> <img class="pic-1" src="" onerror="this.src='/Moviebokka/static/images/no-photo.jpg'" alt="이미지 없음"> <img
+                    class="pic-2" src="" onerror="this.src='/Moviebokka/static/images/not-available.jpg'" alt="이미지 없음">
                 </a> <a href="#" class="fa fa-search movie-full-view"></a>
             </div>
             <div class="movie-content">
