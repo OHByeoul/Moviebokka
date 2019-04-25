@@ -12,7 +12,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.revizio.moviebokka.dto.Board;
 import com.revizio.moviebokka.dto.Review;
 import com.revizio.moviebokka.dto.UserRecommand;
 
