@@ -77,60 +77,18 @@
 				</table>
 			</div>
 		</div>
+		<!-- 
     <div class="form-group-row col-sm-12 community">
         <div class="col-sm-12">
             <span class="label label-default label-result">커뮤니티 검색 결과</span>
             <button class="btn btn-default btn-sm pull-right" >더보기</button>
         </div>
         <div class="col-sm-12"><hr class="line-result" /></div>
-        <div class="col-sm-12 community-result"><!-- 커뮤니티 결과 들어감. --></div>
-    </div>
+        <div class="col-sm-12 community-result"><!-- 커뮤니티 결과 들어감. </div>
+    </div> -->
+ 
 </div>
-<%-- 
- <div class="container">
-    <div class="row">
-          <div class="col-md-6">
-          <h2></h2>
-              <div id="custom-search-input">
-                  <div class="input-group col-md-12">
-                      <input type="text" class="form-control input-lg" id="input" placeholder="search" />
-                      <span class="input-group-btn">
-                          <button class="btn btn-info btn-lg" id="search" type="button">
-                              <i class="glyphicon glyphicon-search"></i>
-                          </button>
-                      </span>
-                  </div>
-              </div>
-          </div>
-    </div>
 
-    <div class = "search-result-form">
-        <div class = "search-in-movie">
-            <div class = "search-movie-form" >
-                <span class="result-title">영화에서 검색 결과</span><span class="sub">더보기</span>
-                <div class="line"></div>
-                    <div class="movie-result">
-                    <!-- 영화 검색 결과 들어가야됨-->
-                    </div>
-            </div>
-
-            <div class = "search-review-form" >
-                <span class="result-title">리뷰에서 검색 결과</span><span class="sub">더보기</span>
-                <div class="line"></div>
-                <div class="review-result"></div>
-                <!-- 리뷰 검색 결과 들어가야됨-->d
-            </div>
-            <div class = "search-community-form" >
-                <span class="result-title">커뮤니티에서 검색 결과</span><span class="sub">더보기</span>
-                <div class="line"></div>
-                <div class="community-result"></div>
-                <!-- 커뮤니티 검색 결과 들어가야됨-->
-            </div>
-        </div>
-    </div>
-  </div>
---%>
-  <!-- 영화 보여주는 form -->
   <div class="temp_movie" style="display: none">
     <div class="col-md-2 col-sm-6"> 
         <div class="movie-grid">
@@ -240,8 +198,8 @@
 			endR = String(e);
 			 $.getJSON('/Moviebokka/search/searchReviewMore',{search : $input, startNum : startR, endNum:endR},function(result){
 		        		if(result.length === 0){
-		        			let empty = "<div>검색된 결과가 없습니다.</div>";
-		        			$('.review-result').append(empty);
+		        		//	let empty = "<div>검색된 결과가 없습니다.</div>";
+		        		//	$('.line-result').append(empty);
 		        		}
 		        	$.each(result, function(i){
 		        		console.log(result);

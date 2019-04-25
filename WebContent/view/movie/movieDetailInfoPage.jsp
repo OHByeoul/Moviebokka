@@ -259,7 +259,7 @@ footer {
 					location.href = "/Moviebokka/review/reviewForm?movieCode="+movieCode;
 				} else {
 					alert('로그인 후 리뷰를 작성해주세요!');
-					location.href = "http://localhost:8090/Moviebokka/user/login2";
+					location.href = "/Moviebokka/user/login2";
 				}
 			});
 			
@@ -275,8 +275,8 @@ footer {
 				
 				 $.getJSON('/Moviebokka/review/getReviewMore',{movieCode : movieCode, startNum : start, endNum:end},function(result){
 		        		if(result.length === 0){
-		        			let empty = "<div>검색된 결과가 없습니다.</div>";
-		        			$('.review_table').append(empty);
+		        			//let empty = "<div>검색된 결과가 없습니다.</div>";
+		        			//$('.review_table').append(empty);
 		        		}
 		        	$.each(result, function(i){
 		        		console.log(result);

@@ -4,16 +4,19 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="../partial/header.jsp"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<jsp:include page="../partial/header.jsp" />
+<jsp:include page="../partial/navbar.jsp" />
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="/Moviebokka/static/css/mainPage.css">
 <title>Insert title here</title>
 </head>
 <style>
 body {
-	background-color: #141414;
+	background-color: #333333;
 }
 
 .panel-body-rev {

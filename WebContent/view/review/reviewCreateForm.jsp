@@ -5,9 +5,9 @@
 <link rel="stylesheet" href="/Moviebokka/static/css/mainPage.css?after">
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <style>
-    body {
-        background-color:#141414;
-    }
+   body {
+	background-color: #333333;
+}
     h2 {
         color : #E6E6E6;
         text-align:center;
