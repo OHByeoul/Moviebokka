@@ -12,7 +12,6 @@
 <title>영화보까</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style type="text/css">
-
 </style>
 </head>
 <body class="body">
@@ -115,7 +114,7 @@
 							<li class="fa fa-star"></li>
 							<li class="fa fa-star"></li>
 						</ul>
-						<h3 class="title">
+						<h3 class="title title_clip">
 							<a href="#"></a>
 						</h3>
 						<div class="gernre"></div>

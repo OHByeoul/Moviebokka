@@ -26,11 +26,6 @@
 .review {
     margin-top: 20px !important;
 }
-.title {
-	text-overflow: ellipsis;
- 	height: 10px;
- 	width: 150px;
-}
 </style>
 </head>
 <body>
@@ -152,7 +147,7 @@
                     <li class="fa fa-star"></li>
                     <li class="fa fa-star"></li>
                 </ul>
-                <h3 class="title">
+                <h3 class="title title_clip">
                     <a href="#"></a>
                 </h3>
                 <div class="gernre">
