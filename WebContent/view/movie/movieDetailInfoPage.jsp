@@ -259,6 +259,7 @@ footer {
 					location.href = "/Moviebokka/review/reviewForm?movieCode="+movieCode;
 				} else {
 					alert('로그인 후 리뷰를 작성해주세요!');
+					location.href = "http://localhost:8090/Moviebokka/user/login2";
 				}
 			});
 			

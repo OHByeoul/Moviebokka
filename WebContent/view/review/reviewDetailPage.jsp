@@ -409,9 +409,13 @@ h2 {
 
 			   
 			    let gCnt = "${gCnt}"==="" ? 0 : "${gCnt}";
-			 
+			 	let getSession = "${sessionScope.user.mem_nick}";
 
-			    $('#cmt-add').on('click', function() {  
+			    $('#cmt-add').on('click', function() {
+			    	if(getSession===''){
+			    		alert('로그인 후 이용해주세연');
+			    		location.href = "http://localhost:8090/Moviebokka/user/login2";
+			    	}
 			       if($('#cmt-txt').val().trim() == "") {
 			          alert("댓글을 입력하세요");
 			          $('#cmt-txt').focus();
