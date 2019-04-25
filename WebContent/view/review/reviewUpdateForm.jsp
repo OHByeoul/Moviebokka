@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="/Moviebokka/static/css/mainPage.css">
 <style>
     .container {
-        background-color:#141414;
+        background-color:#353535;
     }
     h2 {
         color : #E6E6E6;

@@ -16,7 +16,7 @@
 </head>
 <style>
 body {
-	background-color: #333333;
+	background-color: #353535;
 }
 
 .panel-body-rev {
