@@ -33,7 +33,7 @@ public enum Route {
 	GET_MOVIE_DETAIL("getMovieDetail","/movie/"+"movieDetailInfoPage.jsp"),
 	GET_MOVIE_GENRE("getMovieGenre","/movie/"+"movieGenreInfoPage.jsp"),
 	GET_MOVIE_MAIN("main","mainPage.jsp"),
-	GET_MAIN("/","mainPage.jsp"),
+	GET_MAIN("/","index.jsp"),
 	
 	//Search
 	GET_SEARCH_ALL("searchContents","searchPage.jsp"),
