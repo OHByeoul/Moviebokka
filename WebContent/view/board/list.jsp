@@ -9,7 +9,7 @@
 </c:choose>
 </title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean">
-<link rel="stylesheet" href="/Moviebokka/static/css/main.css">
+<link rel="stylesheet" href="/Moviebokka/static/css/mainPage.css">
 <link rel="stylesheet" href="/Moviebokka/static/css/board.css">
 </head>
 <body>
