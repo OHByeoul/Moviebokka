@@ -9,7 +9,7 @@
 </c:choose>
 </title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean">
-<link rel="stylesheet" href="/Moviebokka/static/css/mainPage.css">
+<link rel="stylesheet" href="/Moviebokka/static/css/main.css">
 <link rel="stylesheet" href="/Moviebokka/static/css/board.css">
 </head>
 <body>
@@ -66,7 +66,7 @@
                     <div class="col-sm-6 col-sm-offset-2 text-right">
                         <c:if test="${mem_id ne null}">
                             <c:choose>
-                                <c:when test="${(type == 2 or type == 3) and mem_id == 1}">
+                                <c:when test="${(type == 1 or type == 2 or type == 3) and mem_id == 1}">
                                 <button class="btn btn-default" onclick="location.href='boardInsert?type=${type}';"><i class="fa fa-fw fa-paper-plane"></i> 글작성</button>
                                 </c:when>
                                 <c:when test="${type == 1 and mem_id != 1}">

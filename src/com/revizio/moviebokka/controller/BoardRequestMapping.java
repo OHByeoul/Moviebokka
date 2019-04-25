@@ -1,6 +1,9 @@
 package com.revizio.moviebokka.controller;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -8,6 +11,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.catalina.Session;
+import org.omg.CORBA.BAD_INV_ORDER;
 
 import com.revizio.moviebokka.constant.Constants;
 import com.revizio.moviebokka.dao.BoardDAO;
@@ -17,6 +23,8 @@ import com.revizio.moviebokka.dto.Review;
 import com.revizio.moviebokka.service.BoardService;
 import com.revizio.moviebokka.service.ReviewService;
 import com.revizio.moviebokka.service.UserService;
+
+import jdk.nashorn.internal.runtime.regexp.joni.SearchAlgorithm;
 
 
 
@@ -38,7 +46,10 @@ public class BoardRequestMapping<ActionForward> implements RequestDispatcher{
 
         if(route.equals(Route.BOARD_LIST.getRoute())) {
             HttpSession session = request.getSession();
-            Member userInfo = (Member)session.getAttribute("user");
+            Member userInfo = null;
+            if(session.getAttribute("user") != null) {
+                userInfo = (Member)session.getAttribute("user");
+            }
             try {
                 String search = null;
                 String keyword = null;
@@ -74,7 +85,9 @@ public class BoardRequestMapping<ActionForward> implements RequestDispatcher{
                 request.setAttribute("startPage", startPage);
                 request.setAttribute("endPage", endPage);
                 request.setAttribute("type", type);
-                request.setAttribute("mem_id", userInfo.getMem_id());
+                if(session.getAttribute("user") != null) {
+                    request.setAttribute("mem_id", userInfo.getMem_id());
+                }
                 if(request.getParameter("search") != null) {
                     request.setAttribute("search", search);
                     request.setAttribute("keyword", keyword);
@@ -83,7 +96,10 @@ public class BoardRequestMapping<ActionForward> implements RequestDispatcher{
             
         } else if(route.equals(Route.BOARD_VIEW.getRoute())) {
             HttpSession session = request.getSession();
-            Member userInfo = (Member)session.getAttribute("user");
+            Member userInfo = null;
+            if(session.getAttribute("user") != null) {
+                userInfo = (Member)session.getAttribute("user");
+            }
             int brd_id = Integer.parseInt(request.getParameter("brd_id"));
             boolean isView = false;
 
@@ -110,16 +126,21 @@ public class BoardRequestMapping<ActionForward> implements RequestDispatcher{
             request.setAttribute("board", board);
             request.setAttribute("type", request.getParameter("type"));
             request.setAttribute("pageNum", request.getParameter("pageNum"));
-            request.setAttribute("mem_id", userInfo.getMem_id());
+            if(session.getAttribute("user") != null) {
+                request.setAttribute("mem_id", userInfo.getMem_id());
+            }
             if(request.getParameter("search") != null) {
                 request.setAttribute("search", request.getParameter("search"));
                 request.setAttribute("keyword", request.getParameter("keyword"));
             }
         } else if(route.equals(Route.BOARD_UPDATE.getRoute())) {
             HttpSession session = request.getSession();
-            Member userInfo = (Member)session.getAttribute("user");
+            Member userInfo = null;
             int acl = 0;
-            if(session != null) {acl = 1;}
+            if(session.getAttribute("user") != null) {
+                userInfo = (Member)session.getAttribute("user");
+                acl = 1;
+            }
 
             int brd_id = Integer.parseInt(request.getParameter("brd_id"));  // 내용을 받아옴
             Board board = boardService.select(brd_id);
@@ -127,7 +148,9 @@ public class BoardRequestMapping<ActionForward> implements RequestDispatcher{
             request.setAttribute("brd_id", request.getParameter("brd_id"));
             request.setAttribute("type", request.getParameter("type"));
             request.setAttribute("pageNum", request.getParameter("pageNum"));
-            request.setAttribute("mem_id", userInfo.getMem_id());
+            if(session.getAttribute("user") != null) {
+                request.setAttribute("mem_id", userInfo.getMem_id());
+            }
             request.setAttribute("board", board);
             
             if(request.getParameter("search") != null) {
@@ -136,10 +159,14 @@ public class BoardRequestMapping<ActionForward> implements RequestDispatcher{
             }
         } else if(route.equals(Route.BOARD_UPDATEPRO.getRoute())) {
             HttpSession session = request.getSession();
-            Member userInfo = (Member)session.getAttribute("user");
-            int result = 0;
+            Member userInfo = null;
             int acl = 0;
-            if(session != null) {acl = 1;}
+            int result = 0;
+
+            if(session.getAttribute("user") != null) {
+                userInfo = (Member)session.getAttribute("user");
+                acl = 1;
+            }
 
             try { 
                 String pageNum = request.getParameter("pageNum");
@@ -168,9 +195,12 @@ public class BoardRequestMapping<ActionForward> implements RequestDispatcher{
             }
         } else if(route.equals(Route.BOARD_DELETE.getRoute())) {
             HttpSession session = request.getSession();
-            Member userInfo = (Member)session.getAttribute("user");
+            Member userInfo = null; 
             int acl = 0;
-            if(session != null) {acl = 1;}
+            if(session.getAttribute("user") != null) {
+                userInfo = (Member)session.getAttribute("user");
+                acl = 1;
+            }
 
             int result = 0;
             int brd_id = Integer.parseInt(request.getParameter("brd_id"));
@@ -204,9 +234,13 @@ public class BoardRequestMapping<ActionForward> implements RequestDispatcher{
             }
         } else if(route.equals(Route.BOARD_INSERT.getRoute())) {
             HttpSession session = request.getSession();
-            Member userInfo = (Member)session.getAttribute("user");
+            Member userInfo = null;
             int acl = 0;
-            if(session != null) {acl = 1;}
+
+            if(session.getAttribute("user") != null) {
+                userInfo = (Member)session.getAttribute("user");
+                acl = 1;
+            }
 
             try {
                 int brd_id = 0;
@@ -232,18 +266,24 @@ public class BoardRequestMapping<ActionForward> implements RequestDispatcher{
                 request.setAttribute("brd_level", brd_level);
                 request.setAttribute("brd_step", brd_step);
                 request.setAttribute("pageNum", pageNum);
-                request.setAttribute("mem_nick", userInfo.getMem_nick());
-                request.setAttribute("mem_id", userInfo.getMem_id());
+                if(session.getAttribute("user") != null) {
+                    request.setAttribute("mem_nick", userInfo.getMem_nick());
+                    request.setAttribute("mem_id", userInfo.getMem_id());
+                }
                 request.setAttribute("type", type);
             } catch(Exception e) {
                 System.out.println(e.getMessage());
             }
         } else if(route.equals(Route.BOARD_INSERTPRO.getRoute())) {
             HttpSession session = request.getSession();
-            Member userInfo = (Member)session.getAttribute("user");
+            Member userInfo = null;
             int acl = 0;
-            if(session != null) {acl = 1;}
             int result = 0;
+
+            if(session.getAttribute("user") != null) {
+                userInfo = (Member)session.getAttribute("user");
+                acl = 1;
+            }
 
             try {
                 String pageNum = request.getParameter("pageNum");
@@ -273,35 +313,7 @@ public class BoardRequestMapping<ActionForward> implements RequestDispatcher{
                 System.out.println(e.getMessage());
                 e.printStackTrace();
             }
-        } else if(route.equals(Route.BOARD_COMMENTPRO.getRoute())) {  
-            HttpSession session = request.getSession();
-            Member userInfo = (Member)session.getAttribute("user");
-            try {
-                String pageNum = request.getParameter("pageNum");
-                String type = request.getParameter("type");
-                
-                Board board = new Board();
-                board.setBrd_id(Integer.parseInt(request.getParameter("brd_id")));
-                board.setBrd_type(Integer.parseInt(type));
-                board.setMem_id(userInfo.getMem_id());
-                board.setMem_nick(userInfo.getMem_nick());
-                board.setBrd_title(request.getParameter("brd_title"));    
-                board.setBrd_content(request.getParameter("brd_content"));
-                board.setBrd_ref(Integer.parseInt(request.getParameter("brd_ref")));
-                board.setBrd_step(Integer.parseInt(request.getParameter("brd_step")));
-                board.setBrd_level(Integer.parseInt(request.getParameter("brd_level")));
-                board.setBrd_ip(request.getRemoteAddr());
-                
-                int result = boardService.insert(board);
-                request.setAttribute("brd_id", board.getBrd_id());
-                request.setAttribute("result", result);
-                request.setAttribute("pageNum", pageNum);
-                request.setAttribute("type", type);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                e.printStackTrace();
-            }        
-		}   else if(route.equals(Route.VIEW_MY_CONTENT.getRoute())) {   //내가 작성한 글
+        } else if(route.equals(Route.VIEW_MY_CONTENT.getRoute())) {   //내가 작성한 글
 			HttpSession session = request.getSession();
 			Member member = (Member)session.getAttribute("user");
 			String email = member.getMem_email();
