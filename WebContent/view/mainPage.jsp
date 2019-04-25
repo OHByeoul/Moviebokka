@@ -94,7 +94,7 @@
 		<div class="top10"></div>
 		<!-- 영화 별점으로 해서 값을 넘겨줌 -->
 		<div>
-			<h3 class="h3">많이 본 영화</h3>
+			<h3 class="h3">많이 본 영화리뷰</h3>
 		</div>
 		<div class="recommand"></div>
 
