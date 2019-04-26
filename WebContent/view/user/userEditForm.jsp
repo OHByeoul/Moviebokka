@@ -35,7 +35,7 @@
 		<form action="/Moviebokka/user/editAction" method="post">
 			<div class ="editTable">
 				<div>
-					<input type=text name=nickname value="${nickname }" class="junForm" id="picInsert" placeholder="변경할 닉네임">
+					<input type=text name=nickname value="${nickname }" class="junForm" id="nickname" placeholder="변경할 닉네임">
 					<input type="button" value="중복확인" class="dupleCheckBtn" id="picInsert" onclick="checkNickname()">
 				</div>
 				<div>

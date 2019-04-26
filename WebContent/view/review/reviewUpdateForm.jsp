@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="../partial/header.jsp"/>
 <jsp:include page="../partial/navbar.jsp" />
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <link rel="stylesheet" href="/Moviebokka/static/css/mainPage.css">
 <style>
     .container {
@@ -16,6 +19,7 @@
         color : #E6E6E6;
     }
 </style>
+</head>
 <body>
     <div class="container">
             <h2>리뷰 작성</h2>
@@ -40,7 +44,7 @@
                   <div class="form-group">
                         <label class="control-label col-sm-2" for="pwd">리뷰내용</label>
                         <div class="col-sm-8 offset-md-1">          
-                            <textarea class="form-control" rows="8" cols="50" placeholder="리뷰 내용" name="content" required>${review.rev_content}</textarea>
+                            <textarea class="form-control" rows="8" cols="50" placeholder="리뷰 내용" name="content" id="content" required>${review.rev_content}</textarea>
                         </div>
                       </div>
             </form>
@@ -56,7 +60,13 @@
     <script>
     	$(function(){
     		$('#update_review').on('click', function(){  
-    			$('#review_form').submit();
+    			if($('#title').val().length <2){
+    				alert('제목에 두 글자 이상 입력해주세요');
+    			} else if($('#content').val().length < 5){
+    				alert('내용에 다섯 글자 이상 입력해주세요');
+    			} else {
+    				$('#review_form').submit();
+    			}
     		});
     		
     		$('#cancel').on('click', function(){
