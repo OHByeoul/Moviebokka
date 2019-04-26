@@ -17,6 +17,9 @@
     padding: 10px !important;
     font-size: 12px !important;
 }
+td {
+	text-align : center;
+}
 
 .line-result {
     margin: 10px 0 !important;

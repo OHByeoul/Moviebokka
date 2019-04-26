@@ -7,6 +7,7 @@
 	String imagePath = request.getContextPath() + "/static/images/";
 	Member member = (Member)session.getAttribute("user");
 %>
+
 <div class="text-center">
 <div class="jumbotron jumbotron_logo_style text-center">
          <a class="text-center" href="/Moviebokka/movie/main">
@@ -65,7 +66,7 @@
 				      	<%
 				      		if(member == null){
 				      	%>
-					    <li><a href="/Moviebokka/user/login2"><span class="glyphicon glyphicon-log-in"></span>로그인</a></li>
+					    <li><a href="/Moviebokka/user/login2"><span class="glyphicon glyphicon-log-in" style=margin-right:8px></span>로그인</a></li>
 					    <li><a href="/Moviebokka/user/joinAccessTerm"><span class="icomoon icon-signup"></span>회원가입</a></li>
 					    <% } %>
 					    <%

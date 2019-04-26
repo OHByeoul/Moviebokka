@@ -108,7 +108,9 @@ body {
    margin: none;
    padding: none;
 }
-
+td {
+	text-align : center;
+}
 content {
     background-color : #3c3c3c;
 }
@@ -124,7 +126,7 @@ footer {
 }
 .rating li{font-size:40px;color:#ffd200;transition:all .3s ease 0s}
 .rating li.disable{color:rgba(0,0,0,.2)}
-
+.buttons {float : right}
 
 </style>
 </head>
@@ -195,7 +197,7 @@ footer {
 			<div>
 				<h3 class="review_btn_text_color">
 					영화리뷰
-					<div>
+					<div class="buttons">
 						<button type="button" id="create_review"
 							class="btn review_btn_color">
 							<div>리뷰작성</div>
