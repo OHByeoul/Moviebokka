@@ -180,6 +180,12 @@ h2 {
 			}
 			
 			
+//			if(comDel==="1"){
+//				$('.btn-reply').hide();
+//				$('.btn-mod').hide();
+//				$('.btn-del').hide();
+//			}
+			
 			if(del==="1"){
 				$('#cmt-txt').attr('readonly',true);
 				$('#cmt-add').hide();
@@ -308,6 +314,7 @@ h2 {
 					var comRegdate = "${comment.com_regdate}";
 					var parent = "${comment.com_data_parent}";
 					var spot;
+					var comDel = "${comment.com_del}";
 					
 						if(depth == 0){
 							getParent(pId,dataBox,input,comNick,comRegdate,group);
@@ -332,6 +339,11 @@ h2 {
 								$clone.find('.btn-mod').hide();
 								$clone.find('.btn-del').hide();
 							}
+							if (comDel==="1"){
+								$clone.find('.btn-reply').hide();
+								$clone.find('.btn-mod').hide();
+								$clone.find('.btn-del').hide();
+							}
 							$('#cmt-wrapper').append($clone);
 							let box = $clone.find('.node-parent').attr("data-box");
 						}
@@ -353,6 +365,11 @@ h2 {
 								$clone.find('.btn-mod').hide();
 								$clone.find('.btn-del').hide();
 							}
+							if (comDel==="1"){
+								$clone.find('.btn-reply').hide();
+								$clone.find('.btn-mod').hide();
+								$clone.find('.btn-del').hide();
+							} 
 							$('#children').append($clone);
 						
 						}

@@ -86,7 +86,6 @@ public class ReviewRequestMapping implements RequestDispatcher {
     	  }
     	  List<ReviewComment> reviewComments = commentService.getReviewCommentById(revId);
     	  int gCnt = commentService.getMaxGroupId();
-    	 // session.setAttribute("session", member);
     	  
     	  request.setAttribute("gCnt", gCnt);
     	  request.setAttribute("reviewComments", reviewComments);

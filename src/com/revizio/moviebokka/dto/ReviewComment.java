@@ -15,6 +15,7 @@ public class ReviewComment {
 	private int mem_id;
 	private String mem_nick;
 	private int rev_id;
+	private String com_del;
 	
 	public ReviewComment() {
 	}
@@ -103,5 +104,12 @@ public class ReviewComment {
 
 	public void setCom_data_box(String com_data_box) {
 		this.com_data_box = com_data_box;
+	}
+	
+	public String getCom_del() {
+		return com_del;
+	}
+	public void setCom_del(String com_del) {
+		this.com_del = com_del;
 	}
 }

@@ -113,6 +113,7 @@ public class CommentDAO {
 				reviewComment.setCom_data_box(rs.getString("com_data_box"));
 				reviewComment.setCom_data_parent(rs.getString("com_data_parent"));
 				reviewComment.setRev_id(rs.getInt("rev_id"));
+				reviewComment.setCom_del(rs.getString("com_del"));
 				reviewComments.add(reviewComment);
 			}
 		} catch (SQLException e) {
@@ -168,7 +169,7 @@ public class CommentDAO {
 	}
 
 	public boolean deleteReviewComment(String dataBox, String deleteCommentMsg) {
-		String query = "UPDATE reviewcom SET com_content = ? WHERE com_data_box = ? ";
+		String query = "UPDATE reviewcom SET com_content = ?, com_del = 1 WHERE com_data_box = ? ";
 		int cnt = 0;
 		boolean result = false;
 		conn = instance.getConnection();
